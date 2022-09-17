@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:sporty/components/widgets/test/banana_counter.dart';
 
 void main(){
+
+  // ignore: unused_local_variable
+  final controller = TextEditingController();
+
+  // ignore: prefer_const_constructors
+  final textField = TextField(
+    controller: controller,
+    // ignore: prefer_const_constructors
+    decoration: InputDecoration(
+
+      border: const OutlineInputBorder(),
+      labelText: 'your name',
+      hintText: 'fight',
+      errorText: 'too long',
+    ),
+  );
+
+  xxxx() {
+    debugPrint(controller.text);
+  }
+
+  final button = ElevatedButton(
+    onPressed: xxxx,
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.green,
+    ),
+    child: const Text('press')
+  );
+
+
 
   final col = Column(
     
@@ -22,7 +53,16 @@ void main(){
       const Text('bbb'),
       const Text('ccc'),
 
+      const BananaCounter(number: 888),
+
+      textField,
+
+      button,
+
     ]);
+
+    // ignore: prefer_const_constructors
+    
 
     final con = Container(
     color: Colors.blue,
