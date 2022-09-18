@@ -6,10 +6,9 @@ class BananaCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //”š
+
     final text = Text('$number');
 
-    //‰¡‚É•À‚×‚é
     final row = Row(children: [
       text,
     ]);

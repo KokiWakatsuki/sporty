@@ -10,15 +10,11 @@ main() {
   runApp(app);
 }
 
-// アプリ全体
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  // ルーター
   final router = GoRouter(
-    // パス (アプリが起動したとき)
     initialLocation: '/a',
-    // パスと画面の組み合わせ
     routes: [
       GoRoute(
         path: '/a',
@@ -37,7 +33,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 上の組み合わせを使ってアプリを表示
     return MaterialApp.router(
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,

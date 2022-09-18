@@ -2,45 +2,36 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:go_router/go_router.dart';
 
-// ‰æ–Ê B
 class PageB extends StatelessWidget {
   const PageB({Key? key}) : super(key: key);
 
-  // i‚Þƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
   go(BuildContext context) {
-    // ‰æ–Ê C ‚Öi‚Þ
     context.push('/c');
   }
 
-  // –ß‚éƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
   back(BuildContext context) {
-    // ‘O‚Ì‰æ–Ê ‚Ö–ß‚é
     context.pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    // ‰æ–Ê‚Ìã‚É•\Ž¦‚·‚éƒo[
     final appBar = AppBar(
       backgroundColor: Colors.green,
-      title: const Text('‰æ–ÊB'),
+      title: const Text('ç”»é¢B'),
     );
 
-    // i‚Þƒ{ƒ^ƒ“
     final goButton = ElevatedButton(
       onPressed: () => go(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-      child: const Text('i‚Þ >'),
+      child: const Text('é€²ã‚€ >'),
     );
 
-    // –ß‚éƒ{ƒ^ƒ“
     final backButton = ElevatedButton(
       onPressed: () => back(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-      child: const Text('< –ß‚é'),
+      child: const Text('< æˆ»ã‚‹'),
     );
 
-    // ‰æ–Ê‘S‘Ì
     return Scaffold(
       appBar: appBar,
       body: Center(

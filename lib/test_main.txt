@@ -36,8 +36,8 @@ void main(){
 
   final col = Column(
     
-    mainAxisAlignment: MainAxisAlignment.center, //column ↑↓
-    crossAxisAlignment: CrossAxisAlignment.center, //column ←→
+    mainAxisAlignment: MainAxisAlignment.center, //column
+    crossAxisAlignment: CrossAxisAlignment.center, //column
     mainAxisSize: MainAxisSize.min, //column size min
     
     children: [
@@ -92,7 +92,7 @@ void main(){
 
 final nicknameProvider = StateProvider<String>(
   (ref) {
-    return "ルビードッグ";
+    return "aaaaaaa";
   }
 );
 
