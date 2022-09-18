@@ -20,6 +20,8 @@ dependencies:
 
 
 dev_dependencies:
+  go_router:
+  flutter_riverpod:
   flutter_test:
     sdk: flutter
 

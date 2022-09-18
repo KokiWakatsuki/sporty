@@ -1,93 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:sporty/components/widgets/test/banana_counter.dart';
+import 'package:sporty/view/page_a.dart';
+import 'package:sporty/view/page_b.dart';
+import 'package:sporty/view/page_c.dart';
+// ignore: depend_on_referenced_packages
+import 'package:go_router/go_router.dart';
 
-void main(){
-
-  // ignore: unused_local_variable
-  final controller = TextEditingController();
-
-  // ignore: prefer_const_constructors
-  final textField = TextField(
-    controller: controller,
-    // ignore: prefer_const_constructors
-    decoration: InputDecoration(
-
-      border: const OutlineInputBorder(),
-      labelText: 'your name',
-      hintText: 'fight',
-      errorText: 'too long',
-    ),
-  );
-
-  xxxx() {
-    debugPrint(controller.text);
-  }
-
-  final button = ElevatedButton(
-    onPressed: xxxx,
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.green,
-    ),
-    child: const Text('press')
-  );
-
-
-
-  final col = Column(
-    
-    mainAxisAlignment: MainAxisAlignment.center, //column ↑↓
-    crossAxisAlignment: CrossAxisAlignment.center, //column ←→
-    mainAxisSize: MainAxisSize.min, //column size min
-    
-    children: [
-
-      Image.asset(
-        'images/img_aka.jpeg'
-      ),
-
-      // Image.network(
-      //   'https://...'
-      // ),
-
-      const Text('aaa'),
-      const Text('bbb'),
-      const Text('ccc'),
-
-      const BananaCounter(number: 888),
-
-      textField,
-
-      button,
-
-    ]);
-
-    // ignore: prefer_const_constructors
-    
-
-    final con = Container(
-    color: Colors.blue,
-    width: 400,
-    height: 700,
-    margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-    padding: const EdgeInsets.all(50),
-    alignment: Alignment.topCenter,
-    child: Center(child: col),
-  );
-
-
-  final app = MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: con,
-      ),
-    ),
-    );
+main() {
+  final app = App();
   runApp(app);
 }
 
-// const b = 'aaa';
-// const t = Text(b);
-// const c = Center(child: t);
-// const s = Scaffold(body: c);
-// const a = MaterialApp(home: s);
-// runApp(a);
+// アプリ全体
+class App extends StatelessWidget {
+  App({Key? key}) : super(key: key);
+
+  // ルーター
+  final router = GoRouter(
+    // パス (アプリが起動したとき)
+    initialLocation: '/a',
+    // パスと画面の組み合わせ
+    routes: [
+      GoRoute(
+        path: '/a',
+        builder: (context, state) => const PageA(),
+      ),
+      GoRoute(
+        path: '/b',
+        builder: (context, state) => const PageB(),
+      ),
+      GoRoute(
+        path: '/c',
+        builder: (context, state) => const PageC(),
+      ),
+    ],
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    // 上の組み合わせを使ってアプリを表示
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+    );
+  }
+}
