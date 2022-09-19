@@ -1,47 +1,42 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:sporty/view/top.dart';
 import 'package:sporty/view/menu.dart';
 import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/delay.dart';
+// ignore_for_file: unused_import
 // ignore: depend_on_referenced_packages
 import 'package:go_router/go_router.dart';
-import 'package:sporty/view/top.dart';
 
-main() {
-  final app = App();
-  runApp(app);
+//late List<CameraDescription> cameras;
+
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  final firstCamera = cameras.first;
+  
+  runApp(App(camera: firstCamera));
 }
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+  const App({
+    Key? key, 
+    required this.camera,
+  }) : super(key: key);
 
-  final router = GoRouter(
-    initialLocation: '/top',
-    routes: [
-      GoRoute(
-        path: '/top',
-        builder: (context, state) => const Top(),
-      ),
-      GoRoute(
-        path: '/menu',
-        builder: (context, state) => const Menu(),
-      ),
-      GoRoute(
-        path: '/slow',
-        builder: (context, state) => const Slow(),
-      ),
-      GoRoute(
-        path: '/delay',
-        builder: (context, state) => const Delay(),
-      ),
-    ],
-  );
+  final CameraDescription camera;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/top': (context) => const Top(),
+        '/menu': (context) => const Menu(),
+        '/slow': (context) => const Slow(),
+        '/delay': (context) => TakePictureScreen(camera: camera),
+      },
     );
   }
 }

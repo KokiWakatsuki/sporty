@@ -1,10 +1,40 @@
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:go_router/go_router.dart';
 
-// 写真撮影画面
+Future<void> main() async {
+  // main 関数内で非同期処理を呼び出すための設定
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // デバイスで使用可能なカメラのリストを取得
+  final cameras = await availableCameras();
+
+  // 利用可能なカメラのリストから特定のカメラを取得
+  final firstCamera = cameras.first;
+
+  runApp(MyApp(camera: firstCamera));
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({
+    Key? key,
+    required this.camera,
+  }) : super(key: key);
+
+  final CameraDescription camera;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Camera Example',
+      theme: ThemeData(),
+      home: TakePictureScreen(camera: camera),
+    );
+  }
+}
+
+/// 写真撮影画面
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     Key? key,
@@ -17,10 +47,8 @@ class TakePictureScreen extends StatefulWidget {
   TakePictureScreenState createState() => TakePictureScreenState();
 }
 
-
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
-  // ignore: unused_field
   late Future<void> _initializeControllerFuture;
 
   @override
@@ -91,45 +119,6 @@ class DisplayPictureScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('撮れた写真')),
       body: Center(child: Image.file(File(imagePath))),
-    );
-  }
-}
-
-
-
-
-
-
-class Delay extends StatelessWidget {
-  const Delay({Key? key}) : super(key: key);
-
-  back(BuildContext context) {
-    context.pop();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('遅延再生'),
-    );
-
-    final backButton = ElevatedButton(
-      onPressed: () => back(context),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-      child: const Text('< 戻る'),
-    );
-
-    return Scaffold(
-      appBar: appBar,
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            backButton,
-          ],
-        ),
-      ),
     );
   }
 }
