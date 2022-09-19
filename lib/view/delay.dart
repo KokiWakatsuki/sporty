@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:go_router/go_router.dart';
 
-class PageC extends StatelessWidget {
-  const PageC({Key? key}) : super(key: key);
+class Delay extends StatelessWidget {
+  const Delay({Key? key}) : super(key: key);
 
   back(BuildContext context) {
     context.pop();
@@ -12,13 +12,13 @@ class PageC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      backgroundColor: Colors.blue,
-      title: const Text('画面C'),
+      backgroundColor: Colors.green,
+      title: const Text('遅延再生'),
     );
 
     final backButton = ElevatedButton(
       onPressed: () => back(context),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
       child: const Text('< 戻る'),
     );
 

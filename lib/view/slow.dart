@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:go_router/go_router.dart';
 
-class PageA extends StatelessWidget {
-  const PageA({Key? key}) : super(key: key);
+class Slow extends StatelessWidget {
+  const Slow({Key? key}) : super(key: key);
 
-  go(BuildContext context) {
-    context.push('/b');
+  back(BuildContext context) {
+    context.pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      backgroundColor: Colors.red,
-      title: const Text('画面A'),
+      backgroundColor: Colors.green,
+      title: const Text('スロー再生'),
     );
 
-    final goButton = ElevatedButton(
-      onPressed: () => go(context),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-      child: const Text('進む >'),
+    final backButton = ElevatedButton(
+      onPressed: () => back(context),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+      child: const Text('< 戻る'),
     );
 
     return Scaffold(
@@ -28,7 +28,7 @@ class PageA extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            goButton,
+            backButton,
           ],
         ),
       ),

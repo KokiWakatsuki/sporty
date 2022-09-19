@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sporty/view/page_a.dart';
-import 'package:sporty/view/page_b.dart';
-import 'package:sporty/view/page_c.dart';
+import 'package:sporty/view/menu.dart';
+import 'package:sporty/view/slow.dart';
+import 'package:sporty/view/delay.dart';
 // ignore: depend_on_referenced_packages
 import 'package:go_router/go_router.dart';
+import 'package:sporty/view/top.dart';
 
 main() {
   final app = App();
@@ -14,19 +15,23 @@ class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
   final router = GoRouter(
-    initialLocation: '/a',
+    initialLocation: '/top',
     routes: [
       GoRoute(
-        path: '/a',
-        builder: (context, state) => const PageA(),
+        path: '/top',
+        builder: (context, state) => const Top(),
       ),
       GoRoute(
-        path: '/b',
-        builder: (context, state) => const PageB(),
+        path: '/menu',
+        builder: (context, state) => const Menu(),
       ),
       GoRoute(
-        path: '/c',
-        builder: (context, state) => const PageC(),
+        path: '/slow',
+        builder: (context, state) => const Slow(),
+      ),
+      GoRoute(
+        path: '/delay',
+        builder: (context, state) => const Delay(),
       ),
     ],
   );
