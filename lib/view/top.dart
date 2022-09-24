@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
-import 'package:go_router/go_router.dart';
+import 'package:sporty/view/menu.dart';
 
 class Top extends StatelessWidget {
   const Top({Key? key}) : super(key: key);
 
-  go(BuildContext context) {
-    context.push('/menu');
+  goMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: const RouteSettings(name: "/menu"),
+        builder: (BuildContext context) => const Menu(),
+      )
+    );
   }
 
   @override
@@ -20,7 +26,7 @@ class Top extends StatelessWidget {
             'アプリ名',
           ),
         ),
-        onTap: () => go(context),
+        onTap: () => goMenu(context),
       )
     );
   }

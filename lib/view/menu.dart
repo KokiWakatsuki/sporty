@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:go_router/go_router.dart';
 
 class Menu extends StatelessWidget {
   const Menu({Key? key}) : super(key: key);
 
+  goTest(BuildContext context) {
+    Navigator.pushNamed(context, '/test');
+  }
+
   goSlow(BuildContext context) {
-    context.push('/slow');
+    Navigator.pushNamed(context, '/slow');
   }
 
   goDelay(BuildContext context) {
-    context.push('/delay');
+    Navigator.pushNamed(context, '/delay');
   }
 
   @override
@@ -18,6 +20,12 @@ class Menu extends StatelessWidget {
     final appBar = AppBar(
       backgroundColor: Colors.red,
       title: const Text('MENU'),
+    );
+
+    final goTestButton = ElevatedButton(
+      onPressed: () => goTest(context),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      child: const Text('テスト >'),
     );
 
     final goSlowButton = ElevatedButton(
@@ -38,7 +46,7 @@ class Menu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            goSlowButton, goDelayButton,
+            goTestButton, goSlowButton, goDelayButton,
           ],
         ),
       ),

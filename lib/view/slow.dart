@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:go_router/go_router.dart';
 
 class Slow extends StatelessWidget {
   const Slow({Key? key}) : super(key: key);
 
-  back(BuildContext context) {
-    context.pop();
+  backMenu(BuildContext context) {
+    Navigator.pop(context);
   }
 
   @override
@@ -17,7 +15,7 @@ class Slow extends StatelessWidget {
     );
 
     final backButton = ElevatedButton(
-      onPressed: () => back(context),
+      onPressed: () => backMenu(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
       child: const Text('< 戻る'),
     );

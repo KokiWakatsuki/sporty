@@ -3,8 +3,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 // 写真撮影画面
-class Delay extends StatefulWidget {
-  const Delay({
+class Test extends StatefulWidget {
+  const Test({
     Key? key,
     required this.camera,
   }) : super(key: key);
@@ -12,11 +12,11 @@ class Delay extends StatefulWidget {
   final CameraDescription camera;
 
   @override
-  DelayState createState() => DelayState();
+  TestState createState() => TestState();
 }
 
 
-class DelayState extends State<Delay> {
+class TestState extends State<Test> {
   late CameraController _controller;
   // ignore: unused_field
   late Future<void> _initializeControllerFuture;
@@ -51,6 +51,7 @@ class DelayState extends State<Delay> {
           future: _initializeControllerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
+              //sleep(const Duration(seconds: 3));
               return CameraPreview(_controller);
             } else {
               return const CircularProgressIndicator();
