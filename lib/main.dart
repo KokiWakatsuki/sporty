@@ -1,4 +1,6 @@
 import 'package:camera/camera.dart';
+// ignore: unused_import
+import 'screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sporty/view/top.dart';
 import 'package:sporty/view/menu.dart';
@@ -6,7 +8,7 @@ import 'package:sporty/view/test.dart';
 import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/delay.dart';
 
-//late List<CameraDescription> cameras;
+List<CameraDescription> cameras = [];
 
 Future<void> main() async {
 
