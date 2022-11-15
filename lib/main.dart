@@ -1,4 +1,5 @@
-import 'package:camera/camera.dart';
+/*
+import 'package:camera/camera.dart';5
 // ignore: unused_import
 import 'screens/camera_screen.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,38 @@ class App extends StatelessWidget {
         '/slow': (context) => const Slow(),
         '/delay': (context) => Delay(camera: camera),
       },
+    );
+  }
+}
+*/
+
+import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+import 'screens/camera_screen.dart';
+
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    throw ('Error in fetching the cameras: $e');
+  }
+  runApp(MyApp());
+}
+
+// ignore: use_key_in_widget_constructors
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'CoVision Visioner',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: CameraScreen(),
     );
   }
 }
