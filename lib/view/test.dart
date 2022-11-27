@@ -29,7 +29,7 @@ class TestState extends State<Test> {
       // カメラを指定
       widget.camera,
       // 解像度を定義
-      ResolutionPreset.medium,
+      ResolutionPreset.max,
     );
 
     // コントローラーを初期化
