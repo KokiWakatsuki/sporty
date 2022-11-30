@@ -7,6 +7,10 @@ class Menu extends StatelessWidget {
     Navigator.pushNamed(context, '/test');
   }
 
+  goTest2(BuildContext context) {
+    Navigator.pushNamed(context, '/test2');
+  }
+
   goSlow(BuildContext context) {
     Navigator.pushNamed(context, '/slow');
   }
@@ -28,6 +32,12 @@ class Menu extends StatelessWidget {
       child: const Text('テスト >'),
     );
 
+    final goTest2Button = ElevatedButton(
+      onPressed: () => goTest2(context),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      child: const Text('テスト2 >'),
+    );
+
     final goSlowButton = ElevatedButton(
       onPressed: () => goSlow(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
@@ -46,7 +56,7 @@ class Menu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            goTestButton, goSlowButton, goDelayButton,
+            goTest2Button, goTestButton, goSlowButton, goDelayButton,
           ],
         ),
       ),
