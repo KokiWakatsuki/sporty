@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:sporty/view/top.dart';
 import 'package:sporty/view/menu.dart';
 import 'package:sporty/view/test.dart';
-import 'package:sporty/view/test2.dart';
 import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/delay.dart';
 
@@ -35,7 +34,7 @@ class App extends StatelessWidget {
         '/top': (context) => const Top(),
         '/menu': (context) => const Menu(),
         '/test': (context) => Test(camera: camera),
-        '/test2': (context) => Test2(camera: camera),
+        '/delay2': (context) => VideoRecorderScreen(camera: camera),
         '/slow': (context) => const Slow(),
         '/delay': (context) => Delay(camera: camera),
       },

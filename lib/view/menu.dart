@@ -8,7 +8,7 @@ class Menu extends StatelessWidget {
   }
 
   goTest2(BuildContext context) {
-    Navigator.pushNamed(context, '/test2');
+    Navigator.pushNamed(context, '/delay2');
   }
 
   goSlow(BuildContext context) {
@@ -56,7 +56,10 @@ class Menu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            goTest2Button, goTestButton, goSlowButton, goDelayButton,
+            goTest2Button,
+            goTestButton,
+            goSlowButton,
+            goDelayButton,
           ],
         ),
       ),
