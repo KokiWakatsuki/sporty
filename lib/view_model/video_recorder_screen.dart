@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -18,25 +18,38 @@ class VideoRecorderScreen extends StatefulWidget {
 }
 
 class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
+  late CameraController _cameraController;
+  late VideoPlayerController _videoController;
+  late Future<void> _initializeCameraControllerFuture;
+  late Future<void> _initializeVideoControllerFuture;
   bool _isRecording = false;
+  bool _isVideoPlay = false;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = CameraController(
+    _cameraController = CameraController(
       widget.camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.max,
     );
+    _initializeCameraControllerFuture = _cameraController.initialize();
+  }
 
-    _initializeControllerFuture = _controller.initialize();
+  void videoplay(final String videoPath) async {
+
+    _videoController = VideoPlayerController.file(File(videoPath));
+    _initializeVideoControllerFuture = _videoController.initialize();
+    _videoController.play();
+    await Future.delayed(const Duration(seconds: 5));
+    setState(() {
+      _isVideoPlay = false;
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _cameraController.dispose();
     super.dispose();
   }
 
@@ -45,50 +58,55 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Video recorder screen')),
       body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
+        future: _initializeCameraControllerFuture,
+        builder: _isVideoPlay == false
+          ?(context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return CameraPreview(_cameraController);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }
+          :(context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
+            return AspectRatio(
+              aspectRatio: _videoController.value.aspectRatio,
+              child: VideoPlayer(_videoController),
+            );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           try {
-            await _initializeControllerFuture;
+            await _initializeCameraControllerFuture;
 
             if (!mounted) {
               return;
             }
 
             if (_isRecording) {
-              final video = await _controller.stopVideoRecording();
-              _isRecording = false;
-
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => VideoPlayerScreen(
-                    videoPath: video.path,
-                  ),
-                ),
-              );
+              final video = await _cameraController.stopVideoRecording();
+              setState(() {
+                _isRecording = false;
+                _isVideoPlay = true;
+                videoplay(video.path);
+              });
             } else {
-              await _controller.prepareForVideoRecording();
-              await _controller.startVideoRecording();
+              await _cameraController.prepareForVideoRecording();
+              await _cameraController.startVideoRecording();
               _isRecording = true;
               await Future.delayed(const Duration(seconds: 5));
-              final video = await _controller.stopVideoRecording();
-              _isRecording = false;
-
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => VideoPlayerScreen(
-                    videoPath: video.path,
-                  ),
-                ),
-              );
+              final video = await _cameraController.stopVideoRecording();
+              setState(() {
+                _isRecording = false;
+                _isVideoPlay = true;
+                videoplay(video.path);
+              });
             }
           } catch (e) {
             print(e);
@@ -102,6 +120,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
 
 //--------------------------------------------------------------------------------
 
+/*
 class VideoPlayerScreen extends StatefulWidget {
   final String videoPath;
 
@@ -152,3 +171,4 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     );
   }
 }
+*/
