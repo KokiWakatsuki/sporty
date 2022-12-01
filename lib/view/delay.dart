@@ -15,7 +15,6 @@ class Delay extends StatefulWidget {
   DelayState createState() => DelayState();
 }
 
-
 class DelayState extends State<Delay> {
   late CameraController _controller;
   // ignore: unused_field

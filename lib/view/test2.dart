@@ -1,4 +1,4 @@
-// ignore_for_file: duplicate_import, unused_import, unnecessary_import, unused_element, unused_local_variable
+// ignore_for_file: duplicate_import, unused_import, unnecessary_import, unused_element, unused_local_variable, unused_field, no_logic_in_create_state
 
 import 'dart:io';
 import 'dart:async';
@@ -9,24 +9,28 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sporty/view/test2.dart';
 import 'package:video_player/video_player.dart';
 
+import 'package:sporty/view_model/video_recorder_screen.dart';
+
 // 写真撮影画面
 class Test2 extends StatefulWidget {
+  final CameraDescription camera;
   const Test2({
     Key? key,
     required this.camera,
   }) : super(key: key);
 
-  final CameraDescription camera;
-
   @override
-  Test2State createState() => Test2State();
+  Test2State createState() => Test2State(cameras: camera);
 }
 
-
 class Test2State extends State<Test2> {
+  final CameraDescription cameras;
+  Test2State({
+    Key? key,
+    required this.cameras,
+  });
+
   late CameraController _controller;
-  VideoPlayerController? _videoController;
-  File? _videoFile;
   late Future<void> _initializeControllerFuture;
 
 //----------------------------------------------------------------------
@@ -35,8 +39,6 @@ class Test2State extends State<Test2> {
   void initState() {
     super.initState();
 
-    debugPrint('4');
-
     _controller = CameraController(
       // カメラを指定
       widget.camera,
@@ -44,40 +46,9 @@ class Test2State extends State<Test2> {
       ResolutionPreset.max,
     );
 
-    if(_videoFile != null){
-      _videoController = VideoPlayerController.file(_videoFile!);
-      _videoController!.initialize();
-    }
-
     // コントローラーを初期化
     _initializeControllerFuture = _controller.initialize();
-    debugPrint('aaaaa');
   }
-
-//----------------------------------------------------------------------
-
-  //動画撮影開始
-  Future<void> startVideoRecording() async {
-      await _controller.startVideoRecording();
-  }
-
-  //動画撮影終了
-  Future<XFile?> stopVideoRecording() async {
-    XFile file = await _controller.stopVideoRecording();
-    return file;
-  }
-
-  //動画再生
-  Future<void> _startVideoPlayer() async {
-  if (_videoFile != null) {
-    _videoController = VideoPlayerController.file(_videoFile!);
-    await _videoController!.initialize().then((_) {
-      setState(() {});
-    });
-    await _videoController!.setLooping(true);
-    await _videoController!.play();
-  }
-}
 
 //----------------------------------------------------------------------
 
@@ -93,32 +64,7 @@ class Test2State extends State<Test2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _videoController == null
-          ? FutureBuilder<void>(
-            future: _initializeControllerFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return CameraPreview(_controller);
-              } else {
-                return const CircularProgressIndicator();
-              }
-            },
-          )
-          : VideoPlayer(_videoController!)
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // 写真を撮る
-          await startVideoRecording();
-          XFile? rawVideo =
-                await stopVideoRecording();
-            File videoFile =
-                File(rawVideo!.path);
-          _startVideoPlayer();
-        },
-        child: const Icon(Icons.camera_alt),
-      ),
+      body: Center(child: VideoRecorderScreen(camera: cameras)),
     );
   }
 }

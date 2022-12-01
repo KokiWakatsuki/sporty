@@ -18,7 +18,6 @@ class Test extends StatefulWidget {
   TestState createState() => TestState();
 }
 
-
 class TestState extends State<Test> {
   VideoPlayerController? _controller;
   final imagePicker = ImagePicker();
@@ -32,6 +31,7 @@ class TestState extends State<Test> {
       });
     });
   }
+
   Future getVideoFromGarally() async {
     PickedFile pickedFile =
         // ignore: deprecated_member_use
@@ -43,11 +43,11 @@ class TestState extends State<Test> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        ),
+        appBar: AppBar(),
         body: Center(
             // ignore: unnecessary_null_comparison
             child: _controller == null
@@ -59,9 +59,11 @@ class TestState extends State<Test> {
         floatingActionButton:
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           FloatingActionButton(
-              onPressed: getVideoFromCamera, child: const Icon(Icons.video_call)),
+              onPressed: getVideoFromCamera,
+              child: const Icon(Icons.video_call)),
           FloatingActionButton(
-              onPressed: getVideoFromGarally, child: const Icon(Icons.movie_creation))
+              onPressed: getVideoFromGarally,
+              child: const Icon(Icons.movie_creation))
         ]));
   }
 }
