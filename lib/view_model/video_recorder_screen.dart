@@ -1,5 +1,6 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import
 
+import 'dart:ffi';
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -34,17 +35,34 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
       ResolutionPreset.max,
     );
     _initializeCameraControllerFuture = _cameraController.initialize();
+
+    videorecord();
+  }
+
+  void videorecord() async {
+    await _initializeCameraControllerFuture;
+
+    if (!mounted) {
+      return;
+    }
+
+    await _cameraController.prepareForVideoRecording();
+    await _cameraController.startVideoRecording();
+    _isRecording = true;
+    await Future.delayed(const Duration(seconds: 3));
+    final video = await _cameraController.stopVideoRecording();
+    _isRecording = false;
+    _isVideoPlay = true;
+    setState(() {
+      videoplay(video.path);
+      videorecord();
+    });
   }
 
   void videoplay(final String videoPath) async {
-
     _videoController = VideoPlayerController.file(File(videoPath));
     _initializeVideoControllerFuture = _videoController.initialize();
     _videoController.play();
-    await Future.delayed(const Duration(seconds: 5));
-    setState(() {
-      _isVideoPlay = false;
-    });
   }
 
   @override
@@ -58,62 +76,17 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Video recorder screen')),
       body: FutureBuilder<void>(
-        future: _initializeCameraControllerFuture,
-        builder: _isVideoPlay == false
-          ?(context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return CameraPreview(_cameraController);
+          future: _initializeCameraControllerFuture,
+          builder: (context, snapshot) {
+            if (_isVideoPlay == true) {
+              return AspectRatio(
+                aspectRatio: _videoController.value.aspectRatio,
+                child: VideoPlayer(_videoController),
+              );
             } else {
               return const Center(child: CircularProgressIndicator());
             }
-          }
-          :(context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return AspectRatio(
-              aspectRatio: _videoController.value.aspectRatio,
-              child: VideoPlayer(_videoController),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          try {
-            await _initializeCameraControllerFuture;
-
-            if (!mounted) {
-              return;
-            }
-
-            if (_isRecording) {
-              final video = await _cameraController.stopVideoRecording();
-              setState(() {
-                _isRecording = false;
-                _isVideoPlay = true;
-                videoplay(video.path);
-              });
-            } else {
-              await _cameraController.prepareForVideoRecording();
-              await _cameraController.startVideoRecording();
-              _isRecording = true;
-              await Future.delayed(const Duration(seconds: 5));
-              final video = await _cameraController.stopVideoRecording();
-              setState(() {
-                _isRecording = false;
-                _isVideoPlay = true;
-                videoplay(video.path);
-              });
-            }
-          } catch (e) {
-            print(e);
-          }
-        },
-        child: Icon(_isRecording ? Icons.stop : Icons.circle),
-      ),
+          }),
     );
   }
 }
