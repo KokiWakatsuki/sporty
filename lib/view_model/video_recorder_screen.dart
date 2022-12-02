@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable
 
 import 'dart:ffi';
 import 'dart:io';
@@ -43,10 +43,6 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   void videorecord() async {
     await _initializeCameraControllerFuture;
 
-    if (!mounted) {
-      return;
-    }
-
     await _cameraController.prepareForVideoRecording();
     await _cameraController.startVideoRecording();
     _isRecording = true;
@@ -55,8 +51,8 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     _isRecording = false;
     _isVideoPlay = true;
     setState(() {
-      videoplay(video.path);
       videorecord();
+      videoplay(video.path);
     });
   }
 
@@ -75,9 +71,21 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Video recorder screen')),
+      body: _isVideoPlay == true
+          ? VideoPlayer(_videoController)
+          : const Center(child: CircularProgressIndicator()),
+    );
+  }
+}
+
+//--------------------------------------------------------------------------------
+
+/*
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: FutureBuilder<void>(
-          future: _initializeCameraControllerFuture,
+          //future: _initializeCameraControllerFuture,
           builder: (context, snapshot) {
             if (_isVideoPlay == true) {
               return VideoPlayer(_videoController);
@@ -88,6 +96,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     );
   }
 }
+*/
 
 //--------------------------------------------------------------------------------
 
