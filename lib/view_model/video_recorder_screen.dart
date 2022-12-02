@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:sporty/view/delay_menu.dart';
 
 class VideoRecorderScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -49,7 +50,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     await _cameraController.prepareForVideoRecording();
     await _cameraController.startVideoRecording();
     _isRecording = true;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: delay_sec));
     final video = await _cameraController.stopVideoRecording();
     _isRecording = false;
     _isVideoPlay = true;
