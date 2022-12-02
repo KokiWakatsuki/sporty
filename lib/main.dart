@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:sporty/view/top.dart';
 import 'package:sporty/view/menu.dart';
+import 'package:sporty/view/delay_menu.dart';
 import 'package:sporty/view/test.dart';
 import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/delay.dart';
@@ -33,6 +34,7 @@ class App extends StatelessWidget {
       routes: {
         '/top': (context) => const Top(),
         '/menu': (context) => const Menu(),
+        '/delay_menu': (context) => const DelayMenu(),
         '/test': (context) => Test(camera: camera),
         '/delay2': (context) => VideoRecorderScreen(camera: camera),
         '/slow': (context) => const Slow(),

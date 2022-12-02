@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports
 
 import 'dart:ffi';
 import 'dart:io';
@@ -79,10 +79,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
           future: _initializeCameraControllerFuture,
           builder: (context, snapshot) {
             if (_isVideoPlay == true) {
-              return AspectRatio(
-                aspectRatio: _videoController.value.aspectRatio,
-                child: VideoPlayer(_videoController),
-              );
+              return VideoPlayer(_videoController);
             } else {
               return const Center(child: CircularProgressIndicator());
             }
