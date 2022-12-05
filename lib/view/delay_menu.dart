@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+int delay_min = 0;
 int delay_sec = 3;
 
 class DelayMenu extends StatefulWidget {
@@ -23,8 +24,12 @@ class _DelayMenuState extends State<DelayMenu> {
       title: const Text('DELAY MENU'),
     );
 
-    final dropdownButton = DropdownButton(
+    final sec_dropdownButton = DropdownButton(
       items: const [
+        DropdownMenuItem(
+          value: 0,
+          child: Text('0'),
+        ),
         DropdownMenuItem(
           value: 1,
           child: Text('1'),
@@ -261,250 +266,6 @@ class _DelayMenuState extends State<DelayMenu> {
           value: 59,
           child: Text('59'),
         ),
-        DropdownMenuItem(
-          value: 60,
-          child: Text('60'),
-        ),
-        DropdownMenuItem(
-          value: 61,
-          child: Text('61'),
-        ),
-        DropdownMenuItem(
-          value: 62,
-          child: Text('62'),
-        ),
-        DropdownMenuItem(
-          value: 63,
-          child: Text('63'),
-        ),
-        DropdownMenuItem(
-          value: 64,
-          child: Text('64'),
-        ),
-        DropdownMenuItem(
-          value: 65,
-          child: Text('65'),
-        ),
-        DropdownMenuItem(
-          value: 66,
-          child: Text('66'),
-        ),
-        DropdownMenuItem(
-          value: 67,
-          child: Text('67'),
-        ),
-        DropdownMenuItem(
-          value: 68,
-          child: Text('68'),
-        ),
-        DropdownMenuItem(
-          value: 69,
-          child: Text('69'),
-        ),
-        DropdownMenuItem(
-          value: 70,
-          child: Text('70'),
-        ),
-        DropdownMenuItem(
-          value: 71,
-          child: Text('71'),
-        ),
-        DropdownMenuItem(
-          value: 72,
-          child: Text('72'),
-        ),
-        DropdownMenuItem(
-          value: 73,
-          child: Text('73'),
-        ),
-        DropdownMenuItem(
-          value: 74,
-          child: Text('74'),
-        ),
-        DropdownMenuItem(
-          value: 75,
-          child: Text('75'),
-        ),
-        DropdownMenuItem(
-          value: 76,
-          child: Text('76'),
-        ),
-        DropdownMenuItem(
-          value: 77,
-          child: Text('77'),
-        ),
-        DropdownMenuItem(
-          value: 78,
-          child: Text('78'),
-        ),
-        DropdownMenuItem(
-          value: 79,
-          child: Text('79'),
-        ),
-        DropdownMenuItem(
-          value: 80,
-          child: Text('80'),
-        ),
-        DropdownMenuItem(
-          value: 81,
-          child: Text('81'),
-        ),
-        DropdownMenuItem(
-          value: 82,
-          child: Text('82'),
-        ),
-        DropdownMenuItem(
-          value: 83,
-          child: Text('83'),
-        ),
-        DropdownMenuItem(
-          value: 84,
-          child: Text('84'),
-        ),
-        DropdownMenuItem(
-          value: 85,
-          child: Text('85'),
-        ),
-        DropdownMenuItem(
-          value: 86,
-          child: Text('86'),
-        ),
-        DropdownMenuItem(
-          value: 87,
-          child: Text('87'),
-        ),
-        DropdownMenuItem(
-          value: 88,
-          child: Text('88'),
-        ),
-        DropdownMenuItem(
-          value: 89,
-          child: Text('89'),
-        ),
-        DropdownMenuItem(
-          value: 90,
-          child: Text('90'),
-        ),
-        DropdownMenuItem(
-          value: 91,
-          child: Text('91'),
-        ),
-        DropdownMenuItem(
-          value: 92,
-          child: Text('92'),
-        ),
-        DropdownMenuItem(
-          value: 93,
-          child: Text('93'),
-        ),
-        DropdownMenuItem(
-          value: 94,
-          child: Text('94'),
-        ),
-        DropdownMenuItem(
-          value: 95,
-          child: Text('95'),
-        ),
-        DropdownMenuItem(
-          value: 96,
-          child: Text('96'),
-        ),
-        DropdownMenuItem(
-          value: 97,
-          child: Text('97'),
-        ),
-        DropdownMenuItem(
-          value: 98,
-          child: Text('98'),
-        ),
-        DropdownMenuItem(
-          value: 99,
-          child: Text('99'),
-        ),
-        DropdownMenuItem(
-          value: 100,
-          child: Text('100'),
-        ),
-        DropdownMenuItem(
-          value: 101,
-          child: Text('101'),
-        ),
-        DropdownMenuItem(
-          value: 102,
-          child: Text('102'),
-        ),
-        DropdownMenuItem(
-          value: 103,
-          child: Text('103'),
-        ),
-        DropdownMenuItem(
-          value: 104,
-          child: Text('104'),
-        ),
-        DropdownMenuItem(
-          value: 105,
-          child: Text('105'),
-        ),
-        DropdownMenuItem(
-          value: 106,
-          child: Text('106'),
-        ),
-        DropdownMenuItem(
-          value: 107,
-          child: Text('107'),
-        ),
-        DropdownMenuItem(
-          value: 108,
-          child: Text('108'),
-        ),
-        DropdownMenuItem(
-          value: 109,
-          child: Text('109'),
-        ),
-        DropdownMenuItem(
-          value: 110,
-          child: Text('110'),
-        ),
-        DropdownMenuItem(
-          value: 111,
-          child: Text('111'),
-        ),
-        DropdownMenuItem(
-          value: 112,
-          child: Text('112'),
-        ),
-        DropdownMenuItem(
-          value: 113,
-          child: Text('113'),
-        ),
-        DropdownMenuItem(
-          value: 114,
-          child: Text('114'),
-        ),
-        DropdownMenuItem(
-          value: 115,
-          child: Text('115'),
-        ),
-        DropdownMenuItem(
-          value: 116,
-          child: Text('116'),
-        ),
-        DropdownMenuItem(
-          value: 117,
-          child: Text('117'),
-        ),
-        DropdownMenuItem(
-          value: 118,
-          child: Text('118'),
-        ),
-        DropdownMenuItem(
-          value: 119,
-          child: Text('119'),
-        ),
-        DropdownMenuItem(
-          value: 120,
-          child: Text('120'),
-        ),
       ],
       value: delay_sec,
       onChanged: (int? value) {
@@ -512,6 +273,63 @@ class _DelayMenuState extends State<DelayMenu> {
           delay_sec = value!;
         });
       },
+      iconSize: 0,
+    );
+
+    final min_dropdownButton = DropdownButton(
+      items: const [
+        DropdownMenuItem(
+          value: 0,
+          child: Text('0'),
+        ),
+        DropdownMenuItem(
+          value: 1,
+          child: Text('1'),
+        ),
+        DropdownMenuItem(
+          value: 2,
+          child: Text('2'),
+        ),
+        DropdownMenuItem(
+          value: 3,
+          child: Text('3'),
+        ),
+        DropdownMenuItem(
+          value: 4,
+          child: Text('4'),
+        ),
+        DropdownMenuItem(
+          value: 5,
+          child: Text('5'),
+        ),
+        DropdownMenuItem(
+          value: 6,
+          child: Text('6'),
+        ),
+        DropdownMenuItem(
+          value: 7,
+          child: Text('7'),
+        ),
+        DropdownMenuItem(
+          value: 8,
+          child: Text('8'),
+        ),
+        DropdownMenuItem(
+          value: 9,
+          child: Text('9'),
+        ),
+        DropdownMenuItem(
+          value: 10,
+          child: Text('10'),
+        ),
+      ],
+      value: delay_min,
+      onChanged: (int? value) {
+        setState(() {
+          delay_min = value!;
+        });
+      },
+      iconSize: 0,
     );
 
     final goTest2Button = ElevatedButton(
@@ -526,7 +344,15 @@ class _DelayMenuState extends State<DelayMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            dropdownButton,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                min_dropdownButton,
+                const Text(' 分　'),
+                sec_dropdownButton,
+                const Text(' 秒'),
+              ]
+            ),
             goTest2Button,
           ],
         ),
