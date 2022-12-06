@@ -1,35 +1,71 @@
+// ignore_for_file: unused_import
+
+import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
-class Slow extends StatelessWidget {
-  const Slow({Key? key}) : super(key: key);
+// 写真撮影画面
+class Slow extends StatefulWidget {
+  const Slow({
+    Key? key,
+    required this.camera,
+  }) : super(key: key);
 
-  backMenu(BuildContext context) {
-    Navigator.pop(context);
+  final CameraDescription camera;
+
+  @override
+  SlowState createState() => SlowState();
+}
+
+class SlowState extends State<Slow> {
+  VideoPlayerController? _controller;
+  final imagePicker = ImagePicker();
+  Future getVideoFromCamera() async {
+    // ignore: deprecated_member_use
+    final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
+    _controller = VideoPlayerController.file(File(pickedFile!.path));
+    _controller!.initialize().then((_) {
+      setState(() {
+        _controller!.play();
+      });
+    });
+  }
+
+  Future getVideoFromGarally() async {
+    PickedFile pickedFile =
+        // ignore: deprecated_member_use
+        (await imagePicker.getVideo(source: ImageSource.gallery))!;
+    _controller = VideoPlayerController.file(File(pickedFile.path));
+    _controller!.initialize().then((_) {
+      setState(() {
+        _controller!.play();
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('スロー再生'),
-    );
-
-    final backButton = ElevatedButton(
-      onPressed: () => backMenu(context),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-      child: const Text('< 戻る'),
-    );
-
     return Scaffold(
-      appBar: appBar,
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            backButton,
-          ],
-        ),
-      ),
-    );
+        appBar: AppBar(),
+        body: Center(
+            // ignore: unnecessary_null_comparison
+            child: _controller == null
+                ? Text(
+                    '動画を選択してください',
+                    style: Theme.of(context).textTheme.headline4,
+                  )
+                : VideoPlayer(_controller!)),
+        floatingActionButton:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          FloatingActionButton(
+              onPressed: getVideoFromCamera,
+              child: const Icon(Icons.video_call)),
+          FloatingActionButton(
+              onPressed: getVideoFromGarally,
+              child: const Icon(Icons.movie_creation))
+        ]));
   }
 }
