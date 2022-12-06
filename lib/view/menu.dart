@@ -15,8 +15,8 @@ class Menu extends StatelessWidget {
     Navigator.pushNamed(context, '/slow');
   }
 
-  goDelay(BuildContext context) {
-    Navigator.pushNamed(context, '/delay');
+  goTakePicture(BuildContext context) {
+    Navigator.pushNamed(context, '/take_picture');
   }
 
   @override
@@ -35,7 +35,7 @@ class Menu extends StatelessWidget {
     final goDelayMenuButton = ElevatedButton(
       onPressed: () => goDelayMenu(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-      child: const Text('DELAY MENU >'),
+      child: const Text('遅延再生 >'),
     );
 
     final goSlowButton = ElevatedButton(
@@ -44,10 +44,10 @@ class Menu extends StatelessWidget {
       child: const Text('スロー再生 >'),
     );
 
-    final goDelayButton = ElevatedButton(
-      onPressed: () => goDelay(context),
+    final goTakePictureButton = ElevatedButton(
+      onPressed: () => goTakePicture(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-      child: const Text('遅延再生 >'),
+      child: const Text('写真撮影 >'),
     );
 
     return Scaffold(
@@ -56,10 +56,10 @@ class Menu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            goDelayMenuButton,
             goTestButton,
+            goTakePictureButton,
+            goDelayMenuButton,
             goSlowButton,
-            goDelayButton,
           ],
         ),
       ),

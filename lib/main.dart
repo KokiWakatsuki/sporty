@@ -7,7 +7,7 @@ import 'package:sporty/view/menu.dart';
 import 'package:sporty/view/delay_menu.dart';
 import 'package:sporty/view/test.dart';
 import 'package:sporty/view/slow.dart';
-import 'package:sporty/view/delay.dart';
+import 'package:sporty/view/take_picture.dart';
 
 import 'view_model/video_recorder_screen.dart';
 
@@ -38,7 +38,7 @@ class App extends StatelessWidget {
         '/test': (context) => Test(camera: camera),
         '/delay2': (context) => VideoRecorderScreen(camera: camera),
         '/slow': (context) => const Slow(),
-        '/delay': (context) => Delay(camera: camera),
+        '/take_picture': (context) => TakePicture(camera: camera),
       },
     );
   }

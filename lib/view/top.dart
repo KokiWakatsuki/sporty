@@ -7,27 +7,25 @@ class Top extends StatelessWidget {
 
   goMenu(BuildContext context) {
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        settings: const RouteSettings(name: "/menu"),
-        builder: (BuildContext context) => const Menu(),
-      )
-    );
+        context,
+        MaterialPageRoute(
+          settings: const RouteSettings(name: "/menu"),
+          builder: (BuildContext context) => const Menu(),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        // ignore: prefer_const_constructors
-        child: Center(
-          child: const Text(
-            'アプリ名',
-          ),
+        body: GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      // ignore: prefer_const_constructors
+      child: Center(
+        child: const Text(
+          'アプリ名',
         ),
-        onTap: () => goMenu(context),
-      )
-    );
+      ),
+      onTap: () => goMenu(context),
+    ));
   }
 }
