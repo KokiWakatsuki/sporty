@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable
 
 import 'dart:ffi';
 import 'dart:io';
@@ -6,11 +6,14 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:sporty/view/delay_menu.dart';
+import 'package:sporty/main.dart';
+
+List<CameraDescription> cameras = [];
 
 class VideoRecorderScreen extends StatefulWidget {
-  final CameraDescription camera;
+  CameraDescription camera;
 
-  const VideoRecorderScreen({
+  VideoRecorderScreen({
     super.key,
     required this.camera,
   });
@@ -30,14 +33,24 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   @override
   void initState() {
     super.initState();
-
-    _cameraController = CameraController(
-      widget.camera,
-      ResolutionPreset.max,
-    );
-    _initializeCameraControllerFuture = _cameraController.initialize();
-
-    videorecord();
+    
+    Future(() async {
+      final cameras = await availableCameras();
+      final firstCamera = cameras.firstWhere((camera) {
+        if(camera_lens_flag == 1){
+          return camera.lensDirection == CameraLensDirection.back;
+        }else{
+          return camera.lensDirection == CameraLensDirection.front;
+        }
+      });
+      _cameraController = CameraController(
+        //widget.camera,
+        firstCamera,
+        ResolutionPreset.max,
+      );
+      _initializeCameraControllerFuture = _cameraController.initialize();
+      videorecord();
+    });
   }
 
   void videorecord() async {

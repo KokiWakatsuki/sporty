@@ -1,6 +1,7 @@
 ﻿// ignore_for_file: constant_identifier_names, non_constant_identifier_names, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:sporty/main.dart';
 
 int delay_min = 0;
 int delay_sec = 3;
@@ -22,6 +23,26 @@ class _DelayMenuState extends State<DelayMenu> {
     final appBar = AppBar(
       backgroundColor: Colors.red,
       title: const Text('DELAY MENU'),
+    );
+
+    final lens_dropdownButton = DropdownButton(
+      items: const [
+        DropdownMenuItem(
+          value: 0,
+          child: Text('内カメラ'),
+        ),
+        DropdownMenuItem(
+          value: 1,
+          child: Text('外カメラ'),
+        ),
+      ],
+      value: camera_lens_flag,
+      onChanged: (int? value) {
+        setState(() {
+          camera_lens_flag= value!;
+        });
+      },
+      iconSize: 0,
     );
 
     final sec_dropdownButton = DropdownButton(
@@ -353,6 +374,7 @@ class _DelayMenuState extends State<DelayMenu> {
                 const Text(' 秒'),
               ]
             ),
+            lens_dropdownButton,
             goTest2Button,
           ],
         ),

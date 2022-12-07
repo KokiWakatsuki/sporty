@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, non_constant_identifier_names
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +12,17 @@ import 'package:sporty/view/take_picture.dart';
 import 'view_model/video_recorder_screen.dart';
 
 List<CameraDescription> cameras = [];
+int camera_lens_flag = 1;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final cameras = await availableCameras();
-  final firstCamera = cameras.first;
+  final firstCamera = cameras.firstWhere((camera) {
+    if(camera_lens_flag == 1){
+      return camera.lensDirection == CameraLensDirection.back;
+    }else{
+      return camera.lensDirection == CameraLensDirection.front;
+    }
+  });
 
   runApp(App(camera: firstCamera));
 }
