@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures
 
 import 'dart:ffi';
 import 'dart:io';
@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:sporty/view/delay_menu.dart';
 import 'package:sporty/main.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -22,6 +23,16 @@ class VideoRecorderScreen extends StatefulWidget {
   State<VideoRecorderScreen> createState() => _VideoRecorderScreenState();
 }
 
+class CacheClass {
+  // Singleton Patternを実現
+  static final CacheClass _instance = CacheClass._internal();
+  CacheClass._internal();
+  factory CacheClass() => _instance;
+
+  // キャッシュで保持するデータ
+  late XFile data;
+}
+
 class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   late CameraController _cameraController;
   late VideoPlayerController _videoController;
@@ -29,6 +40,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   late Future<void> _initializeVideoControllerFuture;
   bool _isRecording = false;
   bool _isVideoPlay = false;
+  XFile? video;
 
   @override
   void initState() {
@@ -43,11 +55,32 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
           return camera.lensDirection == CameraLensDirection.front;
         }
       });
-      _cameraController = CameraController(
-        //widget.camera,
-        firstCamera,
-        ResolutionPreset.max,
-      );
+      switch(resolution_preset){
+        case 0:
+          _cameraController = CameraController(firstCamera, ResolutionPreset.low,);
+          debugPrint("0");
+          break;
+        case 1:
+          _cameraController = CameraController(firstCamera, ResolutionPreset.medium,);
+          debugPrint("1");
+          break;
+        case 2:
+          _cameraController = CameraController(firstCamera, ResolutionPreset.high,);
+          debugPrint("2");
+          break;
+        case 3:
+          _cameraController = CameraController(firstCamera, ResolutionPreset.veryHigh,);
+          debugPrint("3");
+          break;
+        case 4:
+          _cameraController = CameraController(firstCamera, ResolutionPreset.ultraHigh,);
+          debugPrint("4");
+          break;
+        case 5:
+          _cameraController = CameraController(firstCamera, ResolutionPreset.max,);
+          debugPrint("5");
+          break;
+      }
       _initializeCameraControllerFuture = _cameraController.initialize();
       videorecord();
     });
@@ -60,24 +93,31 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     await _cameraController.startVideoRecording();
     _isRecording = true;
     await Future.delayed(Duration(seconds: delay_sec));
-    final video = await _cameraController.stopVideoRecording();
+    video = await _cameraController.stopVideoRecording();
     _isRecording = false;
     _isVideoPlay = true;
     setState(() {
-      videorecord();
-      videoplay(video.path);
+      videoplay(video!.path);
     });
   }
 
   void videoplay(final String videoPath) async {
-    _videoController = VideoPlayerController.file(File(videoPath));
+    videorecord();
+    _videoController = await VideoPlayerController.file(File(videoPath));
+    debugPrint("$videoPath");
     _initializeVideoControllerFuture = _videoController.initialize();
-    _videoController.play();
+    await _videoController.play();
   }
 
   @override
-  void dispose() {
+  void disposeCamera() {
     _cameraController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void disposeVideo() {
+    _videoController.dispose();
     super.dispose();
   }
 

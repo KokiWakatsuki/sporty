@@ -5,6 +5,7 @@ import 'package:sporty/main.dart';
 
 int delay_min = 0;
 int delay_sec = 3;
+int resolution_preset = 5;
 
 class DelayMenu extends StatefulWidget {
   const DelayMenu({Key? key}) : super(key: key);
@@ -39,7 +40,43 @@ class _DelayMenuState extends State<DelayMenu> {
       value: camera_lens_flag,
       onChanged: (int? value) {
         setState(() {
-          camera_lens_flag= value!;
+          camera_lens_flag = value!;
+        });
+      },
+      iconSize: 0,
+    );
+
+    final resolution_dropdownButton = DropdownButton(
+      items: const [
+        DropdownMenuItem(
+          value: 0,
+          child: Text('240p'),
+        ),
+        DropdownMenuItem(
+          value: 1,
+          child: Text('480p'),
+        ),
+        DropdownMenuItem(
+          value: 2,
+          child: Text('720p'),
+        ),
+        DropdownMenuItem(
+          value: 3,
+          child: Text('1080p'),
+        ),
+        DropdownMenuItem(
+          value: 4,
+          child: Text('2160p'),
+        ),
+        DropdownMenuItem(
+          value: 5,
+          child: Text('MAX'),
+        ),
+      ],
+      value: resolution_preset,
+      onChanged: (int? value) {
+        setState(() {
+          resolution_preset = value!;
         });
       },
       iconSize: 0,
@@ -375,6 +412,7 @@ class _DelayMenuState extends State<DelayMenu> {
               ]
             ),
             lens_dropdownButton,
+            resolution_dropdownButton,
             goTest2Button,
           ],
         ),
