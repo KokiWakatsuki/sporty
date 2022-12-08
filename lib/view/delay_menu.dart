@@ -15,8 +15,8 @@ class DelayMenu extends StatefulWidget {
 }
 
 class _DelayMenuState extends State<DelayMenu> {
-  goTest2(BuildContext context) {
-    Navigator.pushNamed(context, '/delay2');
+  goDelay(BuildContext context) {
+    Navigator.pushNamed(context, '/delay');
   }
 
   @override
@@ -390,10 +390,10 @@ class _DelayMenuState extends State<DelayMenu> {
       iconSize: 0,
     );
 
-    final goTest2Button = ElevatedButton(
-      onPressed: () => goTest2(context),
+    final goDelayButton = ElevatedButton(
+      onPressed: () => goDelay(context),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-      child: const Text('テスト2 >'),
+      child: const Text('開始 >'),
     );
 
     return Scaffold(
@@ -405,15 +405,26 @@ class _DelayMenuState extends State<DelayMenu> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Text("遅延時間："),
                 min_dropdownButton,
                 const Text(' 分　'),
                 sec_dropdownButton,
                 const Text(' 秒'),
               ]
             ),
-            lens_dropdownButton,
-            resolution_dropdownButton,
-            goTest2Button,
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("カメラ方向："),
+                lens_dropdownButton,
+              ]
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("解像度："),
+                resolution_dropdownButton,
+              ]
+            ),
+            goDelayButton,
           ],
         ),
       ),

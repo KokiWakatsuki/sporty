@@ -43,7 +43,7 @@ class App extends StatelessWidget {
         '/menu': (context) => const Menu(),
         '/delay_menu': (context) => const DelayMenu(),
         '/test': (context) => Test(camera: camera),
-        '/delay2': (context) => VideoRecorderScreen(camera: camera),
+        '/delay': (context) => VideoRecorderScreen(camera: camera),
         '/slow': (context) => Slow(camera: camera),
         '/take_picture': (context) => TakePicture(camera: camera),
       },

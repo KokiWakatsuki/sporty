@@ -2,6 +2,7 @@
 
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -99,10 +100,10 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     setState(() {
       videoplay(video!.path);
     });
+    return videorecord();
   }
 
   void videoplay(final String videoPath) async {
-    videorecord();
     _videoController = await VideoPlayerController.file(File(videoPath));
     debugPrint("$videoPath");
     _initializeVideoControllerFuture = _videoController.initialize();
