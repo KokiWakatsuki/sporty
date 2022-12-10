@@ -21,16 +21,30 @@ class Slow extends StatefulWidget {
 }
 
 class SlowState extends State<Slow> {
-  VideoPlayerController? _controller;
+  late VideoPlayerController _controller;
+  late ChewieController _chewieController;
   final imagePicker = ImagePicker();
+  bool _isVideoPlay = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Future getVideoFromCamera() async {
     // ignore: deprecated_member_use
     final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
     _controller = VideoPlayerController.file(File(pickedFile!.path));
-    _controller!.initialize().then((_) {
-      setState(() {
-        _controller!.play();
-      });
+    await _controller.initialize();
+    _chewieController = ChewieController(
+      videoPlayerController: _controller,
+      autoPlay: true,
+      looping: true,
+      fullScreenByDefault: true,
+      zoomAndPan: true,
+    );
+    setState(() {
+      _isVideoPlay = true;
     });
   }
 
@@ -39,33 +53,37 @@ class SlowState extends State<Slow> {
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
     _controller = VideoPlayerController.file(File(pickedFile.path));
-    _controller!.initialize().then((_) {
-      setState(() {
-        _controller!.play();
-      });
+    await _controller.initialize();
+    _chewieController = ChewieController(
+      videoPlayerController: _controller,
+      autoPlay: true,
+      looping: true,
+      fullScreenByDefault: true,
+      zoomAndPan: true,
+    );
+    setState(() {
+      _isVideoPlay = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+
         body: Center(
-            // ignore: unnecessary_null_comparison
-            child: _controller == null
-                ? Text(
-                    '動画を選択してください',
-                    style: Theme.of(context).textTheme.headline4,
-                  )
-                : VideoPlayer(_controller!)),
-        floatingActionButton:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          FloatingActionButton(
-              onPressed: getVideoFromCamera,
-              child: const Icon(Icons.video_call)),
-          FloatingActionButton(
-              onPressed: getVideoFromGarally,
-              child: const Icon(Icons.movie_creation))
-        ]));
+          // ignore: unnecessary_null_comparison
+          child: _isVideoPlay == false
+            ? Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                FloatingActionButton(
+                  onPressed: getVideoFromCamera,
+                  child: const Icon(Icons.video_call)),
+                FloatingActionButton(
+                  onPressed: getVideoFromGarally,
+                  child: const Icon(Icons.movie_creation))
+                ]
+              )
+            : Chewie(controller: _chewieController)
+        ),
+    );
   }
 }

@@ -41,6 +41,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   late Future<void> _initializeVideoControllerFuture;
   bool _isRecording = false;
   bool _isVideoPlay = false;
+  bool flag = false;
   XFile? video;
 
   @override
@@ -88,6 +89,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   }
 
   void videorecord() async {
+    debugPrint("sss-----------------------------------------------------------------------------");
     await _initializeCameraControllerFuture;
 
     await _cameraController.prepareForVideoRecording();
@@ -97,9 +99,15 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     video = await _cameraController.stopVideoRecording();
     _isRecording = false;
     _isVideoPlay = true;
-    setState(() {
+    if(flag == false){
+      setState(() {
+        flag = true;
+        videoplay(video!.path);
+      });
+    }else{
       videoplay(video!.path);
-    });
+    }
+    
     return videorecord();
   }
 
@@ -108,6 +116,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     debugPrint("$videoPath");
     _initializeVideoControllerFuture = _videoController.initialize();
     await _videoController.play();
+    debugPrint("ggg-----------------------------------------------------------------------------");
   }
 
   @override
