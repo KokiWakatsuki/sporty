@@ -22,6 +22,10 @@ class Menu extends StatelessWidget {
   goP2P(BuildContext context) {
     Navigator.pushNamed(context, '/p2p');
   }
+  
+  goComparison(BuildContext context) {
+    Navigator.pushNamed(context, '/comparison');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,12 @@ class Menu extends StatelessWidget {
       child: const Text('ファイル共有 >'),
     );
 
+    final goComparisonButton = ElevatedButton(
+      onPressed: () => goComparison(context),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      child: const Text('動画比較 >'),
+    );
+
     return Scaffold(
       appBar: appBar,
       body: Center(
@@ -71,6 +81,7 @@ class Menu extends StatelessWidget {
             goDelayMenuButton,
             goSlowButton,
             goP2PButton,
+            goComparisonButton,
           ],
         ),
       ),

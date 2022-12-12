@@ -9,6 +9,8 @@ import 'package:sporty/view/test.dart';
 import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/take_picture.dart';
 import 'package:sporty/view/p2p.dart';
+import 'package:sporty/view/comparison.dart';
+
 
 import 'view_model/video_recorder_screen.dart';
 
@@ -48,6 +50,7 @@ class App extends StatelessWidget {
         '/slow': (context) => Slow(camera: camera),
         '/take_picture': (context) => TakePicture(camera: camera),
         '/p2p': (context) => const P2P(),
+        '/comparison': (context) => const Comparison(),
       },
     );
   }
