@@ -19,6 +19,10 @@ class Menu extends StatelessWidget {
     Navigator.pushNamed(context, '/take_picture');
   }
 
+  goP2P(BuildContext context) {
+    Navigator.pushNamed(context, '/p2p');
+  }
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -50,6 +54,12 @@ class Menu extends StatelessWidget {
       child: const Text('写真撮影 >'),
     );
 
+    final goP2PButton = ElevatedButton(
+      onPressed: () => goP2P(context),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      child: const Text('ファイル共有 >'),
+    );
+
     return Scaffold(
       appBar: appBar,
       body: Center(
@@ -60,6 +70,7 @@ class Menu extends StatelessWidget {
             goTakePictureButton,
             goDelayMenuButton,
             goSlowButton,
+            goP2PButton,
           ],
         ),
       ),
