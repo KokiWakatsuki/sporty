@@ -59,6 +59,7 @@ class SlowState extends State<Slow> {
       autoPlay: true,
       looping: true,
       fullScreenByDefault: true,
+      allowFullScreen: false,
       zoomAndPan: true,
     );
     setState(() {
@@ -69,7 +70,7 @@ class SlowState extends State<Slow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: Colors.black,
         body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay == false
