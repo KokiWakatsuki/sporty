@@ -10,6 +10,7 @@ import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/take_picture.dart';
 import 'package:sporty/view/p2p.dart';
 import 'package:sporty/view/comparison.dart';
+import 'package:flutter/services.dart';
 
 
 import 'view_model/video_recorder_screen.dart';
@@ -18,6 +19,7 @@ List<CameraDescription> cameras = [];
 int camera_lens_flag = 1;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final cameras = await availableCameras();
   final firstCamera = cameras.firstWhere((camera) {
     if(camera_lens_flag == 1){
