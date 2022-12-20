@@ -12,8 +12,11 @@ import 'package:sporty/view/p2p.dart';
 import 'package:sporty/view/comparison.dart';
 import 'package:flutter/services.dart';
 
-
 import 'view_model/video_recorder_screen.dart';
+
+import 'index_screen.dart';
+
+import 'camera_feed.dart';
 
 List<CameraDescription> cameras = [];
 int camera_lens_flag = 1;
@@ -22,9 +25,9 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final cameras = await availableCameras();
   final firstCamera = cameras.firstWhere((camera) {
-    if(camera_lens_flag == 1){
+    if (camera_lens_flag == 1) {
       return camera.lensDirection == CameraLensDirection.back;
-    }else{
+    } else {
       return camera.lensDirection == CameraLensDirection.front;
     }
   });
@@ -52,7 +55,7 @@ class App extends StatelessWidget {
         '/slow': (context) => Slow(camera: camera),
         '/take_picture': (context) => TakePicture(camera: camera),
         '/p2p': (context) => const P2P(),
-        '/comparison': (context) => const Comparison(),
+        '/comparison': (context) => IndexScreen(), //const Comparison(),
       },
     );
   }
