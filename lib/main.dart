@@ -14,10 +14,6 @@ import 'package:flutter/services.dart';
 
 import 'view_model/video_recorder_screen.dart';
 
-import 'index_screen.dart';
-
-import 'camera_feed.dart';
-
 List<CameraDescription> cameras = [];
 int camera_lens_flag = 1;
 Future<void> main() async {
@@ -55,7 +51,7 @@ class App extends StatelessWidget {
         '/slow': (context) => Slow(camera: camera),
         '/take_picture': (context) => TakePicture(camera: camera),
         '/p2p': (context) => const P2P(),
-        '/comparison': (context) => IndexScreen(), //const Comparison(),
+        '/comparison': (context) => Comparison(camera: camera), //const Comparison(),
       },
     );
   }
