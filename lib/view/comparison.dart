@@ -21,8 +21,10 @@ class Comparison extends StatefulWidget {
 }
 
 class _ComparisonState extends State<Comparison> {
-  late VideoPlayerController _controller;
-  late ChewieController _chewieController;
+  late VideoPlayerController _controller_1;
+  late VideoPlayerController _controller_2;
+  late ChewieController _chewieController_1;
+  late ChewieController _chewieController_2;
   final imagePicker = ImagePicker();
   bool _isVideoPlay = false;
 
@@ -34,10 +36,10 @@ class _ComparisonState extends State<Comparison> {
   Future getVideoFromCamera() async {
     // ignore: deprecated_member_use
     final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
-    _controller = VideoPlayerController.file(File(pickedFile!.path));
-    await _controller.initialize();
-    _chewieController = ChewieController(
-      videoPlayerController: _controller,
+    _controller_1 = VideoPlayerController.file(File(pickedFile!.path));
+    await _controller_1.initialize();
+    _chewieController_1 = ChewieController(
+      videoPlayerController: _controller_1,
       autoPlay: true,
       looping: true,
       fullScreenByDefault: true,
@@ -52,10 +54,20 @@ class _ComparisonState extends State<Comparison> {
     PickedFile pickedFile =
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
-    _controller = VideoPlayerController.file(File(pickedFile.path));
-    await _controller.initialize();
-    _chewieController = ChewieController(
-      videoPlayerController: _controller,
+    _controller_1 = VideoPlayerController.file(File(pickedFile.path));
+    _controller_2 = VideoPlayerController.file(File(pickedFile.path));
+    await _controller_1.initialize();
+    await _controller_2.initialize();
+    _chewieController_1 = ChewieController(
+      videoPlayerController: _controller_1,
+      autoPlay: true,
+      looping: true,
+      //fullScreenByDefault: true,
+      //allowFullScreen: false,
+      zoomAndPan: true,
+    );
+    _chewieController_2 = ChewieController(
+      videoPlayerController: _controller_2,
       autoPlay: true,
       looping: true,
       //fullScreenByDefault: true,
@@ -86,11 +98,11 @@ class _ComparisonState extends State<Comparison> {
             : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Container(
                 height:MediaQuery.of(context).size.height * 0.5,
-                child: Chewie(controller: _chewieController),
+                child: Chewie(controller: _chewieController_1),
               ),
               Container(
                 height:MediaQuery.of(context).size.height * 0.5,
-                child: Chewie(controller: _chewieController),
+                child: Chewie(controller: _chewieController_2),
               ),
               ]
             )
