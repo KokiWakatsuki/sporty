@@ -1,47 +1,58 @@
-import 'package:flutter/material.dart';
-import 'package:sporty/view/menu.dart';
-import 'package:sporty/view/slow.dart';
-import 'package:sporty/view/delay.dart';
-// ignore: depend_on_referenced_packages
-import 'package:go_router/go_router.dart';
-import 'package:sporty/view/top.dart';
+// ignore_for_file: unused_import, non_constant_identifier_names
 
-main() {
-  final app = App();
-  runApp(app);
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+import 'package:sporty/view/top.dart';
+import 'package:sporty/view/menu.dart';
+import 'package:sporty/view/delay_menu.dart';
+import 'package:sporty/view/test.dart';
+import 'package:sporty/view/slow.dart';
+import 'package:sporty/view/take_picture.dart';
+import 'package:sporty/view/p2p.dart';
+import 'package:sporty/view/comparison.dart';
+import 'package:flutter/services.dart';
+
+import 'view_model/video_recorder_screen.dart';
+
+List<CameraDescription> cameras = [];
+int camera_lens_flag = 1;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  final cameras = await availableCameras();
+  final firstCamera = cameras.firstWhere((camera) {
+    if (camera_lens_flag == 1) {
+      return camera.lensDirection == CameraLensDirection.back;
+    } else {
+      return camera.lensDirection == CameraLensDirection.front;
+    }
+  });
+
+  runApp(App(camera: firstCamera));
 }
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
-
-  final router = GoRouter(
-    initialLocation: '/top',
-    routes: [
-      GoRoute(
-        path: '/top',
-        builder: (context, state) => const Top(),
-      ),
-      GoRoute(
-        path: '/menu',
-        builder: (context, state) => const Menu(),
-      ),
-      GoRoute(
-        path: '/slow',
-        builder: (context, state) => const Slow(),
-      ),
-      GoRoute(
-        path: '/delay',
-        builder: (context, state) => const Delay(),
-      ),
-    ],
-  );
+  final CameraDescription camera;
+  const App({
+    Key? key,
+    required this.camera,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+    return MaterialApp(
+      initialRoute: '/top',
+      routes: {
+        '/top': (context) => const Top(),
+        '/menu': (context) => const Menu(),
+        '/delay_menu': (context) => const DelayMenu(),
+        '/test': (context) => Test(camera: camera),
+        '/delay': (context) => VideoRecorderScreen(camera: camera),
+        '/slow': (context) => Slow(camera: camera),
+        '/take_picture': (context) => TakePicture(camera: camera),
+        '/p2p': (context) => const P2P(),
+        '/comparison': (context) => Comparison(camera: camera), //const Comparison(),
+      },
     );
   }
 }
