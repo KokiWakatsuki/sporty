@@ -41,7 +41,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/top',
+      initialRoute: '/menu',
       routes: {
         '/top': (context) => const Top(),
         '/menu': (context) => const Menu(),
