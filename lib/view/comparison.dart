@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -83,9 +83,15 @@ class _ComparisonState extends State<Comparison> {
                   child: const Icon(Icons.movie_creation))
                 ]
               )
-            : Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Chewie(controller: _chewieController),
-              Chewie(controller: _chewieController)
+            : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Container(
+                height:MediaQuery.of(context).size.height * 0.5,
+                child: Chewie(controller: _chewieController),
+              ),
+              Container(
+                height:MediaQuery.of(context).size.height * 0.5,
+                child: Chewie(controller: _chewieController),
+              ),
               ]
             )
         ),
