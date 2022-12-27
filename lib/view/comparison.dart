@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -54,8 +54,18 @@ class _ComparisonState extends State<Comparison> {
     PickedFile pickedFile =
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
-    _controller_1 = VideoPlayerController.file(File(pickedFile.path));
-    _controller_2 = VideoPlayerController.file(File(pickedFile.path));
+    _controller_1 = VideoPlayerController.file(
+      File(pickedFile.path),
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+      ),
+    );
+    _controller_2 = VideoPlayerController.file(
+      File(pickedFile.path),
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+      ),
+    );
     await _controller_1.initialize();
     await _controller_2.initialize();
     _chewieController_1 = ChewieController(
