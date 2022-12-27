@@ -20,13 +20,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final cameras = await availableCameras();
-  final firstCamera = cameras.firstWhere((camera) {
+  final firstCamera = cameras.first;
+  /* final firstCamera = cameras.firstWhere((camera) {
     if (camera_lens_flag == 1) {
       return camera.lensDirection == CameraLensDirection.back;
     } else {
       return camera.lensDirection == CameraLensDirection.front;
     }
-  });
+  }); */
 
   runApp(App(camera: firstCamera));
 }

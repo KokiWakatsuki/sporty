@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures
 
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:async';
 import 'package:camera/camera.dart';
