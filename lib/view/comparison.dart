@@ -26,7 +26,10 @@ class _ComparisonState extends State<Comparison> {
   late ChewieController _chewieController_1;
   late ChewieController _chewieController_2;
   final imagePicker = ImagePicker();
-  bool _isVideoPlay = false;
+  bool _isVideoPlay_1 = false;
+  bool _isVideoPlay_2 = false;
+  late PickedFile pickedFile_1;
+  late PickedFile pickedFile_2;
 
   @override
   void initState() {
@@ -46,22 +49,38 @@ class _ComparisonState extends State<Comparison> {
       zoomAndPan: true,
     );
     setState(() {
-      _isVideoPlay = true;
+      _isVideoPlay_1 = true;
+    });
+  }
+
+  Future getVideoFromGarally_1() async {
+    pickedFile_1 =
+        // ignore: deprecated_member_use
+        (await imagePicker.getVideo(source: ImageSource.gallery))!;
+    setState(() {
+      _isVideoPlay_1 = true;
+    });
+  }
+
+  Future getVideoFromGarally_2() async {
+    pickedFile_2 =
+        // ignore: deprecated_member_use
+        (await imagePicker.getVideo(source: ImageSource.gallery))!;
+    await getVideoFromGarally();
+    setState(() {
+      _isVideoPlay_2 = true;
     });
   }
 
   Future getVideoFromGarally() async {
-    PickedFile pickedFile =
-        // ignore: deprecated_member_use
-        (await imagePicker.getVideo(source: ImageSource.gallery))!;
     _controller_1 = VideoPlayerController.file(
-      File(pickedFile.path),
+      File(pickedFile_1.path),
       videoPlayerOptions: VideoPlayerOptions(
         mixWithOthers: true,
       ),
     );
     _controller_2 = VideoPlayerController.file(
-      File(pickedFile.path),
+      File(pickedFile_2.path),
       videoPlayerOptions: VideoPlayerOptions(
         mixWithOthers: true,
       ),
@@ -84,9 +103,6 @@ class _ComparisonState extends State<Comparison> {
       //allowFullScreen: false,
       zoomAndPan: true,
     );
-    setState(() {
-      _isVideoPlay = true;
-    });
   }
 
   @override
@@ -95,27 +111,47 @@ class _ComparisonState extends State<Comparison> {
       backgroundColor: Colors.black,
         body: Center(
           // ignore: unnecessary_null_comparison
-          child: _isVideoPlay == false
-            ? Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                FloatingActionButton(
-                  onPressed: getVideoFromCamera,
-                  child: const Icon(Icons.video_call)),
-                FloatingActionButton(
-                  onPressed: getVideoFromGarally,
-                  child: const Icon(Icons.movie_creation))
+          child: _isVideoPlay_1 == false
+            ? Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                const Text("1つ目の動画を選択してください",style: TextStyle(
+                  color: Colors.white,
+                ),),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                  FloatingActionButton(
+                    onPressed: getVideoFromCamera,
+                    child: const Icon(Icons.video_call)),
+                  FloatingActionButton(
+                    onPressed: getVideoFromGarally_1,
+                    child: const Icon(Icons.movie_creation))
+                  ]
+                )]
+              )
+            : _isVideoPlay_2 == false
+              ? Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                  const Text("2つ目の動画を選択してください",style: TextStyle(
+                    color: Colors.white,
+                  ),),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    FloatingActionButton(
+                      onPressed: getVideoFromCamera,
+                      child: const Icon(Icons.video_call)),
+                    FloatingActionButton(
+                      onPressed: getVideoFromGarally_2,
+                      child: const Icon(Icons.movie_creation))
+                    ]
+                  )]
+                )
+              : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                Container(
+                  height:MediaQuery.of(context).size.height * 0.5,
+                  child: Chewie(controller: _chewieController_1),
+                ),
+                Container(
+                  height:MediaQuery.of(context).size.height * 0.5,
+                  child: Chewie(controller: _chewieController_2),
+                ),
                 ]
               )
-            : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Container(
-                height:MediaQuery.of(context).size.height * 0.5,
-                child: Chewie(controller: _chewieController_1),
-              ),
-              Container(
-                height:MediaQuery.of(context).size.height * 0.5,
-                child: Chewie(controller: _chewieController_2),
-              ),
-              ]
-            )
         ),
     );
   }
