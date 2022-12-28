@@ -15,7 +15,6 @@ import 'package:flutter/services.dart';
 import 'view_model/video_recorder_screen.dart';
 
 List<CameraDescription> cameras = [];
-int camera_lens_flag = 1;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);

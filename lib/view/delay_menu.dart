@@ -1,4 +1,4 @@
-﻿// ignore_for_file: constant_identifier_names, non_constant_identifier_names, unused_local_variable
+﻿// ignore_for_file: constant_identifier_names, non_constant_identifier_names, unused_local_variable, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:sporty/main.dart';
@@ -6,6 +6,7 @@ import 'package:sporty/main.dart';
 int delay_min = 0;
 int delay_sec = 3;
 int resolution_preset = 5;
+int camera_lens_flag = 1;
 
 class DelayMenu extends StatefulWidget {
   const DelayMenu({Key? key}) : super(key: key);
