@@ -1,164 +1,127 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:share/share.dart';
 
-var _height = 0.08;
-var _width = 0.8;
-
-class Test extends StatelessWidget {
+class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
 
-  goTest(BuildContext context) {
-    Navigator.pushNamed(context, '/test');
-  }
+  @override
+  State<Test> createState() => _TestState();
+}
 
-  goDelayMenu(BuildContext context) {
-    Navigator.pushNamed(context, '/delay_menu');
-  }
-
-  goSlow(BuildContext context) {
-    Navigator.pushNamed(context, '/slow');
-  }
-
-  goTakePicture(BuildContext context) {
-    Navigator.pushNamed(context, '/take_picture');
-  }
-
-  goP2P(BuildContext context) {
-    Navigator.pushNamed(context, '/p2p');
-  }
-  
-  goComparison(BuildContext context) {
-    Navigator.pushNamed(context, '/comparison');
-  }
+class _TestState extends State<Test> {
+  String text = '';
+  String subject = '';
+  List<String> imagePaths = [];
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('MENU'),
-    );
-
-    final goTestButton = ElevatedButton(
-      onPressed: () => goTest(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.red,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        'テスト',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goDelayMenuButton = ElevatedButton(
-      onPressed: () => goDelayMenu(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        '遅延再生',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goSlowButton = ElevatedButton(
-      onPressed: () => goSlow(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        'スロー再生',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goTakePictureButton = ElevatedButton(
-      onPressed: () => goTakePicture(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        '写真撮影',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goP2PButton = ElevatedButton(
-      onPressed: () => goP2P(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        'ファイル共有',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goComparisonButton = ElevatedButton(
-      onPressed: () => goComparison(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        '動画比較',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    return Scaffold(
-      appBar: appBar,
-      body: Center(
-        child: Container(
-          height:MediaQuery.of(context).size.height * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              goTestButton,
-              goTakePictureButton,
-              goDelayMenuButton,
-              goSlowButton,
-              goP2PButton,
-              goComparisonButton,
-            ],
+    return MaterialApp(
+      title: 'Share Plugin Demo',
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Share Plugin Demo'),
           ),
-        )        
-      ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Share text:',
+                      hintText: 'Enter some text and/or link to share',
+                    ),
+                    maxLines: 2,
+                    onChanged: (String value) => setState(() {
+                      text = value;
+                    }),
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Share subject:',
+                      hintText: 'Enter subject to share (optional)',
+                    ),
+                    maxLines: 2,
+                    onChanged: (String value) => setState(() {
+                      subject = value;
+                    }),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 12.0)),
+                  ListTile(
+                    leading: Icon(Icons.add),
+                    title: Text("Add image"),
+                    onTap: () async {
+                      final imagePicker = ImagePicker();
+                      final pickedFile = await imagePicker.getImage(
+                        source: ImageSource.gallery,
+                      );
+                      if (pickedFile != null) {
+                        setState(() {
+                          imagePaths.add(pickedFile.path);
+                        });
+                      }
+                    },
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Builder(
+                    builder: (BuildContext context) {
+                      return ElevatedButton(
+                        child: const Text('Share'),
+                        onPressed: text.isEmpty && imagePaths.isEmpty
+                            ? null
+                            : () => _onShare(context),
+                      );
+                    },
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Builder(
+                    builder: (BuildContext context) {
+                      return ElevatedButton(
+                        child: const Text('Share With Empty Origin'),
+                        onPressed: () => _onShareWithEmptyOrigin(context),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          )),
     );
+  }
+
+  _onDeleteImage(int position) {
+    setState(() {
+      imagePaths.removeAt(position);
+    });
+  }
+
+  _onShare(BuildContext context) async {
+    // A builder is used to retrieve the context immediately
+    // surrounding the ElevatedButton.
+    //
+    // The context's `findRenderObject` returns the first
+    // RenderObject in its descendent tree when it's not
+    // a RenderObjectWidget. The ElevatedButton's RenderObject
+    // has its position and size after it's built.
+    final RenderBox box = context.findRenderObject() as RenderBox;
+
+    if (imagePaths.isNotEmpty) {
+      await Share.shareFiles(imagePaths,
+          text: text,
+          subject: subject,
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+    } else {
+      await Share.share(text,
+          subject: subject,
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+    }
+  }
+
+  _onShareWithEmptyOrigin(BuildContext context) async {
+    await Share.share("text");
   }
 }
