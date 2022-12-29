@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable
 
 import 'package:flutter/material.dart';
 
@@ -149,7 +149,7 @@ class Menu extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              goTestButton,
+              //goTestButton,
               goTakePictureButton,
               goDelayMenuButton,
               goSlowButton,
