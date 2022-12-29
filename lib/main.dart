@@ -15,11 +15,11 @@ import 'package:flutter/services.dart';
 import 'view_model/video_recorder_screen.dart';
 
 List<CameraDescription> cameras = [];
-int camera_lens_flag = 1;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final cameras = await availableCameras();
+  //final firstCamera = cameras.first;
   final firstCamera = cameras.firstWhere((camera) {
     if (camera_lens_flag == 1) {
       return camera.lensDirection == CameraLensDirection.back;
@@ -46,12 +46,12 @@ class App extends StatelessWidget {
         '/top': (context) => const Top(),
         '/menu': (context) => const Menu(),
         '/delay_menu': (context) => const DelayMenu(),
-        '/test': (context) => Test(camera: camera),
+        '/test': (context) => const Test(),
         '/delay': (context) => VideoRecorderScreen(camera: camera),
         '/slow': (context) => Slow(camera: camera),
         '/take_picture': (context) => TakePicture(camera: camera),
         '/p2p': (context) => const P2P(),
-        '/comparison': (context) => Comparison(camera: camera), //const Comparison(),
+        '/comparison': (context) => Comparison(camera: camera), 
       },
     );
   }

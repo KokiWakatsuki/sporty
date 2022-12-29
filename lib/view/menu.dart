@@ -110,7 +110,7 @@ class Menu extends StatelessWidget {
     final goP2PButton = ElevatedButton(
       onPressed: () => goP2P(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.green,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
