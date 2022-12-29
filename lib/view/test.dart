@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,10 +19,10 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Share Plugin Demo',
+      title: '動画共有',
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Share Plugin Demo'),
+            title: const Text('動画共有'),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -33,7 +33,7 @@ class _TestState extends State<Test> {
                   TextField(
                     decoration: const InputDecoration(
                       labelText: 'Share text:',
-                      hintText: 'Enter some text and/or link to share',
+                      hintText: '共有したいテキストを入力してください',
                     ),
                     maxLines: 2,
                     onChanged: (String value) => setState(() {
@@ -43,7 +43,7 @@ class _TestState extends State<Test> {
                   TextField(
                     decoration: const InputDecoration(
                       labelText: 'Share subject:',
-                      hintText: 'Enter subject to share (optional)',
+                      hintText: 'これは何か分からないです',
                     ),
                     maxLines: 2,
                     onChanged: (String value) => setState(() {
@@ -56,9 +56,8 @@ class _TestState extends State<Test> {
                     title: Text("Add image"),
                     onTap: () async {
                       final imagePicker = ImagePicker();
-                      final pickedFile = await imagePicker.getImage(
-                        source: ImageSource.gallery,
-                      );
+                      final pickedFile =
+                      (await imagePicker.getVideo(source: ImageSource.gallery))!;
                       if (pickedFile != null) {
                         setState(() {
                           imagePaths.add(pickedFile.path);
@@ -100,13 +99,6 @@ class _TestState extends State<Test> {
   }
 
   _onShare(BuildContext context) async {
-    // A builder is used to retrieve the context immediately
-    // surrounding the ElevatedButton.
-    //
-    // The context's `findRenderObject` returns the first
-    // RenderObject in its descendent tree when it's not
-    // a RenderObjectWidget. The ElevatedButton's RenderObject
-    // has its position and size after it's built.
     final RenderBox box = context.findRenderObject() as RenderBox;
 
     if (imagePaths.isNotEmpty) {
