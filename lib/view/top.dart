@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:sporty/view/menu.dart';
 
 class Top extends StatelessWidget {
@@ -19,10 +18,9 @@ class Top extends StatelessWidget {
     return Scaffold(
         body: GestureDetector(
       behavior: HitTestBehavior.opaque,
-      // ignore: prefer_const_constructors
-      child: Center(
-        child: const Text(
-          'アプリ名',
+      child: const Center(
+        child: Text(
+          'タップしてください',
         ),
       ),
       onTap: () => goMenu(context),
