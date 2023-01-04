@@ -1,11 +1,14 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers
 
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:typed_data';
+
 
 // 写真撮影画面
 class TakePicture extends StatefulWidget {
@@ -21,8 +24,7 @@ class TakePicture extends StatefulWidget {
 }
 
 class TakePictureState extends State<TakePicture> {
-  late VideoPlayerController _controller;
-  late ChewieController _chewieController;
+  late File _image;
   final imagePicker = ImagePicker();
   late PickedFile pickedFile;
 
@@ -35,8 +37,7 @@ class TakePictureState extends State<TakePicture> {
   Future getVideoFromCamera() async {
     // ignore: deprecated_member_use
     final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
-    _controller = VideoPlayerController.file(File(pickedFile!.path));
-    await _controller.initialize();
+    GallerySaver.saveVideo(pickedFile!.path, albumName: 'SPORTY');
     setState(() {
       getVideoFromCamera();
     });
@@ -45,9 +46,8 @@ class TakePictureState extends State<TakePicture> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
         body: Center(
-          // ignore: unnecessary_null_comparison
           child: Text("LOADING"),
               )
         );
