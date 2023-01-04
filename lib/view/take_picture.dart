@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_const_constructors
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -30,7 +30,6 @@ class TakePictureState extends State<TakePicture> {
 
   @override
   void initState() {
-    getVideoFromCamera();
     super.initState();
   }
 
@@ -38,18 +37,61 @@ class TakePictureState extends State<TakePicture> {
     // ignore: deprecated_member_use
     final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
     GallerySaver.saveVideo(pickedFile!.path, albumName: 'SPORTY');
-    setState(() {
-      getVideoFromCamera();
-    });
+  }
+
+  Future getVideoFromGarally() async {
+    PickedFile pickedFile =
+        // ignore: deprecated_member_use
+        (await imagePicker.getVideo(source: ImageSource.gallery))!;
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
+    var _screenSize = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Colors.black,
         body: Center(
-          child: Text("LOADING"),
-              )
-        );
+          // ignore: unnecessary_null_comparison
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            InkWell(
+              onTap: () {
+                getVideoFromCamera();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.green,
+                width: _screenSize.width,
+                height: _screenSize.width,
+                child: Center(
+                  child: const Icon(
+                    size: 50,
+                    color:Colors.white,
+                    Icons.video_call
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                getVideoFromGarally();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.blue,
+                width: _screenSize.width,
+                height: _screenSize.width,
+                child: Center(
+                  child: const Icon(
+                    size: 50,
+                    color:Colors.white,
+                    Icons.movie_creation
+                  ),
+                ),
+              ),
+            ),
+            ]
+          )
+        ),
+    );
   }
 }
