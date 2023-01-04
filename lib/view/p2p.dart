@@ -30,30 +30,10 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Share text:',
-                      hintText: '共有したいテキストを入力してください',
-                    ),
-                    maxLines: 2,
-                    onChanged: (String value) => setState(() {
-                      text = value;
-                    }),
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Share subject:',
-                      hintText: 'これは何か分からないです',
-                    ),
-                    maxLines: 2,
-                    onChanged: (String value) => setState(() {
-                      subject = value;
-                    }),
-                  ),
                   const Padding(padding: EdgeInsets.only(top: 12.0)),
                   ListTile(
                     leading: Icon(Icons.add),
-                    title: Text("Add image"),
+                    title: Text("動画を選択"),
                     onTap: () async {
                       final imagePicker = ImagePicker();
                       final pickedFile =
@@ -69,7 +49,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        child: const Text('Share'),
+                        child: const Text('共有'),
                         onPressed: text.isEmpty && imagePaths.isEmpty
                             ? null
                             : () => _onShare(context),
@@ -80,7 +60,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        child: const Text('Share With Empty Origin'),
+                        child: const Text('選択した動画を破棄'),
                         onPressed: () => _onShareWithEmptyOrigin(context),
                       );
                     },
