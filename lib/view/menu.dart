@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -151,6 +151,7 @@ class Menu extends StatelessWidget {
 
     
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar,
       body: Center(
         child: Container(

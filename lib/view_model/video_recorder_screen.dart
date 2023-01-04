@@ -98,14 +98,10 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     video = await _cameraController.stopVideoRecording();
     _isRecording = false;
     _isVideoPlay = true;
-    if(flag == false){
       setState(() {
         flag = true;
         videoplay(video!.path);
       });
-    }else{
-      videoplay(video!.path);
-    }
     
     return videorecord();
   }
