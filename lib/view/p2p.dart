@@ -1,8 +1,11 @@
-// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_null_comparison
+// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_null_comparison, unused_field, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers, avoid_unnecessary_containers, await_only_futures
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 class P2P extends StatefulWidget {
   const P2P({Key? key}) : super(key: key);
@@ -12,12 +15,17 @@ class P2P extends StatefulWidget {
 }
 
 class _P2PState extends State<P2P> with WidgetsBindingObserver {
+  int a = 0;
   String text = '';
   String subject = '';
   List<String> imagePaths = [];
+  int len = 0;
+  late VideoPlayerController _controller;
+  late ChewieController _chewieController;
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     final appBar = AppBar(
       backgroundColor: Colors.green,
       title: const Text('動画共有'),
@@ -38,9 +46,18 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                       final imagePicker = ImagePicker();
                       final pickedFile =
                       (await imagePicker.getVideo(source: ImageSource.gallery))!;
+                      _controller = VideoPlayerController.file(File(pickedFile.path));
+                      await _controller.initialize();
+                      _chewieController = ChewieController(
+                        videoPlayerController: _controller,
+                        autoPlay: true,
+                        looping: false,
+                        zoomAndPan: true,
+                      );
                       if (pickedFile != null) {
                         setState(() {
                           imagePaths.add(pickedFile.path);
+                          len = imagePaths.length;
                         });
                       }
                     },
@@ -50,6 +67,9 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                     builder: (BuildContext context) {
                       return ElevatedButton(
                         child: const Text('共有'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green, // background
+                        ),
                         onPressed: text.isEmpty && imagePaths.isEmpty
                             ? null
                             : () => _onShare(context),
@@ -59,12 +79,31 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   const Padding(padding: EdgeInsets.only(top: 12.0)),
                   Builder(
                     builder: (BuildContext context) {
-                      return ElevatedButton(
-                        child: const Text('選択した動画を破棄'),
-                        onPressed: () => _onShareWithEmptyOrigin(context),
-                      );
+                      return Row(children: [
+                        ElevatedButton(
+                          child: const Text('直前に選択した動画を破棄'),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green, // background
+                          ),
+                          onPressed: () => _onDeleteImage(),
+                        ),
+                        Text('          選択中の動画：$len')
+                      ],);
                     },
                   ),
+                  Text(''),
+                  text.isEmpty && imagePaths.isEmpty
+                  ? Text('')
+                  : Column(children: [
+                    Text('直前に選択した動画'),
+                    Container(
+                      color: Colors.black,
+                      width: _screenSize.width,
+                      height: _screenSize.height * 0.6,
+                      child: Chewie(controller: _chewieController)
+                    ),
+                  ],
+                )
                 ],
               ),
             ),
@@ -72,9 +111,21 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
         );
   }
 
-  _onDeleteImage(int position) {
+  _onDeleteImage() {
+    imagePaths.removeLast();
+    len = imagePaths.length;
+    Future(() async {
+      _controller = VideoPlayerController.file(File(imagePaths.last));
+      await _controller.initialize();
+      _chewieController = await ChewieController(
+        videoPlayerController: _controller,
+        autoPlay: true,
+        looping: false,
+        zoomAndPan: true,
+      );
+    });
     setState(() {
-      imagePaths.removeAt(position);
+      
     });
   }
 
