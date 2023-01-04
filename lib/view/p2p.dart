@@ -18,12 +18,12 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '動画共有',
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('動画共有'),
-          ),
+    final appBar = AppBar(
+      backgroundColor: Colors.green,
+      title: const Text('動画共有'),
+    );
+    return Scaffold(
+        appBar: appBar,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -68,8 +68,8 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                 ],
               ),
             ),
-          )),
-    );
+          )
+        );
   }
 
   _onDeleteImage(int position) {

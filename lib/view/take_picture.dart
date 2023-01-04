@@ -54,7 +54,6 @@ class TakePictureState extends State<TakePicture> {
       looping: false,
       fullScreenByDefault: false,
       zoomAndPan: true,
-      playbackSpeeds: const [0.1, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.75, 0.8, 0.9, 1]
     );
     setState(() {
       _isVideoPlay = true;
@@ -76,7 +75,7 @@ class TakePictureState extends State<TakePicture> {
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                color: Colors.green,
+                color: Colors.blue,
                 width: _screenSize.width,
                 height: _screenSize.height * 0.5,
                 child: Center(
@@ -94,7 +93,7 @@ class TakePictureState extends State<TakePicture> {
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                color: Colors.blue,
+                color: Colors.green,
                 width: _screenSize.width,
                 height: _screenSize.height * 0.5,
                 child: Center(
@@ -117,11 +116,11 @@ class TakePictureState extends State<TakePicture> {
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                color: Colors.white,
+                color: Colors.green,
                 width: _screenSize.width,
-                height: _screenSize.height * 0.1,
+                height: _screenSize.height * 0.07,
                 child: Center(
-                  child: Text('戻る'),
+                  child: Text('再生をやめる'),
                   ),
                 ),
               ),

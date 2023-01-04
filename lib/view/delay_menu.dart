@@ -27,7 +27,7 @@ class _DelayMenuState extends State<DelayMenu> {
     var _screenSize = MediaQuery.of(context).size;
     final appBar = AppBar(
       backgroundColor: Colors.green,
-      title: const Text('DELAY MENU'),
+      title: const Text('遅延再生設定'),
     );
 
     final sec_dropdownButton = DropdownButton(

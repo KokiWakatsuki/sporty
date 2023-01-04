@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -62,6 +62,7 @@ class SlowState extends State<Slow> {
       fullScreenByDefault: true,
       allowFullScreen: false,
       zoomAndPan: true,
+      playbackSpeeds: const [0.1, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.75, 0.8, 0.9, 1]
     );
     setState(() {
       _isVideoPlay = true;
@@ -70,21 +71,75 @@ class SlowState extends State<Slow> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
         body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay == false
-            ? Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                FloatingActionButton(
-                  onPressed: getVideoFromCamera,
-                  child: const Icon(Icons.video_call)),
-                FloatingActionButton(
-                  onPressed: getVideoFromGarally,
-                  child: const Icon(Icons.movie_creation))
-                ]
-              )
-            : Chewie(controller: _chewieController)
+          ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            InkWell(
+              onTap: () {
+                getVideoFromCamera();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.blue,
+                width: _screenSize.width,
+                height: _screenSize.height * 0.5,
+                child: Center(
+                  child: const Icon(
+                    size: 50,
+                    color:Colors.white,
+                    Icons.video_call
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                getVideoFromGarally();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.green,
+                width: _screenSize.width,
+                height: _screenSize.height * 0.5,
+                child: Center(
+                  child: const Icon(
+                    size: 50,
+                    color:Colors.white,
+                    Icons.movie_creation
+                  ),
+                ),
+              ),
+            ),
+            ]
+          )
+          : Column(children: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  _isVideoPlay = false;
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.green,
+                width: _screenSize.width,
+                height: _screenSize.height * 0.07,
+                child: Center(
+                  child: Text('再生をやめる'),
+                  ),
+                ),
+              ),
+            Container(
+              width: _screenSize.width,
+              height: _screenSize.height * 0.9,
+              child: Chewie(controller: _chewieController)
+            ),
+            ],
+          )
         ),
     );
   }

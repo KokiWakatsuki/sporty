@@ -38,7 +38,7 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     final appBar = AppBar(
       backgroundColor: Colors.green,
-      title: const Text('MENU'),
+      title: const Text('メニュー'),
     );
 
 
