@@ -106,7 +106,7 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '写真撮影',
+        '動画撮影',
         style: TextStyle(
           fontSize: 20,
         ),
