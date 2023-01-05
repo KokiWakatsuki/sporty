@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_null_comparison, unused_field, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers, avoid_unnecessary_containers, await_only_futures
+// ignore_for_file: public_member_api_docs, unused_element, sort_child_properties_last, deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_null_comparison, unused_field, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers, avoid_unnecessary_containers, await_only_futures, unused_local_variable, non_constant_identifier_names
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -20,6 +20,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
   String subject = '';
   List<String> imagePaths = [];
   int len = 0;
+  int chewie_update = 0;
   late VideoPlayerController _controller;
   late ChewieController _chewieController;
 
@@ -85,7 +86,10 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.green, // background
                           ),
-                          onPressed: () => _onDeleteImage(),
+                          onPressed: () => setState(() {
+                            chewie_update = 1;
+                            _onDeleteImage();
+                          })
                         ),
                         Text('          選択中の動画：$len')
                       ],);
@@ -94,7 +98,8 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   Text(''),
                   text.isEmpty && imagePaths.isEmpty
                   ? Text('')
-                  : Column(children: [
+                  : chewie_update == 0
+                  ? Column(children: [
                     Text('直前に選択した動画'),
                     Container(
                       color: Colors.black,
@@ -103,7 +108,17 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                       child: Chewie(controller: _chewieController)
                     ),
                   ],
-                )
+                  )
+                  : Column(children: [
+                    Text('LOADING'),
+                    Container(
+                      color: Colors.black,
+                      width: _screenSize.width,
+                      height: _screenSize.height * 0.6,
+                      child: const Center(child: CircularProgressIndicator())
+                    ),
+                  ],
+                  )
                 ],
               ),
             ),
@@ -111,19 +126,18 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
         );
   }
 
-  _onDeleteImage() {
+  _onDeleteImage() async {
+    chewie_update = 0;
     imagePaths.removeLast();
     len = imagePaths.length;
-    Future(() async {
-      _controller = VideoPlayerController.file(File(imagePaths.last));
-      await _controller.initialize();
-      _chewieController = await ChewieController(
-        videoPlayerController: _controller,
-        autoPlay: true,
-        looping: false,
-        zoomAndPan: true,
-      );
-    });
+    _controller = VideoPlayerController.file(File(imagePaths.last));
+    await _controller.initialize();
+    _chewieController = await ChewieController(
+      videoPlayerController: _controller,
+      autoPlay: true,
+      looping: false,
+      zoomAndPan: true,
+    );
     setState(() {
       
     });
