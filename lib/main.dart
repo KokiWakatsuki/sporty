@@ -46,6 +46,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/menu', // '/top',
       routes: {
         '/top': (context) => const Top(),
