@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -107,40 +107,91 @@ class _ComparisonState extends State<Comparison> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
         body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay_1 == false
-            ? Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                const Text("1つ目の動画を選択してください",style: TextStyle(
-                  color: Colors.white,
-                ),),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                  FloatingActionButton(
-                    onPressed: getVideoFromCamera,
-                    child: const Icon(Icons.video_call)),
-                  FloatingActionButton(
-                    onPressed: getVideoFromGarally_1,
-                    child: const Icon(Icons.movie_creation))
-                  ]
-                )]
-              )
+            ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              InkWell(
+                onTap: () {
+                  getVideoFromCamera();
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  color: Colors.blue,
+                  width: _screenSize.width,
+                  height: _screenSize.height * 0.5,
+                  child: Center(
+                    child: const Icon(
+                      size: 50,
+                      color:Colors.white,
+                      Icons.video_call
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  getVideoFromGarally_1();
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  color: Colors.green,
+                  width: _screenSize.width,
+                  height: _screenSize.height * 0.5,
+                  child: Center(
+                    child: const Icon(
+                      size: 50,
+                      color:Colors.white,
+                      Icons.movie_creation
+                    ),
+                  ),
+                ),
+              ),
+              ]
+            )
             : _isVideoPlay_2 == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                  const Text("2つ目の動画を選択してください",style: TextStyle(
-                    color: Colors.white,
-                  ),),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    FloatingActionButton(
-                      onPressed: getVideoFromCamera,
-                      child: const Icon(Icons.video_call)),
-                    FloatingActionButton(
-                      onPressed: getVideoFromGarally_2,
-                      child: const Icon(Icons.movie_creation))
-                    ]
-                  )]
-                )
+              ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                InkWell(
+                  onTap: () {
+                    getVideoFromCamera();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    color: Colors.green,
+                    width: _screenSize.width,
+                    height: _screenSize.height * 0.5,
+                    child: Center(
+                      child: const Icon(
+                        size: 50,
+                        color:Colors.white,
+                        Icons.video_call
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    getVideoFromGarally_2();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    color: Colors.blue,
+                    width: _screenSize.width,
+                    height: _screenSize.height * 0.5,
+                    child: Center(
+                      child: const Icon(
+                        size: 50,
+                        color:Colors.white,
+                        Icons.movie_creation
+                      ),
+                    ),
+                  ),
+                ),
+                ]
+              )
               : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Container(
                   height:MediaQuery.of(context).size.height * 0.5,
