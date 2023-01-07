@@ -128,8 +128,13 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      backgroundColor: Colors.green,
+      title: const Text('遅延再生'),
+    );
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: appBar,
       body: _isVideoPlay == true
           ? Container(
               color: Colors.black,
