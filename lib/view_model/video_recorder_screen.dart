@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures, no_leading_underscores_for_local_identifiers
 
 import 'dart:io';
 import 'dart:async';
@@ -8,6 +8,7 @@ import 'package:video_player/video_player.dart';
 import 'package:sporty/view/delay_menu.dart';
 import 'package:sporty/main.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:chewie/chewie.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -36,11 +37,9 @@ class CacheClass {
 class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   late CameraController _cameraController;
   late VideoPlayerController _videoController;
+  late ChewieController _chewieController;
   late Future<void> _initializeCameraControllerFuture;
-  late Future<void> _initializeVideoControllerFuture;
-  bool _isRecording = false;
   bool _isVideoPlay = false;
-  bool flag = false;
   XFile? video;
 
   @override
@@ -88,30 +87,31 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   }
 
   void videorecord() async {
-    debugPrint("sss-----------------------------------------------------------------------------");
+    //debugPrint("sss-----------------------------------------------------------------------------");
     await _initializeCameraControllerFuture;
-
-    await _cameraController.prepareForVideoRecording();
     await _cameraController.startVideoRecording();
-    _isRecording = true;
     await Future.delayed(Duration(seconds: delay_sec));
     video = await _cameraController.stopVideoRecording();
-    _isRecording = false;
-    _isVideoPlay = true;
-      setState(() {
-        flag = true;
-        videoplay(video!.path);
-      });
+    _videoController = VideoPlayerController.file(File(video!.path));
+    await _videoController.initialize();
+    _chewieController = await ChewieController(
+      videoPlayerController: _videoController,
+      autoPlay: true,
+      showControlsOnInitialize: false,
+      showOptions: false,
+      showControls: false,
+      allowFullScreen: false,
+      allowMuting: false,
+      allowPlaybackSpeedChanging: false,
+      useRootNavigator: false,
+      allowedScreenSleep: false,
+    );
+    //debugPrint("ggg-----------------------------------------------------------------------------");   
+    setState(() {
+      _isVideoPlay = true;
+    });
     
     return videorecord();
-  }
-
-  void videoplay(final String videoPath) async {
-    _videoController = await VideoPlayerController.file(File(videoPath));
-    debugPrint("$videoPath");
-    _initializeVideoControllerFuture = _videoController.initialize();
-    await _videoController.play();
-    debugPrint("ggg-----------------------------------------------------------------------------");
   }
 
   @override
@@ -128,85 +128,16 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: _isVideoPlay == true
-          ? VideoPlayer(_videoController)
+          ? Container(
+              color: Colors.black,
+              width: _screenSize.width,
+              height: _screenSize.height,
+              child: Chewie(controller: _chewieController)
+            )
           : const Center(child: CircularProgressIndicator()),
     );
   }
 }
-
-//--------------------------------------------------------------------------------
-
-/*
-@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<void>(
-          //future: _initializeCameraControllerFuture,
-          builder: (context, snapshot) {
-            if (_isVideoPlay == true) {
-              return VideoPlayer(_videoController);
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          }),
-    );
-  }
-}
-*/
-
-//--------------------------------------------------------------------------------
-
-/*
-class VideoPlayerScreen extends StatefulWidget {
-  final String videoPath;
-
-  const VideoPlayerScreen({super.key, required this.videoPath});
-
-  @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
-}
-
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeControllerFuture;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = VideoPlayerController.file(File(widget.videoPath));
-    _initializeControllerFuture = _controller.initialize();
-    _controller.play();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Video player screen')),
-      body: FutureBuilder(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
-  }
-}
-*/
