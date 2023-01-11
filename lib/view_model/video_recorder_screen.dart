@@ -45,43 +45,63 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     Future(() async {
       final cameras = await availableCameras();
       final firstCamera = cameras.firstWhere((camera) {
-        if(camera_lens_flag == 1){
+        if (camera_lens_flag == 1) {
           return camera.lensDirection == CameraLensDirection.back;
-        }else{
+        } else {
           return camera.lensDirection == CameraLensDirection.front;
         }
       });
-      switch(resolution_preset){
+      switch (resolution_preset) {
         case 0:
-          _cameraController = CameraController(firstCamera, ResolutionPreset.low,);
+          _cameraController = CameraController(
+            firstCamera,
+            ResolutionPreset.low,
+          );
           debugPrint("0");
           break;
         case 1:
-          _cameraController = CameraController(firstCamera, ResolutionPreset.medium,);
+          _cameraController = CameraController(
+            firstCamera,
+            ResolutionPreset.medium,
+          );
           debugPrint("1");
           break;
         case 2:
-          _cameraController = CameraController(firstCamera, ResolutionPreset.high,);
+          _cameraController = CameraController(
+            firstCamera,
+            ResolutionPreset.high,
+          );
           debugPrint("2");
           break;
         case 3:
-          _cameraController = CameraController(firstCamera, ResolutionPreset.veryHigh,);
+          _cameraController = CameraController(
+            firstCamera,
+            ResolutionPreset.veryHigh,
+          );
           debugPrint("3");
           break;
         case 4:
-          _cameraController = CameraController(firstCamera, ResolutionPreset.ultraHigh,);
+          _cameraController = CameraController(
+            firstCamera,
+            ResolutionPreset.ultraHigh,
+          );
           debugPrint("4");
           break;
         case 5:
-          _cameraController = CameraController(firstCamera, ResolutionPreset.max,);
+          _cameraController = CameraController(
+            firstCamera,
+            ResolutionPreset.max,
+          );
           debugPrint("5");
           break;
       }
       _initializeCameraControllerFuture = _cameraController.initialize();
+      await _initializeCameraControllerFuture;
+      await _cameraController.startVideoRecording();
       videorecord();
     });
   }
@@ -89,9 +109,9 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   void videorecord() async {
     //debugPrint("sss-----------------------------------------------------------------------------");
     await _initializeCameraControllerFuture;
-    await _cameraController.startVideoRecording();
     await Future.delayed(Duration(seconds: delay_sec));
     video = await _cameraController.stopVideoRecording();
+    await _cameraController.startVideoRecording();
     _videoController = VideoPlayerController.file(File(video!.path));
     await _videoController.initialize();
     _chewieController = await ChewieController(
@@ -106,11 +126,11 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
       useRootNavigator: false,
       allowedScreenSleep: false,
     );
-    //debugPrint("ggg-----------------------------------------------------------------------------");   
+    //debugPrint("ggg-----------------------------------------------------------------------------");
     setState(() {
       _isVideoPlay = true;
     });
-    
+
     return videorecord();
   }
 
@@ -140,8 +160,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
               color: Colors.black,
               width: _screenSize.width,
               height: _screenSize.height,
-              child: Chewie(controller: _chewieController)
-            )
+              child: Chewie(controller: _chewieController))
           : const Center(child: CircularProgressIndicator()),
     );
   }
