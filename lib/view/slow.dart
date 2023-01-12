@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -135,29 +135,25 @@ class SlowState extends State<Slow> {
                     ),
                   ),
                 ])
-              : Column(
+              : Stack(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _isVideoPlay = false;
-                          _controller.dispose();
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        color: Colors.green,
-                        width: _screenSize.width,
-                        height: _screenSize.height * 0.07,
-                        child: Center(
-                          child: Text('再生をやめる'),
-                        ),
-                      ),
-                    ),
                     Container(
-                        width: _screenSize.width,
-                        height: _screenSize.height * 0.9,
-                        child: Chewie(controller: _chewieController)),
+                      width: _screenSize.width,
+                      height: _screenSize.height,
+                      child: Chewie(controller: _chewieController)),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isVideoPlay = false;
+                            _controller.dispose();
+                          });
+                        },
+                        child:
+                            const Icon(color: Colors.white, Icons.arrow_back),
+                      ),
                   ],
                 )),
     );
