@@ -1,14 +1,18 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures, no_leading_underscores_for_local_identifiers
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures, no_leading_underscores_for_local_identifiers, unnecessary_import, deprecated_member_use
 
 import 'dart:io';
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:sporty/view/delay_menu.dart';
 import 'package:sporty/main.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:chewie/chewie.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -134,6 +138,10 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     return videorecord();
   }
 
+  void saveVideo(XFile? pickedFile) {
+    GallerySaver.saveVideo(pickedFile!.path, albumName: 'SPORTY');
+  }
+
   @override
   void disposeCamera() {
     _cameraController.dispose();
@@ -148,19 +156,35 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('遅延再生'),
-    );
+    // final appBar = AppBar(
+    //   backgroundColor: Colors.green,
+    //   title: const Text('遅延再生'),
+    // );
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: appBar,
+      //appBar: appBar,
       body: _isVideoPlay == true
-          ? Container(
-              color: Colors.black,
-              width: _screenSize.width,
-              height: _screenSize.height,
-              child: Chewie(controller: _chewieController))
+          ? Stack(
+              children: [
+                Container(
+                    color: Colors.black,
+                    width: _screenSize.width,
+                    height: _screenSize.height,
+                    child: Chewie(controller: _chewieController)),
+                Align(
+                    alignment: Alignment.bottomLeft,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                      ),
+                      onPressed: () {
+                        saveVideo(video);
+                      },
+                      child:
+                          const Icon(color: Colors.white, Icons.file_download),
+                    ))
+              ],
+            )
           : const Center(child: CircularProgressIndicator()),
     );
   }
