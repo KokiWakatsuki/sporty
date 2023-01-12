@@ -1,6 +1,16 @@
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_const_constructors, deprecated_member_use, duplicate_ignore
+
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'dart:typed_data';
+
 
 // 写真撮影画面
 class TakePicture extends StatefulWidget {
@@ -16,78 +26,112 @@ class TakePicture extends StatefulWidget {
 }
 
 class TakePictureState extends State<TakePicture> {
-  late CameraController _controller;
-  // ignore: unused_field
-  late Future<void> _initializeControllerFuture;
+  late File _image;
+  late VideoPlayerController _controller;
+  late ChewieController _chewieController;
+  final imagePicker = ImagePicker();
+  late PickedFile pickedFile;
+  bool _isVideoPlay = false;
 
   @override
   void initState() {
     super.initState();
-
-    _controller = CameraController(
-      // カメラを指定
-      widget.camera,
-      // 解像度を定義
-      ResolutionPreset.medium,
-    );
-
-    // コントローラーを初期化
-    _initializeControllerFuture = _controller.initialize();
   }
 
-  @override
-  void dispose() {
-    // ウィジェットが破棄されたら、コントローラーを破棄
-    _controller.dispose();
-    super.dispose();
+  Future getVideoFromCamera() async {
+    // ignore: deprecated_member_use
+    final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
+    GallerySaver.saveVideo(pickedFile!.path, albumName: 'SPORTY');
+  }
+
+  Future getVideoFromGarally() async {
+    PickedFile pickedFile = (await imagePicker.getVideo(source: ImageSource.gallery))!;
+    _controller = VideoPlayerController.file(File(pickedFile.path));
+    await _controller.initialize();
+    _chewieController = ChewieController(
+      videoPlayerController: _controller,
+      autoPlay: true,
+      looping: false,
+      fullScreenByDefault: false,
+      zoomAndPan: true,
+    );
+    setState(() {
+      _isVideoPlay = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Center(
-        child: FutureBuilder<void>(
-          future: _initializeControllerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return CameraPreview(_controller);
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // 写真を撮る
-          final image = await _controller.takePicture();
-          // 表示用の画面に遷移
-          // ignore: use_build_context_synchronously
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => DisplayPictureScreen(imagePath: image.path),
-              fullscreenDialog: true,
+      backgroundColor: Colors.black,
+        body: Center(
+          // ignore: unnecessary_null_comparison
+          child: _isVideoPlay == false
+          ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            InkWell(
+              onTap: () {
+                getVideoFromCamera();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.blue,
+                width: _screenSize.width,
+                height: _screenSize.height * 0.5,
+                child: Center(
+                  child: const Icon(
+                    size: 50,
+                    color:Colors.white,
+                    Icons.video_call
+                  ),
+                ),
+              ),
             ),
-          );
-        },
-        child: const Icon(Icons.camera_alt),
-      ),
-    );
-  }
-}
-
-// 撮影した写真を表示する画面
-class DisplayPictureScreen extends StatelessWidget {
-  const DisplayPictureScreen({Key? key, required this.imagePath})
-      : super(key: key);
-
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('撮れた写真')),
-      body: Center(child: Image.file(File(imagePath))),
+            InkWell(
+              onTap: () {
+                getVideoFromGarally();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.green,
+                width: _screenSize.width,
+                height: _screenSize.height * 0.5,
+                child: Center(
+                  child: const Icon(
+                    size: 50,
+                    color:Colors.white,
+                    Icons.movie_creation
+                  ),
+                ),
+              ),
+            ),
+            ]
+          )
+          : Column(children: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  _isVideoPlay = false;
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.green,
+                width: _screenSize.width,
+                height: _screenSize.height * 0.07,
+                child: Center(
+                  child: Text('再生をやめる'),
+                  ),
+                ),
+              ),
+            Container(
+              width: _screenSize.width,
+              height: _screenSize.height * 0.9,
+              child: Chewie(controller: _chewieController)
+            ),
+            ],
+          )
+        ),
     );
   }
 }

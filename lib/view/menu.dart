@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -7,6 +7,7 @@ var _width = 0.8;
 
 class Menu extends StatelessWidget {
   const Menu({Key? key}) : super(key: key);
+
 
   goTest(BuildContext context) {
     Navigator.pushNamed(context, '/test');
@@ -32,12 +33,14 @@ class Menu extends StatelessWidget {
     Navigator.pushNamed(context, '/comparison');
   }
 
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
       backgroundColor: Colors.green,
-      title: const Text('MENU'),
+      title: const Text('メニュー'),
     );
+
 
     final goTestButton = ElevatedButton(
       onPressed: () => goTest(context),
@@ -56,6 +59,7 @@ class Menu extends StatelessWidget {
       ),
     );
 
+
     final goDelayMenuButton = ElevatedButton(
       onPressed: () => goDelayMenu(context),
       style: ElevatedButton.styleFrom(
@@ -72,6 +76,7 @@ class Menu extends StatelessWidget {
         ),
       ),
     );
+
 
     final goSlowButton = ElevatedButton(
       onPressed: () => goSlow(context),
@@ -90,6 +95,7 @@ class Menu extends StatelessWidget {
       ),
     );
 
+
     final goTakePictureButton = ElevatedButton(
       onPressed: () => goTakePicture(context),
       style: ElevatedButton.styleFrom(
@@ -100,12 +106,13 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '写真撮影',
+        '動画撮影',
         style: TextStyle(
           fontSize: 20,
         ),
       ),
     );
+
 
     final goP2PButton = ElevatedButton(
       onPressed: () => goP2P(context),
@@ -124,6 +131,7 @@ class Menu extends StatelessWidget {
       ),
     );
 
+
     final goComparisonButton = ElevatedButton(
       onPressed: () => goComparison(context),
       style: ElevatedButton.styleFrom(
@@ -141,7 +149,9 @@ class Menu extends StatelessWidget {
       ),
     );
 
+    
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar,
       body: Center(
         child: Container(
@@ -149,7 +159,7 @@ class Menu extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              goTestButton,
+              //goTestButton,
               goTakePictureButton,
               goDelayMenuButton,
               goSlowButton,
