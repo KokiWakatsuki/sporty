@@ -8,7 +8,6 @@ var _width = 0.8;
 class Menu extends StatelessWidget {
   const Menu({Key? key}) : super(key: key);
 
-
   goTest(BuildContext context) {
     Navigator.pushNamed(context, '/test');
   }
@@ -28,11 +27,14 @@ class Menu extends StatelessWidget {
   goP2P(BuildContext context) {
     Navigator.pushNamed(context, '/p2p');
   }
-  
+
   goComparison(BuildContext context) {
     Navigator.pushNamed(context, '/comparison');
   }
 
+  goComparison2(BuildContext context) {
+    Navigator.pushNamed(context, '/comparison2');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,6 @@ class Menu extends StatelessWidget {
       backgroundColor: Colors.green,
       title: const Text('メニュー'),
     );
-
 
     final goTestButton = ElevatedButton(
       onPressed: () => goTest(context),
@@ -59,7 +60,6 @@ class Menu extends StatelessWidget {
       ),
     );
 
-
     final goDelayMenuButton = ElevatedButton(
       onPressed: () => goDelayMenu(context),
       style: ElevatedButton.styleFrom(
@@ -76,7 +76,6 @@ class Menu extends StatelessWidget {
         ),
       ),
     );
-
 
     final goSlowButton = ElevatedButton(
       onPressed: () => goSlow(context),
@@ -95,7 +94,6 @@ class Menu extends StatelessWidget {
       ),
     );
 
-
     final goTakePictureButton = ElevatedButton(
       onPressed: () => goTakePicture(context),
       style: ElevatedButton.styleFrom(
@@ -112,7 +110,6 @@ class Menu extends StatelessWidget {
         ),
       ),
     );
-
 
     final goP2PButton = ElevatedButton(
       onPressed: () => goP2P(context),
@@ -131,7 +128,6 @@ class Menu extends StatelessWidget {
       ),
     );
 
-
     final goComparisonButton = ElevatedButton(
       onPressed: () => goComparison(context),
       style: ElevatedButton.styleFrom(
@@ -149,26 +145,42 @@ class Menu extends StatelessWidget {
       ),
     );
 
-    
+    final goComparison2Button = ElevatedButton(
+      onPressed: () => goComparison2(context),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green,
+        fixedSize: Size(
+          MediaQuery.of(context).size.width * _width,
+          MediaQuery.of(context).size.height * _height,
+        ),
+      ),
+      child: const Text(
+        '動画比較2',
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar,
       body: Center(
-        child: Container(
-          height:MediaQuery.of(context).size.height * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              //goTestButton,
-              goTakePictureButton,
-              goDelayMenuButton,
-              goSlowButton,
-              goP2PButton,
-              goComparisonButton,
-            ],
-          ),
-        )        
-      ),
+          child: Container(
+        height: MediaQuery.of(context).size.height * 0.8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            //goTestButton,
+            goTakePictureButton,
+            goDelayMenuButton,
+            goSlowButton,
+            goP2PButton,
+            goComparisonButton,
+            goComparison2Button,
+          ],
+        ),
+      )),
     );
   }
 }

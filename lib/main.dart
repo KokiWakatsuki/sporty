@@ -3,6 +3,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sporty/view/comparison2.dart';
 
 import 'package:sporty/view/top.dart';
 import 'package:sporty/view/menu.dart';
@@ -57,7 +58,8 @@ class App extends StatelessWidget {
         '/slow': (context) => Slow(camera: camera),
         '/take_picture': (context) => TakePicture(camera: camera),
         '/p2p': (context) => const P2P(),
-        '/comparison': (context) => Comparison(camera: camera), 
+        '/comparison': (context) => Comparison(camera: camera),
+        '/comparison2': (context) => Comparison2(camera: camera),
       },
     );
   }
