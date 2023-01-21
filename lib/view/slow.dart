@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore
+// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore, sort_child_properties_last
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -101,7 +101,22 @@ class SlowState extends State<Slow> {
       body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                  Align(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            Navigator.of(context).pop();
+                          });
+                        },
+                        child:
+                            const Icon(color: Colors.white, Icons.arrow_back),
+                    ),
+                    alignment: Alignment.topLeft,
+                  ),
                   InkWell(
                     onTap: () {
                       getVideoFromCamera();
@@ -109,8 +124,8 @@ class SlowState extends State<Slow> {
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       color: Colors.blue,
-                      width: _screenSize.width,
-                      height: _screenSize.height * 0.5,
+                      width: _screenSize.width * 0.85,
+                      height: _screenSize.height * 0.45,
                       child: Center(
                         child: const Icon(
                             size: 50, color: Colors.white, Icons.video_call),
@@ -124,8 +139,8 @@ class SlowState extends State<Slow> {
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       color: Colors.green,
-                      width: _screenSize.width,
-                      height: _screenSize.height * 0.5,
+                      width: _screenSize.width * 0.85,
+                      height: _screenSize.height * 0.45,
                       child: Center(
                         child: const Icon(
                             size: 50,
