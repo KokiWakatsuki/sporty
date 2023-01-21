@@ -45,6 +45,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   late Future<void> _initializeCameraControllerFuture;
   bool _isVideoPlay = false;
   XFile? video;
+  bool _disposeFlag = false;
 
   @override
   void initState() {
@@ -116,6 +117,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     await Future.delayed(Duration(seconds: delay_sec));
     video = await _cameraController.stopVideoRecording();
     await _cameraController.startVideoRecording();
+    if(_disposeFlag == true) _videoController.dispose();
     _videoController = VideoPlayerController.file(File(video!.path));
     await _videoController.initialize();
     _chewieController = await ChewieController(
@@ -130,6 +132,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
       useRootNavigator: false,
       allowedScreenSleep: false,
     );
+    _disposeFlag = true;
     //debugPrint("ggg-----------------------------------------------------------------------------");
     setState(() {
       _isVideoPlay = true;
