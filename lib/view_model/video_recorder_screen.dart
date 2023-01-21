@@ -174,6 +174,19 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                     width: _screenSize.width,
                     height: _screenSize.height,
                     child: Chewie(controller: _chewieController)),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                  ),
+                  onPressed: () {
+                    _cameraController.stopVideoRecording();
+                    _cameraController.dispose();
+                    _videoController.dispose();
+                    Navigator.of(context).pop();
+                  },
+                  child:
+                      const Icon(color: Colors.white, Icons.arrow_back),
+                ),
                 Align(
                     alignment: Alignment.bottomLeft,
                     child: ElevatedButton(
@@ -188,7 +201,25 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                     ))
               ],
             )
-          : const Center(child: CircularProgressIndicator()),
+          : Stack(
+            children: [
+              const Center(child: CircularProgressIndicator()),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  elevation: 0,
+                ),
+                onPressed: () {
+                  _cameraController.stopVideoRecording();
+                  _cameraController.dispose();
+                  _videoController.dispose();
+                  Navigator.of(context).pop();
+                },
+                child:
+                    const Icon(color: Colors.black, Icons.arrow_back),
+              ),
+            ]
+          ),
     );
   }
 }

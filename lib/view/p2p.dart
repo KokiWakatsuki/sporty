@@ -130,6 +130,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
     chewie_update = 0;
     imagePaths.removeLast();
     len = imagePaths.length;
+    _controller.dispose();
     _controller = VideoPlayerController.file(File(imagePaths.last));
     await _controller.initialize();
     _chewieController = await ChewieController(
