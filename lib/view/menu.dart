@@ -138,7 +138,7 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '動画比較 同時再生',
+        '動画比較 Type1',
         style: TextStyle(
           fontSize: 20,
         ),
@@ -155,7 +155,7 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '動画比較 交互再生',
+        '動画比較 Type2',
         style: TextStyle(
           fontSize: 20,
         ),

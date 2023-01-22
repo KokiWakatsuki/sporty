@@ -254,12 +254,27 @@ class _ComparisonState extends State<Comparison> {
                 ]
               )
               : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                Align(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          Navigator.of(context).pop();
+                        });
+                      },
+                      child:
+                          const Icon(color: Colors.white, Icons.arrow_back),
+                  ),
+                  alignment: Alignment.topLeft,
+                ),
                 Container(
-                  height:MediaQuery.of(context).size.height * 0.5,
+                  height:MediaQuery.of(context).size.height * 0.45,
                   child: Chewie(controller: _chewieController[0]),
                 ),
                 Container(
-                  height:MediaQuery.of(context).size.height * 0.5,
+                  height:MediaQuery.of(context).size.height * 0.45,
                   child: Chewie(controller: _chewieController[1]),
                 ),
                 ]
