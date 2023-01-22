@@ -206,7 +206,7 @@ class _Comparison2State extends State<Comparison2> {
                     ),
                     InkWell(
                       onTap: () {
-                        getVideoFromCamera1();
+                        getVideoFromCamera2();
                       },
                       child: Container(
                         padding: const EdgeInsets.all(20),

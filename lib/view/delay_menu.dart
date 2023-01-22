@@ -200,7 +200,7 @@ class _DelayMenuState extends State<DelayMenu> {
                               height:_screenSize.height * 0.05,
                               child: Center(child: 
                                 Text(
-                                  "内カメラ",
+                                  "インカメラ",
                                   style: TextStyle(
                                     fontSize: text_size,
                                   )
@@ -223,7 +223,7 @@ class _DelayMenuState extends State<DelayMenu> {
                               height:_screenSize.height * 0.05,
                               child: Center(child: 
                                 Text(
-                                  "外カメラ",
+                                  "アウトカメラ",
                                   style: TextStyle(
                                     fontSize: text_size,
                                   )
