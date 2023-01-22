@@ -115,7 +115,6 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   }
 
   void videorecord() async {
-    //debugPrint("sss-----------------------------------------------------------------------------");
     await _initializeCameraControllerFuture;
     await Future.delayed(Duration(seconds: delay_time));
     video = await _cameraController.stopVideoRecording();
@@ -136,7 +135,6 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
       allowedScreenSleep: false,
     );
     _disposeFlag = true;
-    //debugPrint("ggg-----------------------------------------------------------------------------");
     setState(() {
       _isVideoPlay = true;
     });
@@ -150,10 +148,6 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final appBar = AppBar(
-    //   backgroundColor: Colors.green,
-    //   title: const Text('遅延再生'),
-    // );
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       //appBar: appBar,
