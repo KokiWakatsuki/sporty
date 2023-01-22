@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, constant_identifier_names, sort_child_properties_last, deprecated_member_use, duplicate_ignore
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, constant_identifier_names, sort_child_properties_last, deprecated_member_use, duplicate_ignore, avoid_print
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -21,15 +21,13 @@ class Comparison extends StatefulWidget {
 }
 
 class _ComparisonState extends State<Comparison> {
-  late VideoPlayerController _controller_1;
-  late VideoPlayerController _controller_2;
-  late ChewieController _chewieController_1;
-  late ChewieController _chewieController_2;
-  final imagePicker = ImagePicker();
-  bool _isVideoPlay_1 = false;
-  bool _isVideoPlay_2 = false;
+  final List<VideoPlayerController> _controller = [];
+  final List<ChewieController> _chewieController = [];
   late PickedFile pickedFile_1;
   late PickedFile pickedFile_2;
+  final imagePicker = ImagePicker();
+  bool _isVideoSet_1 = false;
+  bool _isVideoSet_2 = false;
   static const double main_text_size = 25;
   static const double sub_text_size = 17;
   static const double space_text_size = 10;
@@ -39,22 +37,19 @@ class _ComparisonState extends State<Comparison> {
     super.initState();
   }
 
-  Future getVideoFromCamera() async {
+  Future getVideoFromCamera_1() async {
     // ignore: deprecated_member_use
-    final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
-    _controller_1 = VideoPlayerController.file(File(pickedFile!.path));
-    await _controller_1.initialize();
-    _chewieController_1 = ChewieController(
-      videoPlayerController: _controller_1,
-      autoPlay: true,
-      looping: true,
-      fullScreenByDefault: true,
-      zoomAndPan: true,
-      showControlsOnInitialize: false,
-    );
+    pickedFile_1 = (await imagePicker.getVideo(source: ImageSource.camera))!;
     setState(() {
-      _isVideoPlay_1 = true;
+      _isVideoSet_1 = true;
     });
+  }
+
+  Future getVideoFromCamera_2() async {
+    // ignore: deprecated_member_use
+    pickedFile_2 = (await imagePicker.getVideo(source: ImageSource.camera))!;
+    _isVideoSet_2 = true;
+    setVideo();
   }
 
   Future getVideoFromGarally_1() async {
@@ -62,7 +57,7 @@ class _ComparisonState extends State<Comparison> {
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
     setState(() {
-      _isVideoPlay_1 = true;
+      _isVideoSet_1 = true;
     });
   }
 
@@ -70,45 +65,29 @@ class _ComparisonState extends State<Comparison> {
     pickedFile_2 =
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
-    await getVideoFromGarally();
-    setState(() {
-      _isVideoPlay_2 = true;
-    });
+    _isVideoSet_2 = true;
+    setVideo();
   }
 
-  Future getVideoFromGarally() async {
-    _controller_1 = VideoPlayerController.file(
-      File(pickedFile_1.path),
-      videoPlayerOptions: VideoPlayerOptions(
-        mixWithOthers: true,
-      ),
-    );
-    _controller_2 = VideoPlayerController.file(
-      File(pickedFile_2.path),
-      videoPlayerOptions: VideoPlayerOptions(
-        mixWithOthers: true,
-      ),
-    );
-    await _controller_1.initialize();
-    await _controller_2.initialize();
-    _chewieController_1 = ChewieController(
-      videoPlayerController: _controller_1,
+  Future setVideo() async {
+    _controller.add(VideoPlayerController.file(File(pickedFile_1.path),));
+    _controller.add(VideoPlayerController.file(File(pickedFile_2.path),));
+    await _controller[0].initialize();
+    await _controller[1].initialize();
+    _chewieController.add(ChewieController(
+      videoPlayerController: _controller[0],
       autoPlay: true,
-      looping: true,
       showControlsOnInitialize: false,
-      //fullScreenByDefault: true,
-      //allowFullScreen: false,
-      zoomAndPan: true,
-    );
-    _chewieController_2 = ChewieController(
-      videoPlayerController: _controller_2,
+      allowFullScreen: false,
+    ));
+    _chewieController.add(ChewieController(
+      videoPlayerController: _controller[1],
       autoPlay: true,
-      looping: true,
       showControlsOnInitialize: false,
-      //fullScreenByDefault: true,
-      //allowFullScreen: false,
-      zoomAndPan: true,
-    );
+      allowFullScreen: false,
+    ));
+    setState(() {
+    });
   }
 
   @override
@@ -118,7 +97,7 @@ class _ComparisonState extends State<Comparison> {
       backgroundColor: Colors.black,
         body: Center(
           // ignore: unnecessary_null_comparison
-          child: _isVideoPlay_1 == false
+          child: _isVideoSet_1 == false
             ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
               Align(
                   child: ElevatedButton(
@@ -137,7 +116,7 @@ class _ComparisonState extends State<Comparison> {
                 ),
               InkWell(
                 onTap: () {
-                  getVideoFromCamera();
+                  getVideoFromCamera_1();
                 },
                 child: Container(
                     padding: const EdgeInsets.all(20),
@@ -189,7 +168,7 @@ class _ComparisonState extends State<Comparison> {
               ),
               ]
             )
-            : _isVideoPlay_2 == false
+            : _isVideoSet_2 == false
               ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 Align(
                       child: ElevatedButton(
@@ -199,7 +178,7 @@ class _ComparisonState extends State<Comparison> {
                           onPressed: () {
                             setState(() {
                               setState(() {
-                                _isVideoPlay_1 = false;
+                                _isVideoSet_1 = false;
                               });
                             });
                           },
@@ -210,7 +189,7 @@ class _ComparisonState extends State<Comparison> {
                     ),
                 InkWell(
                   onTap: () {
-                    getVideoFromCamera();
+                    getVideoFromCamera_2();
                   },
                   child: Container(
                         padding: const EdgeInsets.all(20),
@@ -265,11 +244,11 @@ class _ComparisonState extends State<Comparison> {
               : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Container(
                   height:MediaQuery.of(context).size.height * 0.5,
-                  child: Chewie(controller: _chewieController_1),
+                  child: Chewie(controller: _chewieController[0]),
                 ),
                 Container(
                   height:MediaQuery.of(context).size.height * 0.5,
-                  child: Chewie(controller: _chewieController_2),
+                  child: Chewie(controller: _chewieController[1]),
                 ),
                 ]
               )
