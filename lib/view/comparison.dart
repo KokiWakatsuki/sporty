@@ -357,7 +357,13 @@ class _ComparisonState extends State<Comparison> {
                         ),
                         onPressed: () {
                           setState(() {
-                            Navigator.of(context).pop();
+                            _controller[0].dispose();
+                            _controller[1].dispose();
+                            _chewieController[0].dispose();
+                            _chewieController[1].dispose();
+                            _controller.clear();
+                            _chewieController.clear();
+                            _isTypeSetPage = false;
                           });
                         },
                         child:
@@ -385,7 +391,13 @@ class _ComparisonState extends State<Comparison> {
                         ),
                         onPressed: () {
                           setState(() {
-                            Navigator.of(context).pop();
+                            _controller[0].dispose();
+                            _controller[1].dispose();
+                            _chewieController[0].dispose();
+                            _chewieController[1].dispose();
+                            _controller.clear();
+                            _chewieController.clear();
+                            _isTypeSetPage = false;
                           });
                         },
                         child:
