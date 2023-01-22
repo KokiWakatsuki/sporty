@@ -14,6 +14,7 @@ import 'package:sporty/view/p2p.dart';
 import 'package:sporty/view/comparison.dart';
 import 'package:sporty/view/comparison2.dart';
 import 'package:sporty/view/comparison3.dart';
+import 'package:sporty/view/comparison_menu.dart';
 import 'package:sporty/view/delay_menu.dart';
 import 'view_model/video_recorder_screen.dart';
 
@@ -63,6 +64,7 @@ class App extends StatelessWidget {
         '/comparison': (context) => Comparison(camera: camera),
         '/comparison2': (context) => Comparison2(camera: camera),
         '/comparison3': (context) => Comparison3(camera: camera),
+        '/comparison_menu': (context) => const ComparisonMenu(),
       },
     );
   }

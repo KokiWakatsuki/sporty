@@ -28,6 +28,10 @@ class Menu extends StatelessWidget {
     Navigator.pushNamed(context, '/p2p');
   }
 
+  goComparisonMenu(BuildContext context) {
+    Navigator.pushNamed(context, '/comparison_menu');
+  }
+
   goComparison(BuildContext context) {
     Navigator.pushNamed(context, '/comparison');
   }
@@ -132,6 +136,23 @@ class Menu extends StatelessWidget {
       ),
     );
 
+    final goComparisonMenuButton = ElevatedButton(
+      onPressed: () => goComparisonMenu(context),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green,
+        fixedSize: Size(
+          MediaQuery.of(context).size.width * _width,
+          MediaQuery.of(context).size.height * _height,
+        ),
+      ),
+      child: const Text(
+        '動画比較',
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    );
+
     final goComparisonButton = ElevatedButton(
       onPressed: () => goComparison(context),
       style: ElevatedButton.styleFrom(
@@ -197,9 +218,7 @@ class Menu extends StatelessWidget {
             goDelayMenuButton,
             goSlowButton,
             goP2PButton,
-            goComparisonButton,
-            goComparison2Button,
-            goComparison3Button,
+            goComparisonMenuButton,
           ],
         ),
       )),
