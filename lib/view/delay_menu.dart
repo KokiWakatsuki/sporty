@@ -26,73 +26,82 @@ class _DelayMenuState extends State<DelayMenu> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('遅延再生設定'),
+      backgroundColor: Colors.grey,
+      title: const Text(
+        style: TextStyle(
+        color: Colors.black,
+      ),
+      '遅延再生設定'
+    ),
+      iconTheme: IconThemeData(
+        color: Colors.black
+      )
     );
 
     final sec_dropdownButton = DropdownButton(
       items: const [
-        DropdownMenuItem(value: 0, child: Text('00', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 1, child: Text('01', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 2, child: Text('02', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 3, child: Text('03', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 4, child: Text('04', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 5, child: Text('05', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 6, child: Text('06', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 7, child: Text('07', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 8, child: Text('08', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 9, child: Text('09', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 10, child: Text('10', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 11, child: Text('11', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 12, child: Text('12', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 13, child: Text('13', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 14, child: Text('14', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 15, child: Text('15', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 16, child: Text('16', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 17, child: Text('17', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 18, child: Text('18', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 19, child: Text('19', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 20, child: Text('20', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 21, child: Text('21', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 22, child: Text('22', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 23, child: Text('23', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 24, child: Text('24', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 25, child: Text('25', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 26, child: Text('26', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 27, child: Text('27', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 28, child: Text('28', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 29, child: Text('29', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 30, child: Text('30', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 31, child: Text('31', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 32, child: Text('32', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 33, child: Text('33', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 34, child: Text('34', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 35, child: Text('35', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 36, child: Text('36', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 37, child: Text('37', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 38, child: Text('38', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 39, child: Text('39', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 40, child: Text('40', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 41, child: Text('41', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 42, child: Text('42', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 43, child: Text('43', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 44, child: Text('44', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 45, child: Text('45', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 46, child: Text('46', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 47, child: Text('47', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 48, child: Text('48', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 49, child: Text('49', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 50, child: Text('50', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 51, child: Text('51', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 52, child: Text('52', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 53, child: Text('53', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 54, child: Text('54', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 55, child: Text('55', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 56, child: Text('56', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 57, child: Text('57', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 58, child: Text('58', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 59, child: Text('59', style: TextStyle(fontSize: time_text_size,),),),
+        DropdownMenuItem(value: 0, child: Text('00', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 1, child: Text('01', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 2, child: Text('02', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 3, child: Text('03', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 4, child: Text('04', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 5, child: Text('05', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 6, child: Text('06', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 7, child: Text('07', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 8, child: Text('08', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 9, child: Text('09', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 10, child: Text('10', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 11, child: Text('11', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 12, child: Text('12', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 13, child: Text('13', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 14, child: Text('14', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 15, child: Text('15', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 16, child: Text('16', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 17, child: Text('17', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 18, child: Text('18', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 19, child: Text('19', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 20, child: Text('20', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 21, child: Text('21', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 22, child: Text('22', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 23, child: Text('23', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 24, child: Text('24', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 25, child: Text('25', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 26, child: Text('26', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 27, child: Text('27', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 28, child: Text('28', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 29, child: Text('29', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 30, child: Text('30', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 31, child: Text('31', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 32, child: Text('32', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 33, child: Text('33', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 34, child: Text('34', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 35, child: Text('35', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 36, child: Text('36', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 37, child: Text('37', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 38, child: Text('38', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 39, child: Text('39', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 40, child: Text('40', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 41, child: Text('41', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 42, child: Text('42', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 43, child: Text('43', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 44, child: Text('44', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 45, child: Text('45', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 46, child: Text('46', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 47, child: Text('47', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 48, child: Text('48', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 49, child: Text('49', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 50, child: Text('50', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 51, child: Text('51', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 52, child: Text('52', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 53, child: Text('53', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 54, child: Text('54', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 55, child: Text('55', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 56, child: Text('56', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 57, child: Text('57', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 58, child: Text('58', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 59, child: Text('59', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
       ],
+      dropdownColor: Colors.grey,
       value: delay_sec,
       onChanged: (int? value) {
         setState(() {
@@ -104,18 +113,19 @@ class _DelayMenuState extends State<DelayMenu> {
 
     final min_dropdownButton = DropdownButton(
       items: const [
-        DropdownMenuItem(value: 0, child: Text('00', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 1, child: Text('01', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 2, child: Text('02', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 3, child: Text('03', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 4, child: Text('04', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 5, child: Text('05', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 6, child: Text('06', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 7, child: Text('07', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 8, child: Text('08', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 9, child: Text('09', style: TextStyle(fontSize: time_text_size,),),),
-        DropdownMenuItem(value: 10, child: Text('10', style: TextStyle(fontSize: time_text_size,),),),
+        DropdownMenuItem(value: 0, child: Text('00', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 1, child: Text('01', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 2, child: Text('02', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 3, child: Text('03', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 4, child: Text('04', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 5, child: Text('05', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 6, child: Text('06', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 7, child: Text('07', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 8, child: Text('08', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 9, child: Text('09', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
+        DropdownMenuItem(value: 10, child: Text('10', style: TextStyle(fontSize: time_text_size,color: Colors.white),),),
       ],
+      dropdownColor: Colors.grey,
       value: delay_min,
       onChanged: (int? value) {
         setState(() {
@@ -127,7 +137,12 @@ class _DelayMenuState extends State<DelayMenu> {
 
     final goDelayButton = ElevatedButton(
       onPressed: () => goDelay(context),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.grey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
       child: Container(
         width: _screenSize.width * 0.25,
         height:_screenSize.height * 0.06,
@@ -144,6 +159,7 @@ class _DelayMenuState extends State<DelayMenu> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: appBar,
       body: Center(
         child: Column(
@@ -156,6 +172,7 @@ class _DelayMenuState extends State<DelayMenu> {
                   '遅延時間',
                   style: TextStyle(
                     fontSize: text_size,
+                    color: Colors.white
                   ),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -164,14 +181,14 @@ class _DelayMenuState extends State<DelayMenu> {
                   Text(
                     ' 分  ',
                     style: TextStyle(
-                      fontSize: time_text_size,
+                      fontSize: time_text_size,color: Colors.white
                     ),
                   ),
                   sec_dropdownButton,
                   Text(
                     ' 秒',
                     style: TextStyle(
-                      fontSize: time_text_size,
+                      fontSize: time_text_size,color: Colors.white
                     ),
                   ),
                 ]),
@@ -183,6 +200,7 @@ class _DelayMenuState extends State<DelayMenu> {
                   'カメラ方向',
                   style: TextStyle(
                     fontSize: text_size,
+                    color: Colors.white
                   ),
                 ),
                 Text(''),
@@ -194,7 +212,7 @@ class _DelayMenuState extends State<DelayMenu> {
                         spacing: 10,
                         children: [
                           ChoiceChip(
-                            shape: RoundedRectangleBorder(),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                             label: Container(
                               width: _screenSize.width * 0.3,
                               height:_screenSize.height * 0.05,
@@ -203,13 +221,14 @@ class _DelayMenuState extends State<DelayMenu> {
                                   "インカメラ",
                                   style: TextStyle(
                                     fontSize: text_size,
+                                    color: camera_lens_flag == 0 ? Colors.black : Colors.white30
                                   )
                                 ),
                               ),
                             ),
                             selected: camera_lens_flag == 0,
-                            backgroundColor: Colors.grey[60],
-                            selectedColor: Colors.green,
+                            backgroundColor: Colors.black87,
+                            selectedColor: Colors.grey,
                             onSelected: (_) {
                               setState(() {
                                 camera_lens_flag = 0;
@@ -217,7 +236,7 @@ class _DelayMenuState extends State<DelayMenu> {
                             },
                           ),
                           ChoiceChip(
-                            shape: RoundedRectangleBorder(),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                             label: Container(
                               width: _screenSize.width * 0.3,
                               height:_screenSize.height * 0.05,
@@ -226,13 +245,14 @@ class _DelayMenuState extends State<DelayMenu> {
                                   "アウトカメラ",
                                   style: TextStyle(
                                     fontSize: text_size,
+                                    color: camera_lens_flag == 1 ? Colors.black : Colors.white30
                                   )
                                 ),
                               ),
                             ),
                             selected: camera_lens_flag == 1,
-                            backgroundColor: Colors.grey[60],
-                            selectedColor: Colors.green,
+                            backgroundColor: Colors.black87,
+                            selectedColor: Colors.grey,
                             onSelected: (_) {
                               setState(() {
                                 camera_lens_flag = 1;
@@ -252,6 +272,7 @@ class _DelayMenuState extends State<DelayMenu> {
                   '解像度',
                   style: TextStyle(
                     fontSize: text_size,
+                    color: Colors.white
                   ),
                 ),
                 Text(''),
@@ -260,7 +281,7 @@ class _DelayMenuState extends State<DelayMenu> {
                     Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                       ChoiceChip(
-                        shape: RoundedRectangleBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                         label: Container(
                           width: _screenSize.width * 0.3,
                           height:_screenSize.height * 0.05,
@@ -269,13 +290,14 @@ class _DelayMenuState extends State<DelayMenu> {
                               "240p",
                               style: TextStyle(
                                 fontSize: text_size,
+                                color: resolution_preset ==0 ? Colors.black : Colors.white30
                               )
                             ),
                           ),
                         ),
                         selected: resolution_preset == 0,
-                        backgroundColor: Colors.grey[60],
-                        selectedColor: Colors.green,
+                        backgroundColor: Colors.black87,
+                        selectedColor: Colors.grey,
                         onSelected: (_) {
                           setState(() {
                             resolution_preset = 0;
@@ -284,7 +306,7 @@ class _DelayMenuState extends State<DelayMenu> {
                       ),
                       Text('   '),
                       ChoiceChip(
-                        shape: RoundedRectangleBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                         label: Container(
                           width: _screenSize.width * 0.3,
                           height:_screenSize.height * 0.05,
@@ -293,13 +315,14 @@ class _DelayMenuState extends State<DelayMenu> {
                               "480p",
                               style: TextStyle(
                                 fontSize: text_size,
+                                color: resolution_preset ==1 ? Colors.black : Colors.white30
                               )
                             ),
                           ),
                         ),
                         selected: resolution_preset == 1,
-                        backgroundColor: Colors.grey[60],
-                        selectedColor: Colors.green,
+                        backgroundColor: Colors.black87,
+                        selectedColor: Colors.grey,
                         onSelected: (_) {
                           setState(() {
                             resolution_preset = 1;
@@ -311,7 +334,7 @@ class _DelayMenuState extends State<DelayMenu> {
                     Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                       ChoiceChip(
-                        shape: RoundedRectangleBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                         label: Container(
                           width: _screenSize.width * 0.3,
                           height:_screenSize.height * 0.05,
@@ -320,13 +343,14 @@ class _DelayMenuState extends State<DelayMenu> {
                               "720p",
                               style: TextStyle(
                                 fontSize: text_size,
+                                color: resolution_preset ==2 ? Colors.black : Colors.white30
                               )
                             ),
                           ),
                         ),
                         selected: resolution_preset == 2,
-                        backgroundColor: Colors.grey[60],
-                        selectedColor: Colors.green,
+                        backgroundColor: Colors.black87,
+                        selectedColor: Colors.grey,
                         onSelected: (_) {
                           setState(() {
                             resolution_preset = 2;
@@ -335,7 +359,7 @@ class _DelayMenuState extends State<DelayMenu> {
                       ),
                       Text('   '),
                       ChoiceChip(
-                        shape: RoundedRectangleBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                         label: Container(
                           width: _screenSize.width * 0.3,
                           height:_screenSize.height * 0.05,
@@ -344,13 +368,14 @@ class _DelayMenuState extends State<DelayMenu> {
                               "1080p",
                               style: TextStyle(
                                 fontSize: text_size,
+                                color: resolution_preset ==3 ? Colors.black : Colors.white30
                               )
                             ),
                           ),
                         ),
                         selected: resolution_preset == 3,
-                        backgroundColor: Colors.grey[60],
-                        selectedColor: Colors.green,
+                        backgroundColor: Colors.black87,
+                        selectedColor: Colors.grey,
                         onSelected: (_) {
                           setState(() {
                             resolution_preset = 3;
@@ -362,7 +387,7 @@ class _DelayMenuState extends State<DelayMenu> {
                     Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                       ChoiceChip(
-                        shape: RoundedRectangleBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                         label: Container(
                           width: _screenSize.width * 0.3,
                           height:_screenSize.height * 0.05,
@@ -371,13 +396,14 @@ class _DelayMenuState extends State<DelayMenu> {
                               "2160p",
                               style: TextStyle(
                                 fontSize: text_size,
+                                color: resolution_preset ==4 ? Colors.black : Colors.white30
                               )
                             ),
                           ),
                         ),
                         selected: resolution_preset == 4,
-                        backgroundColor: Colors.grey[60],
-                        selectedColor: Colors.green,
+                        backgroundColor: Colors.black87,
+                        selectedColor: Colors.grey,
                         onSelected: (_) {
                           setState(() {
                             resolution_preset = 4;
@@ -386,7 +412,7 @@ class _DelayMenuState extends State<DelayMenu> {
                       ),
                       Text('   '),
                       ChoiceChip(
-                        shape: RoundedRectangleBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                         label: Container(
                           width: _screenSize.width * 0.3,
                           height:_screenSize.height * 0.05,
@@ -395,13 +421,14 @@ class _DelayMenuState extends State<DelayMenu> {
                               "MAX",
                               style: TextStyle(
                                 fontSize: text_size,
+                                color: resolution_preset ==5 ? Colors.black : Colors.white30
                               )
                             ),
                           ),
                         ),
                         selected: resolution_preset == 5,
-                        backgroundColor: Colors.grey[60],
-                        selectedColor: Colors.green,
+                        backgroundColor: Colors.black87,
+                        selectedColor: Colors.grey,
                         onSelected: (_) {
                           setState(() {
                             resolution_preset = 5;

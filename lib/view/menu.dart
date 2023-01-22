@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-var _height = 0.08;
-var _width = 0.8;
+var _height = 0.1;
+var _width = 0.85;
 
 class Menu extends StatelessWidget {
   const Menu({Key? key}) : super(key: key);
@@ -47,8 +47,13 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('メニュー'),
+      backgroundColor: Colors.grey,
+      title: const Text(
+        style: TextStyle(
+        color: Colors.black,
+      ),
+      'メニュー'
+    ),
     );
 
     final goTestButton = ElevatedButton(
@@ -71,16 +76,20 @@ class Menu extends StatelessWidget {
     final goDelayMenuButton = ElevatedButton(
       onPressed: () => goDelayMenu(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         '遅延再生',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
@@ -88,16 +97,20 @@ class Menu extends StatelessWidget {
     final goSlowButton = ElevatedButton(
       onPressed: () => goSlow(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         'スロー再生',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
@@ -105,16 +118,20 @@ class Menu extends StatelessWidget {
     final goTakePictureButton = ElevatedButton(
       onPressed: () => goTakePicture(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         '動画撮影',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
@@ -122,16 +139,20 @@ class Menu extends StatelessWidget {
     final goP2PButton = ElevatedButton(
       onPressed: () => goP2P(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         'ファイル共有',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
@@ -139,73 +160,26 @@ class Menu extends StatelessWidget {
     final goComparisonMenuButton = ElevatedButton(
       onPressed: () => goComparisonMenu(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         '動画比較',
         style: TextStyle(
           fontSize: 20,
-        ),
-      ),
-    );
-
-    final goComparisonButton = ElevatedButton(
-      onPressed: () => goComparison(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        '動画比較 Type-A',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goComparison2Button = ElevatedButton(
-      onPressed: () => goComparison2(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        '動画比較 Type-B',
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
-
-    final goComparison3Button = ElevatedButton(
-      onPressed: () => goComparison3(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        fixedSize: Size(
-          MediaQuery.of(context).size.width * _width,
-          MediaQuery.of(context).size.height * _height,
-        ),
-      ),
-      child: const Text(
-        '動画比較 Type-C',
-        style: TextStyle(
-          fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: appBar,
       body: Center(
           child: Container(

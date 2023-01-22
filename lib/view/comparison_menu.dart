@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-var _height = 0.08;
-var _width = 0.8;
+var _height = 0.1;
+var _width = 0.85;
 
 class ComparisonMenu extends StatelessWidget {
   const ComparisonMenu({Key? key}) : super(key: key);
@@ -23,23 +23,34 @@ class ComparisonMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('メニュー'),
+      backgroundColor: Colors.grey,
+      iconTheme: IconThemeData(
+        color: Colors.black
+      ),
+      title: const Text(
+        '動画比較メニュー',
+        style: TextStyle(
+          color: Colors.black,
+        ),),
     );
 
     final goComparisonButton = ElevatedButton(
       onPressed: () => goComparison(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         '並べて比較',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
@@ -47,16 +58,20 @@ class ComparisonMenu extends StatelessWidget {
     final goComparison2Button = ElevatedButton(
       onPressed: () => goComparison2(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         '交互に比較',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
@@ -64,22 +79,26 @@ class ComparisonMenu extends StatelessWidget {
     final goComparison3Button = ElevatedButton(
       onPressed: () => goComparison3(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.grey,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: const Text(
         '透過させて比較',
         style: TextStyle(
           fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: appBar,
       body: Center(
           child: Container(

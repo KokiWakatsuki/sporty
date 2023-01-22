@@ -150,6 +150,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.black,
       //appBar: appBar,
       body: _isVideoPlay == true
           ? Stack(
@@ -191,7 +192,8 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
               const Center(child: CircularProgressIndicator()),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  backgroundColor: Colors.black,
+                  primary: Colors.black,
                   elevation: 0,
                 ),
                 onPressed: () {
@@ -200,7 +202,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                   Navigator.of(context).pop();
                 },
                 child:
-                    const Icon(color: Colors.black, Icons.arrow_back),
+                    const Icon(color: Colors.white, Icons.arrow_back),
               ),
             ]
           ),

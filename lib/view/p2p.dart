@@ -28,10 +28,19 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     final appBar = AppBar(
-      backgroundColor: Colors.green,
-      title: const Text('動画共有'),
+      backgroundColor: Colors.grey,
+      title: const Text(
+        '動画共有',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+      iconTheme: IconThemeData(
+        color: Colors.black
+      )
     );
     return Scaffold(
+      backgroundColor: Colors.black,
         appBar: appBar,
           body: SingleChildScrollView(
             child: Padding(
@@ -41,8 +50,13 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                 children: <Widget>[
                   const Padding(padding: EdgeInsets.only(top: 12.0)),
                   ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text("動画を選択"),
+                    leading: Icon(color: Colors.white, Icons.add),
+                    title: Text(
+                      '動画を選択',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                     onTap: () async {
                       final imagePicker = ImagePicker();
                       final pickedFile =
@@ -69,9 +83,14 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        child: const Text('共有'),
+                        child: const Text(
+                          '共有',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green, // background
+                          primary: Colors.grey, // background
                         ),
                         onPressed: text.isEmpty && imagePaths.isEmpty
                             ? null
@@ -84,16 +103,26 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                     builder: (BuildContext context) {
                       return Row(children: [
                         ElevatedButton(
-                          child: const Text('直前に選択した動画を破棄'),
+                          child: const Text(
+                            '直前に選択した動画を破棄',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.green, // background
+                            primary: Colors.grey, // background
                           ),
                           onPressed: () => setState(() {
                             chewie_update = 1;
                             _onDeleteImage();
                           })
                         ),
-                        Text('          選択中の動画：$len')
+                        Text(
+                          '          選択中の動画：$len',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ],);
                     },
                   ),
@@ -102,7 +131,12 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   ? Text('')
                   : chewie_update == 0
                   ? Column(children: [
-                    Text('直前に選択した動画'),
+                    Text(
+                      '直前に選択した動画',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                     Container(
                       color: Colors.black,
                       width: _screenSize.width,
@@ -112,7 +146,12 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                   ],
                   )
                   : Column(children: [
-                    Text('LOADING'),
+                    Text(
+                      'LOADING',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                     Container(
                       color: Colors.black,
                       width: _screenSize.width,
