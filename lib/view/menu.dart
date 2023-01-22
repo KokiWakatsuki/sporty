@@ -131,14 +131,14 @@ class Menu extends StatelessWidget {
     final goComparisonButton = ElevatedButton(
       onPressed: () => goComparison(context),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.green,
         fixedSize: Size(
           MediaQuery.of(context).size.width * _width,
           MediaQuery.of(context).size.height * _height,
         ),
       ),
       child: const Text(
-        '動画比較',
+        '動画比較 同時再生',
         style: TextStyle(
           fontSize: 20,
         ),
@@ -155,7 +155,7 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '動画比較 ver2',
+        '動画比較 交互再生',
         style: TextStyle(
           fontSize: 20,
         ),

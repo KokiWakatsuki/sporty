@@ -70,8 +70,20 @@ class _ComparisonState extends State<Comparison> {
   }
 
   Future setVideo() async {
-    _controller.add(VideoPlayerController.file(File(pickedFile_1.path),));
-    _controller.add(VideoPlayerController.file(File(pickedFile_2.path),));
+    _controller.add(VideoPlayerController.file(
+      File(pickedFile_1.path),
+        videoPlayerOptions: VideoPlayerOptions(
+          mixWithOthers: true,
+        ),
+      )
+    );
+    _controller.add(VideoPlayerController.file(
+      File(pickedFile_2.path),
+        videoPlayerOptions: VideoPlayerOptions(
+          mixWithOthers: true,
+        ),
+      )
+    );
     await _controller[0].initialize();
     await _controller[1].initialize();
     _chewieController.add(ChewieController(
