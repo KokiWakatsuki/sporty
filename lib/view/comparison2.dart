@@ -76,6 +76,7 @@ class _Comparison2State extends State<Comparison2> {
     _chewieController = ChewieController(
       videoPlayerController: _controller,
       autoPlay: true,
+      showControlsOnInitialize: false,
     );
     setState(() {});
     _listener = () async{
@@ -94,6 +95,7 @@ class _Comparison2State extends State<Comparison2> {
     _chewieController = ChewieController(
       videoPlayerController: _controller,
       autoPlay: true,
+      showControlsOnInitialize: false,
     );
     setState(() {});
     _listener = () async{

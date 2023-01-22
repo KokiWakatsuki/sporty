@@ -215,7 +215,6 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                 onPressed: () {
                   _cameraController.stopVideoRecording();
                   _cameraController.dispose();
-                  _videoController.dispose();
                   Navigator.of(context).pop();
                 },
                 child:

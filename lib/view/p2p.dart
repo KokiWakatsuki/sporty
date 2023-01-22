@@ -54,6 +54,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                         autoPlay: true,
                         looping: false,
                         zoomAndPan: true,
+                        showControlsOnInitialize: false,
                       );
                       if (pickedFile != null) {
                         setState(() {
@@ -138,6 +139,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
       autoPlay: true,
       looping: false,
       zoomAndPan: true,
+      showControlsOnInitialize: false,
     );
     setState(() {
       

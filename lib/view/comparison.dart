@@ -50,6 +50,7 @@ class _ComparisonState extends State<Comparison> {
       looping: true,
       fullScreenByDefault: true,
       zoomAndPan: true,
+      showControlsOnInitialize: false,
     );
     setState(() {
       _isVideoPlay_1 = true;
@@ -94,6 +95,7 @@ class _ComparisonState extends State<Comparison> {
       videoPlayerController: _controller_1,
       autoPlay: true,
       looping: true,
+      showControlsOnInitialize: false,
       //fullScreenByDefault: true,
       //allowFullScreen: false,
       zoomAndPan: true,
@@ -102,6 +104,7 @@ class _ComparisonState extends State<Comparison> {
       videoPlayerController: _controller_2,
       autoPlay: true,
       looping: true,
+      showControlsOnInitialize: false,
       //fullScreenByDefault: true,
       //allowFullScreen: false,
       zoomAndPan: true,

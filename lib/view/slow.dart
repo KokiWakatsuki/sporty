@@ -45,6 +45,7 @@ class SlowState extends State<Slow> {
         looping: true,
         fullScreenByDefault: true,
         zoomAndPan: true,
+        showControlsOnInitialize: false,
         playbackSpeeds: const [
           0.1,
           0.2,
@@ -77,6 +78,7 @@ class SlowState extends State<Slow> {
         fullScreenByDefault: true,
         allowFullScreen: false,
         zoomAndPan: true,
+        showControlsOnInitialize: false,
         playbackSpeeds: const [
           0.1,
           0.2,

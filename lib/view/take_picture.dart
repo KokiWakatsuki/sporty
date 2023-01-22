@@ -56,6 +56,7 @@ class TakePictureState extends State<TakePicture> {
       autoPlay: true,
       looping: false,
       fullScreenByDefault: false,
+      showControlsOnInitialize: false,
       zoomAndPan: true,
     );
     setState(() {
