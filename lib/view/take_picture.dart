@@ -143,29 +143,29 @@ class TakePictureState extends State<TakePicture> {
             ),
           ])
           : Column(children: [
-            InkWell(
-              onTap: () {
-                setState(() {
-                  _isVideoPlay = false;
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                color: Colors.green,
-                width: _screenSize.width,
-                height: _screenSize.height * 0.07,
-                child: Center(
-                  child: Text('再生をやめる'),
-                  ),
+            Align(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
                 ),
+                onPressed: () {
+                  setState(() {
+                    _controller.dispose();
+                    _chewieController.dispose();
+                    _isVideoPlay = false;
+                  });
+                },
+                child:
+                    const Icon(color: Colors.white, Icons.arrow_back),
               ),
+              alignment: Alignment.topLeft,
+            ),
             Container(
               width: _screenSize.width,
               height: _screenSize.height * 0.9,
               child: Chewie(controller: _chewieController)
             ),
-            ],
-          )
+          ],)
         ),
     );
   }

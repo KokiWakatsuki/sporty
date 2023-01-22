@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore, sort_child_properties_last, constant_identifier_names
+// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore, sort_child_properties_last, constant_identifier_names, non_constant_identifier_names
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 // 写真撮影画面
 class Slow extends StatefulWidget {
@@ -28,6 +30,8 @@ class SlowState extends State<Slow> {
   static const double main_text_size = 25;
   static const double sub_text_size = 17;
   static const double space_text_size = 10;
+  String video_path = '';
+  
 
   @override
   void initState() {
@@ -39,6 +43,7 @@ class SlowState extends State<Slow> {
     final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
     _controller = VideoPlayerController.file(File(pickedFile!.path));
     await _controller.initialize();
+    video_path = pickedFile.path;
     _chewieController = ChewieController(
         videoPlayerController: _controller,
         autoPlay: true,
@@ -66,11 +71,16 @@ class SlowState extends State<Slow> {
     });
   }
 
+  void saveVideo(String pickedFile) {
+    GallerySaver.saveVideo(pickedFile, albumName: 'SPORTY');
+  }
+
   Future getVideoFromGarally() async {
     PickedFile pickedFile =
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
     _controller = VideoPlayerController.file(File(pickedFile.path));
+
     await _controller.initialize();
     _chewieController = ChewieController(
         videoPlayerController: _controller,
@@ -190,11 +200,27 @@ class SlowState extends State<Slow> {
                           setState(() {
                             _isVideoPlay = false;
                             _controller.dispose();
+                            video_path = '';
                           });
                         },
                         child:
                             const Icon(color: Colors.white, Icons.arrow_back),
                       ),
+                      video_path != ''
+                      ? Align(
+                        alignment: Alignment.bottomLeft,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black,
+                          ),
+                          onPressed: () {
+                            saveVideo(video_path);
+                            video_path = '';
+                          },
+                          child:
+                              const Icon(color: Colors.white, Icons.file_download),
+                        ))
+                      : Text(' ')
                   ],
                 )),
     );
