@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -27,16 +27,20 @@ class Menu extends StatelessWidget {
   goP2P(BuildContext context) {
     Navigator.pushNamed(context, '/p2p');
   }
-  
+
   goComparison(BuildContext context) {
     Navigator.pushNamed(context, '/comparison');
+  }
+
+  goComparison2(BuildContext context) {
+    Navigator.pushNamed(context, '/comparison2');
   }
 
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
       backgroundColor: Colors.green,
-      title: const Text('MENU'),
+      title: const Text('メニュー'),
     );
 
     final goTestButton = ElevatedButton(
@@ -100,7 +104,7 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '写真撮影',
+        '動画撮影',
         style: TextStyle(
           fontSize: 20,
         ),
@@ -141,24 +145,42 @@ class Menu extends StatelessWidget {
       ),
     );
 
+    final goComparison2Button = ElevatedButton(
+      onPressed: () => goComparison2(context),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green,
+        fixedSize: Size(
+          MediaQuery.of(context).size.width * _width,
+          MediaQuery.of(context).size.height * _height,
+        ),
+      ),
+      child: const Text(
+        '動画比較2',
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    );
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar,
       body: Center(
-        child: Container(
-          height:MediaQuery.of(context).size.height * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              goTestButton,
-              goTakePictureButton,
-              goDelayMenuButton,
-              goSlowButton,
-              goP2PButton,
-              goComparisonButton,
-            ],
-          ),
-        )        
-      ),
+          child: Container(
+        height: MediaQuery.of(context).size.height * 0.8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            //goTestButton,
+            goTakePictureButton,
+            goDelayMenuButton,
+            goSlowButton,
+            goP2PButton,
+            goComparisonButton,
+            goComparison2Button,
+          ],
+        ),
+      )),
     );
   }
 }

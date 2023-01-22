@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, constant_identifier_names, sort_child_properties_last, deprecated_member_use, duplicate_ignore
+﻿// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_final_fields, sort_child_properties_last, deprecated_member_use, duplicate_ignore, constant_identifier_names
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -7,9 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
-
-class Comparison extends StatefulWidget {
-  const Comparison({
+class Comparison2 extends StatefulWidget {
+  const Comparison2({
     Key? key,
     required this.camera,
   }) : super(key: key);
@@ -17,43 +16,41 @@ class Comparison extends StatefulWidget {
   final CameraDescription camera;
 
   @override
-  State<Comparison> createState() => _ComparisonState();
+  State<Comparison2> createState() => _Comparison2State();
 }
 
-class _ComparisonState extends State<Comparison> {
-  late VideoPlayerController _controller_1;
-  late VideoPlayerController _controller_2;
-  late ChewieController _chewieController_1;
-  late ChewieController _chewieController_2;
+class _Comparison2State extends State<Comparison2> {
+  late VideoPlayerController _controller;
+  late ChewieController _chewieController;
   final imagePicker = ImagePicker();
-  bool _isVideoPlay_1 = false;
-  bool _isVideoPlay_2 = false;
+  bool _isVideoSet_1 = false;
+  bool _isVideoSet_2 = false;
   late PickedFile pickedFile_1;
   late PickedFile pickedFile_2;
+  late VoidCallback _listener;
+  bool _flag = false;
   static const double main_text_size = 25;
   static const double sub_text_size = 17;
   static const double space_text_size = 10;
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
   }
 
-  Future getVideoFromCamera() async {
+  Future getVideoFromCamera1() async {
     // ignore: deprecated_member_use
-    final pickedFile = await imagePicker.getVideo(source: ImageSource.camera);
-    _controller_1 = VideoPlayerController.file(File(pickedFile!.path));
-    await _controller_1.initialize();
-    _chewieController_1 = ChewieController(
-      videoPlayerController: _controller_1,
-      autoPlay: true,
-      looping: true,
-      fullScreenByDefault: true,
-      zoomAndPan: true,
-    );
+    pickedFile_1 = (await imagePicker.getVideo(source: ImageSource.camera))!;
     setState(() {
-      _isVideoPlay_1 = true;
+      _isVideoSet_1 = true;
     });
+  }
+
+  Future getVideoFromCamera2() async {
+    // ignore: deprecated_member_use
+    pickedFile_2 = (await imagePicker.getVideo(source: ImageSource.camera))!;
+    _isVideoSet_2 = true;
+    setVideo1();
   }
 
   Future getVideoFromGarally_1() async {
@@ -61,7 +58,7 @@ class _ComparisonState extends State<Comparison> {
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
     setState(() {
-      _isVideoPlay_1 = true;
+      _isVideoSet_1 = true;
     });
   }
 
@@ -69,55 +66,58 @@ class _ComparisonState extends State<Comparison> {
     pickedFile_2 =
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
-    await getVideoFromGarally();
-    setState(() {
-      _isVideoPlay_2 = true;
-    });
+    _isVideoSet_2 = true;
+    setVideo1();
   }
 
-  Future getVideoFromGarally() async {
-    _controller_1 = VideoPlayerController.file(
-      File(pickedFile_1.path),
-      videoPlayerOptions: VideoPlayerOptions(
-        mixWithOthers: true,
-      ),
-    );
-    _controller_2 = VideoPlayerController.file(
-      File(pickedFile_2.path),
-      videoPlayerOptions: VideoPlayerOptions(
-        mixWithOthers: true,
-      ),
-    );
-    await _controller_1.initialize();
-    await _controller_2.initialize();
-    _chewieController_1 = ChewieController(
-      videoPlayerController: _controller_1,
+  Future setVideo1() async {
+    _controller = VideoPlayerController.file(File(pickedFile_1.path),);
+    await _controller.initialize();
+    _chewieController = ChewieController(
+      videoPlayerController: _controller,
       autoPlay: true,
-      looping: true,
-      //fullScreenByDefault: true,
-      //allowFullScreen: false,
-      zoomAndPan: true,
     );
-    _chewieController_2 = ChewieController(
-      videoPlayerController: _controller_2,
-      autoPlay: true,
-      looping: true,
-      //fullScreenByDefault: true,
-      //allowFullScreen: false,
-      zoomAndPan: true,
-    );
+    setState(() {});
+    _listener = () async{
+      if (!_controller.value.isPlaying) {
+        // 再生完了
+          _controller.dispose();
+          await setVideo2();
+      }
+    };
+    _controller.addListener(_listener);
   }
+
+  Future setVideo2() async {
+    _controller = VideoPlayerController.file(File(pickedFile_2.path),);
+    await _controller.initialize();
+    _chewieController = ChewieController(
+      videoPlayerController: _controller,
+      autoPlay: true,
+    );
+    setState(() {});
+    _listener = () async{
+      if (!_controller.value.isPlaying) {
+        // 再生完了
+          _controller.dispose();
+          await setVideo1();
+      }
+    };
+    _controller.addListener(_listener);
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
-        body: Center(
-          // ignore: unnecessary_null_comparison
-          child: _isVideoPlay_1 == false
+      body: Center(
+        // ignore: unnecessary_null_comparison
+        child: _isVideoSet_1 == false
             ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              Align(
+                Align(
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black,
@@ -132,11 +132,11 @@ class _ComparisonState extends State<Comparison> {
                   ),
                   alignment: Alignment.topLeft,
                 ),
-              InkWell(
-                onTap: () {
-                  getVideoFromCamera();
-                },
-                child: Container(
+                InkWell(
+                  onTap: () {
+                    getVideoFromCamera1();
+                  },
+                  child: Container(
                     padding: const EdgeInsets.all(20),
                     width: _screenSize.width * 0.85,
                     height: _screenSize.height * 0.43,
@@ -157,12 +157,12 @@ class _ComparisonState extends State<Comparison> {
                       ) 
                     ),
                   ),
-              ),
-              InkWell(
-                onTap: () {
-                  getVideoFromGarally_1();
-                },
-                child: Container(
+                ),
+                InkWell(
+                  onTap: () {
+                    getVideoFromGarally_1();
+                  },
+                  child: Container(
                     padding: const EdgeInsets.all(20),
                     width: _screenSize.width * 0.85,
                     height: _screenSize.height * 0.43,
@@ -183,12 +183,11 @@ class _ComparisonState extends State<Comparison> {
                       )
                     )
                   ),
-              ),
-              ]
-            )
-            : _isVideoPlay_2 == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                Align(
+                ),
+              ])
+            : _isVideoSet_2 == false
+                ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                    Align(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.black,
@@ -196,7 +195,7 @@ class _ComparisonState extends State<Comparison> {
                           onPressed: () {
                             setState(() {
                               setState(() {
-                                _isVideoPlay_1 = false;
+                                _isVideoSet_1 = false;
                               });
                             });
                           },
@@ -205,11 +204,11 @@ class _ComparisonState extends State<Comparison> {
                       ),
                       alignment: Alignment.topLeft,
                     ),
-                InkWell(
-                  onTap: () {
-                    getVideoFromCamera();
-                  },
-                  child: Container(
+                    InkWell(
+                      onTap: () {
+                        getVideoFromCamera2();
+                      },
+                      child: Container(
                         padding: const EdgeInsets.all(20),
                         width: _screenSize.width * 0.85,
                         height: _screenSize.height * 0.43,
@@ -230,12 +229,12 @@ class _ComparisonState extends State<Comparison> {
                           ) 
                         ),
                       ),
-                ),
-                InkWell(
-                  onTap: () {
-                    getVideoFromGarally_2();
-                  },
-                  child: Container(
+                    ),
+                    InkWell(
+                      onTap: () {
+                        getVideoFromGarally_2();
+                      },
+                      child: Container(
                         padding: const EdgeInsets.all(20),
                         width: _screenSize.width * 0.85,
                         height: _screenSize.height * 0.43,
@@ -256,21 +255,29 @@ class _ComparisonState extends State<Comparison> {
                           )
                         )
                       ),
-                ),
-                ]
-              )
-              : Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Container(
-                  height:MediaQuery.of(context).size.height * 0.5,
-                  child: Chewie(controller: _chewieController_1),
-                ),
-                Container(
-                  height:MediaQuery.of(context).size.height * 0.5,
-                  child: Chewie(controller: _chewieController_2),
-                ),
-                ]
-              )
-        ),
+                    ),
+                  ])
+                : Stack(
+                  children: [
+                    Container(
+                      width: _screenSize.width,
+                      height: _screenSize.height,
+                      child: Chewie(controller: _chewieController)),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isVideoSet_2 = false;
+                          });
+                        },
+                        child:
+                            const Icon(color: Colors.white, Icons.arrow_back),
+                      ),
+                  ],
+                )
+      ),
     );
   }
 }
