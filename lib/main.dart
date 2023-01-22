@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, non_constant_identifier_names
+// ignore_for_file: unused_import, non_constant_identifier_names, duplicate_import
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,8 @@ import 'package:sporty/view/take_picture.dart';
 import 'package:sporty/view/slow.dart';
 import 'package:sporty/view/p2p.dart';
 import 'package:sporty/view/comparison.dart';
+import 'package:sporty/view/comparison2.dart';
+import 'package:sporty/view/comparison3.dart';
 import 'package:sporty/view/delay_menu.dart';
 import 'view_model/video_recorder_screen.dart';
 
@@ -60,6 +62,7 @@ class App extends StatelessWidget {
         '/p2p': (context) => const P2P(),
         '/comparison': (context) => Comparison(camera: camera),
         '/comparison2': (context) => Comparison2(camera: camera),
+        '/comparison3': (context) => Comparison3(camera: camera),
       },
     );
   }

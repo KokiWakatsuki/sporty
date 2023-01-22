@@ -36,6 +36,10 @@ class Menu extends StatelessWidget {
     Navigator.pushNamed(context, '/comparison2');
   }
 
+  goComparison3(BuildContext context) {
+    Navigator.pushNamed(context, '/comparison3');
+  }
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -138,7 +142,7 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '動画比較 Type1',
+        '動画比較 Type-A',
         style: TextStyle(
           fontSize: 20,
         ),
@@ -155,7 +159,24 @@ class Menu extends StatelessWidget {
         ),
       ),
       child: const Text(
-        '動画比較 Type2',
+        '動画比較 Type-B',
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    );
+
+    final goComparison3Button = ElevatedButton(
+      onPressed: () => goComparison3(context),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green,
+        fixedSize: Size(
+          MediaQuery.of(context).size.width * _width,
+          MediaQuery.of(context).size.height * _height,
+        ),
+      ),
+      child: const Text(
+        '動画比較 Type-C',
         style: TextStyle(
           fontSize: 20,
         ),
@@ -178,6 +199,7 @@ class Menu extends StatelessWidget {
             goP2PButton,
             goComparisonButton,
             goComparison2Button,
+            goComparison3Button,
           ],
         ),
       )),
