@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures, no_leading_underscores_for_local_identifiers, unnecessary_import, deprecated_member_use
+// ignore_for_file: use_build_context_synchronously, avoid_print, unused_field, unused_import, implementation_imports, unused_local_variable, must_be_immutable, unnecessary_string_interpolations, override_on_non_overriding_member, await_only_futures, no_leading_underscores_for_local_identifiers, unnecessary_import, deprecated_member_use, non_constant_identifier_names
 
 import 'dart:io';
 import 'dart:async';
@@ -46,10 +46,13 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   bool _isVideoPlay = false;
   XFile? video;
   bool _disposeFlag = false;
+  int delay_time = 0;
 
   @override
   void initState() {
     super.initState();
+
+    delay_time = delay_min * 60 + delay_sec;
 
     Future(() async {
       final cameras = await availableCameras();
@@ -114,7 +117,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   void videorecord() async {
     //debugPrint("sss-----------------------------------------------------------------------------");
     await _initializeCameraControllerFuture;
-    await Future.delayed(Duration(seconds: delay_sec));
+    await Future.delayed(Duration(seconds: delay_time));
     video = await _cameraController.stopVideoRecording();
     await _cameraController.startVideoRecording();
     if(_disposeFlag == true) _videoController.dispose();

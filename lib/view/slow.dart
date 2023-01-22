@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore, sort_child_properties_last
+// ignore_for_file: unused_import, sized_box_for_whitespace, prefer_const_constructors, no_leading_underscores_for_local_identifiers, deprecated_member_use, duplicate_ignore, sort_child_properties_last, constant_identifier_names
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -25,6 +25,9 @@ class SlowState extends State<Slow> {
   late ChewieController _chewieController;
   final imagePicker = ImagePicker();
   bool _isVideoPlay = false;
+  static const double main_text_size = 25;
+  static const double sub_text_size = 17;
+  static const double space_text_size = 10;
 
   @override
   void initState() {
@@ -123,12 +126,23 @@ class SlowState extends State<Slow> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(20),
-                      color: Colors.blue,
                       width: _screenSize.width * 0.85,
-                      height: _screenSize.height * 0.45,
+                      height: _screenSize.height * 0.43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.grey,
+                      ),
                       child: Center(
-                        child: const Icon(
-                            size: 50, color: Colors.white, Icons.video_call),
+                        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
+                            Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                            Text('カメラから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
+                            Icon(
+                              size: 50, color: Colors.black, Icons.videocam
+                            ),
+                          ],
+                        ) 
                       ),
                     ),
                   ),
@@ -138,15 +152,24 @@ class SlowState extends State<Slow> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(20),
-                      color: Colors.green,
                       width: _screenSize.width * 0.85,
-                      height: _screenSize.height * 0.45,
-                      child: Center(
-                        child: const Icon(
-                            size: 50,
-                            color: Colors.white,
-                            Icons.movie_creation),
+                      height: _screenSize.height * 0.43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.grey,
                       ),
+                      child: Center(
+                        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
+                            Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                            Text('ストレージから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
+                            Icon(
+                              size: 50, color: Colors.black, Icons.folder
+                            ),
+                          ],
+                        )
+                      )
                     ),
                   ),
                 ])

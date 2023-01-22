@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_const_constructors, deprecated_member_use, duplicate_ignore
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_const_constructors, deprecated_member_use, duplicate_ignore, constant_identifier_names, sort_child_properties_last
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -32,6 +32,9 @@ class TakePictureState extends State<TakePicture> {
   final imagePicker = ImagePicker();
   late PickedFile pickedFile;
   bool _isVideoPlay = false;
+  static const double main_text_size = 25;
+  static const double sub_text_size = 17;
+  static const double space_text_size = 10;
 
   @override
   void initState() {
@@ -68,22 +71,45 @@ class TakePictureState extends State<TakePicture> {
         body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay == false
-          ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            Align(
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context).pop();
+                    });
+                  },
+                  child:
+                      const Icon(color: Colors.white, Icons.arrow_back),
+              ),
+              alignment: Alignment.topLeft,
+            ),
             InkWell(
               onTap: () {
                 getVideoFromCamera();
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                color: Colors.blue,
-                width: _screenSize.width,
-                height: _screenSize.height * 0.5,
+                width: _screenSize.width * 0.85,
+                height: _screenSize.height * 0.43,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.grey,
+                ),
                 child: Center(
-                  child: const Icon(
-                    size: 50,
-                    color:Colors.white,
-                    Icons.video_call
-                  ),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
+                      Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                      Text('カメラで動画を撮影する', style: TextStyle(fontSize: sub_text_size,),),
+                      Icon(
+                        size: 50, color: Colors.black, Icons.videocam
+                      ),
+                    ],
+                  ) 
                 ),
               ),
             ),
@@ -93,20 +119,27 @@ class TakePictureState extends State<TakePicture> {
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                color: Colors.green,
-                width: _screenSize.width,
-                height: _screenSize.height * 0.5,
-                child: Center(
-                  child: const Icon(
-                    size: 50,
-                    color:Colors.white,
-                    Icons.movie_creation
-                  ),
+                width: _screenSize.width * 0.85,
+                height: _screenSize.height * 0.43,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.grey,
                 ),
+                child: Center(
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('STEP 2', style: TextStyle(fontSize: main_text_size,),),
+                      Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                      Text('ストレージの動画を確認する', style: TextStyle(fontSize: sub_text_size,),),
+                      Icon(
+                        size: 50, color: Colors.black, Icons.folder
+                      ),
+                    ],
+                  )
+                )
               ),
             ),
-            ]
-          )
+          ])
           : Column(children: [
             InkWell(
               onTap: () {

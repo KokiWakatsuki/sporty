@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, constant_identifier_names, sort_child_properties_last, deprecated_member_use, duplicate_ignore
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -30,6 +30,9 @@ class _ComparisonState extends State<Comparison> {
   bool _isVideoPlay_2 = false;
   late PickedFile pickedFile_1;
   late PickedFile pickedFile_2;
+  static const double main_text_size = 25;
+  static const double sub_text_size = 17;
+  static const double space_text_size = 10;
 
   @override
   void initState() {
@@ -113,82 +116,146 @@ class _ComparisonState extends State<Comparison> {
         body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay_1 == false
-            ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Align(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          Navigator.of(context).pop();
+                        });
+                      },
+                      child:
+                          const Icon(color: Colors.white, Icons.arrow_back),
+                  ),
+                  alignment: Alignment.topLeft,
+                ),
               InkWell(
                 onTap: () {
                   getVideoFromCamera();
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(20),
-                  color: Colors.blue,
-                  width: _screenSize.width,
-                  height: _screenSize.height * 0.5,
-                  child: Center(
-                    child: const Icon(
-                      size: 50,
-                      color:Colors.white,
-                      Icons.video_call
+                    padding: const EdgeInsets.all(20),
+                    width: _screenSize.width * 0.85,
+                    height: _screenSize.height * 0.43,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey,
+                    ),
+                    child: Center(
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
+                          Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                          Text('カメラから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
+                          Icon(
+                            size: 50, color: Colors.black, Icons.videocam
+                          ),
+                        ],
+                      ) 
                     ),
                   ),
-                ),
               ),
               InkWell(
                 onTap: () {
                   getVideoFromGarally_1();
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(20),
-                  color: Colors.green,
-                  width: _screenSize.width,
-                  height: _screenSize.height * 0.5,
-                  child: Center(
-                    child: const Icon(
-                      size: 50,
-                      color:Colors.white,
-                      Icons.movie_creation
+                    padding: const EdgeInsets.all(20),
+                    width: _screenSize.width * 0.85,
+                    height: _screenSize.height * 0.43,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey,
                     ),
+                    child: Center(
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
+                          Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                          Text('ストレージから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
+                          Icon(
+                            size: 50, color: Colors.black, Icons.folder
+                          ),
+                        ],
+                      )
+                    )
                   ),
-                ),
               ),
               ]
             )
             : _isVideoPlay_2 == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                Align(
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              setState(() {
+                                _isVideoPlay_1 = false;
+                              });
+                            });
+                          },
+                          child:
+                              const Icon(color: Colors.white, Icons.arrow_back),
+                      ),
+                      alignment: Alignment.topLeft,
+                    ),
                 InkWell(
                   onTap: () {
                     getVideoFromCamera();
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(20),
-                    color: Colors.green,
-                    width: _screenSize.width,
-                    height: _screenSize.height * 0.5,
-                    child: Center(
-                      child: const Icon(
-                        size: 50,
-                        color:Colors.white,
-                        Icons.video_call
+                        padding: const EdgeInsets.all(20),
+                        width: _screenSize.width * 0.85,
+                        height: _screenSize.height * 0.43,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey,
+                        ),
+                        child: Center(
+                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('STEP 2', style: TextStyle(fontSize: main_text_size,),),
+                              Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                              Text('カメラから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
+                              Icon(
+                                size: 50, color: Colors.black, Icons.videocam
+                              ),
+                            ],
+                          ) 
+                        ),
                       ),
-                    ),
-                  ),
                 ),
                 InkWell(
                   onTap: () {
                     getVideoFromGarally_2();
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(20),
-                    color: Colors.blue,
-                    width: _screenSize.width,
-                    height: _screenSize.height * 0.5,
-                    child: Center(
-                      child: const Icon(
-                        size: 50,
-                        color:Colors.white,
-                        Icons.movie_creation
+                        padding: const EdgeInsets.all(20),
+                        width: _screenSize.width * 0.85,
+                        height: _screenSize.height * 0.43,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey,
+                        ),
+                        child: Center(
+                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('STEP 2', style: TextStyle(fontSize: main_text_size,),),
+                              Text(' ', style: TextStyle(fontSize: space_text_size,),),
+                              Text('ストレージから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
+                              Icon(
+                                size: 50, color: Colors.black, Icons.folder
+                              ),
+                            ],
+                          )
+                        )
                       ),
-                    ),
-                  ),
                 ),
                 ]
               )
