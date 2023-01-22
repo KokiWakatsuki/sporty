@@ -77,6 +77,7 @@ class _Comparison2State extends State<Comparison2> {
       videoPlayerController: _controller,
       autoPlay: true,
       showControlsOnInitialize: false,
+      allowFullScreen: false,
     );
     setState(() {});
     _listener = () async{
@@ -96,6 +97,7 @@ class _Comparison2State extends State<Comparison2> {
       videoPlayerController: _controller,
       autoPlay: true,
       showControlsOnInitialize: false,
+      allowFullScreen: false,
     );
     setState(() {});
     _listener = () async{

@@ -46,6 +46,7 @@ class SlowState extends State<Slow> {
         fullScreenByDefault: true,
         zoomAndPan: true,
         showControlsOnInitialize: false,
+        allowFullScreen: false,
         playbackSpeeds: const [
           0.1,
           0.2,

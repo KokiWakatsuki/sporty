@@ -55,6 +55,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                         looping: false,
                         zoomAndPan: true,
                         showControlsOnInitialize: false,
+                        allowFullScreen: false,
                       );
                       if (pickedFile != null) {
                         setState(() {

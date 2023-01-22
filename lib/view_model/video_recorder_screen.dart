@@ -149,18 +149,6 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
   }
 
   @override
-  void disposeCamera() {
-    _cameraController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void disposeVideo() {
-    _videoController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // final appBar = AppBar(
     //   backgroundColor: Colors.green,

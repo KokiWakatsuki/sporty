@@ -58,6 +58,7 @@ class TakePictureState extends State<TakePicture> {
       fullScreenByDefault: false,
       showControlsOnInitialize: false,
       zoomAndPan: true,
+      allowFullScreen: false,
     );
     setState(() {
       _isVideoPlay = true;
