@@ -180,7 +180,7 @@ class Menu extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: appBar,
+      //appBar: appBar,
       body: Center(
           child: Container(
         height: MediaQuery.of(context).size.height * 0.8,

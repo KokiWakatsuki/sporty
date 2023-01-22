@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, prefer_const_constructors
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
 
@@ -99,8 +99,8 @@ class ComparisonMenu extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: appBar,
-      body: Center(
+      body: Stack(children: [
+        Center(
           child: Container(
         height: MediaQuery.of(context).size.height * 0.8,
         child: Column(
@@ -112,6 +112,17 @@ class ComparisonMenu extends StatelessWidget {
           ],
         ),
       )),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child:
+              const Icon(color: Colors.white, Icons.arrow_back),
+        ),
+      ],)
     );
   }
 }

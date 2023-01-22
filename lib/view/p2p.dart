@@ -27,7 +27,7 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    final appBar = AppBar(
+    /* final appBar = AppBar(
       backgroundColor: Colors.grey,
       title: const Text(
         '動画共有',
@@ -38,73 +38,55 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
       iconTheme: IconThemeData(
         color: Colors.black
       )
-    );
+    ); */
     return Scaffold(
       backgroundColor: Colors.black,
-        appBar: appBar,
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  ListTile(
-                    leading: Icon(color: Colors.white, Icons.add),
-                    title: Text(
-                      '動画を選択',
-                      style: TextStyle(
-                        color: Colors.white,
+        //appBar: appBar,
+          body: Stack(children: [
+            Container(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Padding(padding: EdgeInsets.only(top: 50.0)),
+                    ListTile(
+                      leading: Icon(color: Colors.white, Icons.add),
+                      title: Text(
+                        '動画を選択',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
+                      onTap: () async {
+                        final imagePicker = ImagePicker();
+                        final pickedFile =
+                        (await imagePicker.getVideo(source: ImageSource.gallery))!;
+                        _controller = VideoPlayerController.file(File(pickedFile.path));
+                        await _controller.initialize();
+                        _chewieController = ChewieController(
+                          videoPlayerController: _controller,
+                          autoPlay: true,
+                          looping: false,
+                          zoomAndPan: true,
+                          showControlsOnInitialize: false,
+                          allowFullScreen: false,
+                        );
+                        if (pickedFile != null) {
+                          setState(() {
+                            imagePaths.add(pickedFile.path);
+                            len = imagePaths.length;
+                          });
+                        }
+                      },
                     ),
-                    onTap: () async {
-                      final imagePicker = ImagePicker();
-                      final pickedFile =
-                      (await imagePicker.getVideo(source: ImageSource.gallery))!;
-                      _controller = VideoPlayerController.file(File(pickedFile.path));
-                      await _controller.initialize();
-                      _chewieController = ChewieController(
-                        videoPlayerController: _controller,
-                        autoPlay: true,
-                        looping: false,
-                        zoomAndPan: true,
-                        showControlsOnInitialize: false,
-                        allowFullScreen: false,
-                      );
-                      if (pickedFile != null) {
-                        setState(() {
-                          imagePaths.add(pickedFile.path);
-                          len = imagePaths.length;
-                        });
-                      }
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  Builder(
-                    builder: (BuildContext context) {
-                      return ElevatedButton(
-                        child: const Text(
-                          '共有',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.grey, // background
-                        ),
-                        onPressed: text.isEmpty && imagePaths.isEmpty
-                            ? null
-                            : () => _onShare(context),
-                      );
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  Builder(
-                    builder: (BuildContext context) {
-                      return Row(children: [
-                        ElevatedButton(
+                    const Padding(padding: EdgeInsets.only(top: 12.0)),
+                    Builder(
+                      builder: (BuildContext context) {
+                        return ElevatedButton(
                           child: const Text(
-                            '直前に選択した動画を破棄',
+                            '共有',
                             style: TextStyle(
                               color: Colors.black,
                             ),
@@ -112,58 +94,90 @@ class _P2PState extends State<P2P> with WidgetsBindingObserver {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.grey, // background
                           ),
-                          onPressed: () => setState(() {
-                            chewie_update = 1;
-                            _onDeleteImage();
-                          })
-                        ),
-                        Text(
-                          '          選択中の動画：$len',
-                          style: TextStyle(
-                            color: Colors.white,
+                          onPressed: text.isEmpty && imagePaths.isEmpty
+                              ? null
+                              : () => _onShare(context),
+                        );
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 12.0)),
+                    Builder(
+                      builder: (BuildContext context) {
+                        return Row(children: [
+                          ElevatedButton(
+                            child: const Text(
+                              '直前に選択した動画を破棄',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.grey, // background
+                            ),
+                            onPressed: () => setState(() {
+                              chewie_update = 1;
+                              _onDeleteImage();
+                            })
                           ),
+                          Text(
+                            '          選択中の動画：$len',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],);
+                      },
+                    ),
+                    Text(''),
+                    text.isEmpty && imagePaths.isEmpty
+                    ? Text('')
+                    : chewie_update == 0
+                    ? Column(children: [
+                      Text(
+                        '直前に選択した動画',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
-                      ],);
-                    },
-                  ),
-                  Text(''),
-                  text.isEmpty && imagePaths.isEmpty
-                  ? Text('')
-                  : chewie_update == 0
-                  ? Column(children: [
-                    Text(
-                      '直前に選択した動画',
-                      style: TextStyle(
-                        color: Colors.white,
                       ),
-                    ),
-                    Container(
-                      color: Colors.black,
-                      width: _screenSize.width,
-                      height: _screenSize.height * 0.6,
-                      child: Chewie(controller: _chewieController)
-                    ),
-                  ],
-                  )
-                  : Column(children: [
-                    Text(
-                      'LOADING',
-                      style: TextStyle(
-                        color: Colors.white,
+                      Container(
+                        color: Colors.black,
+                        width: _screenSize.width,
+                        height: _screenSize.height * 0.6,
+                        child: Chewie(controller: _chewieController)
                       ),
-                    ),
-                    Container(
-                      color: Colors.black,
-                      width: _screenSize.width,
-                      height: _screenSize.height * 0.6,
-                      child: const Center(child: CircularProgressIndicator())
-                    ),
+                    ],
+                    )
+                    : Column(children: [
+                      Text(
+                        'LOADING',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                        color: Colors.black,
+                        width: _screenSize.width,
+                        height: _screenSize.height * 0.6,
+                        child: const Center(child: CircularProgressIndicator())
+                      ),
+                    ],
+                    )
                   ],
-                  )
-                ],
+                ),
               ),
             ),
-          )
+          ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child:
+                  const Icon(color: Colors.white, Icons.arrow_back),
+            ),
+          ],)
         );
   }
 

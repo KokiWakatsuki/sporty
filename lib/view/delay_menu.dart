@@ -1,4 +1,4 @@
-﻿// ignore_for_file: constant_identifier_names, non_constant_identifier_names, unused_local_variable, unused_import, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers
+﻿// ignore_for_file: constant_identifier_names, non_constant_identifier_names, unused_local_variable, unused_import, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:sporty/main.dart';
@@ -160,8 +160,9 @@ class _DelayMenuState extends State<DelayMenu> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: appBar,
-      body: Center(
+      //appBar: appBar,
+      body: Stack(children: [
+      Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -444,6 +445,16 @@ class _DelayMenuState extends State<DelayMenu> {
           ],
         ),
       ),
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.black,
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child:
+            const Icon(color: Colors.white, Icons.arrow_back),
+      ),])
     );
   }
 }
