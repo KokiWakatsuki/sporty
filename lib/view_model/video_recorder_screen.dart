@@ -119,7 +119,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
     await Future.delayed(Duration(seconds: delay_time));
     video = await _cameraController.stopVideoRecording();
     await _cameraController.startVideoRecording();
-    if(_disposeFlag == true) _videoController.dispose();
+    if (_disposeFlag == true) _videoController.dispose();
     _videoController = VideoPlayerController.file(File(video!.path));
     await _videoController.initialize();
     _chewieController = await ChewieController(
@@ -155,11 +155,13 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
       body: _isVideoPlay == true
           ? Stack(
               children: [
-                Container(
-                    color: Colors.black,
-                    width: _screenSize.width,
-                    height: _screenSize.height,
-                    child: Chewie(controller: _chewieController)),
+                InteractiveViewer(
+                  child: Container(
+                      color: Colors.black,
+                      width: _screenSize.width,
+                      height: _screenSize.height,
+                      child: Chewie(controller: _chewieController)),
+                ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.black,
@@ -170,8 +172,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                     _videoController.dispose();
                     Navigator.of(context).pop();
                   },
-                  child:
-                      const Icon(color: Colors.white, Icons.arrow_back),
+                  child: const Icon(color: Colors.white, Icons.arrow_back),
                 ),
                 Align(
                     alignment: Alignment.bottomLeft,
@@ -187,8 +188,7 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                     ))
               ],
             )
-          : Stack(
-            children: [
+          : Stack(children: [
               const Center(child: CircularProgressIndicator()),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -201,11 +201,9 @@ class _VideoRecorderScreenState extends State<VideoRecorderScreen> {
                   _cameraController.dispose();
                   Navigator.of(context).pop();
                 },
-                child:
-                    const Icon(color: Colors.white, Icons.arrow_back),
+                child: const Icon(color: Colors.white, Icons.arrow_back),
               ),
-            ]
-          ),
+            ]),
     );
   }
 }

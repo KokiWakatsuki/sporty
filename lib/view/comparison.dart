@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
-
 class Comparison extends StatefulWidget {
   const Comparison({
     Key? key,
@@ -68,9 +67,9 @@ class _ComparisonState extends State<Comparison> {
     pickedFile_2 =
         // ignore: deprecated_member_use
         (await imagePicker.getVideo(source: ImageSource.gallery))!;
-        setState(() {
-          _isVideoSet_2 = true;
-        });
+    setState(() {
+      _isVideoSet_2 = true;
+    });
   }
 
   Future setType_1() async {
@@ -88,18 +87,16 @@ class _ComparisonState extends State<Comparison> {
   Future setVideo() async {
     _controller.add(VideoPlayerController.file(
       File(pickedFile_1.path),
-        videoPlayerOptions: VideoPlayerOptions(
-          mixWithOthers: true,
-        ),
-      )
-    );
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+      ),
+    ));
     _controller.add(VideoPlayerController.file(
       File(pickedFile_2.path),
-        videoPlayerOptions: VideoPlayerOptions(
-          mixWithOthers: true,
-        ),
-      )
-    );
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+      ),
+    ));
     await _controller[0].initialize();
     await _controller[1].initialize();
     _chewieController.add(ChewieController(
@@ -114,8 +111,7 @@ class _ComparisonState extends State<Comparison> {
       showControlsOnInitialize: false,
       allowFullScreen: false,
     ));
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -123,290 +119,419 @@ class _ComparisonState extends State<Comparison> {
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
-        body: Center(
+      body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoSet_1 == false
-            ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              Align(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          Navigator.of(context).pop();
-                        });
-                      },
-                      child:
-                          const Icon(color: Colors.white, Icons.arrow_back),
-                  ),
-                  alignment: Alignment.topLeft,
-                ),
-              InkWell(
-                onTap: () {
-                  getVideoFromCamera_1();
-                },
-                child: Container(
-                    padding: const EdgeInsets.all(20),
-                    width: _screenSize.width * 0.85,
-                    height: _screenSize.height * 0.43,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.grey,
-                    ),
-                    child: Center(
-                      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
-                          Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                          Text('カメラから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
-                          Icon(
-                            size: 50, color: Colors.black, Icons.videocam
-                          ),
-                        ],
-                      ) 
-                    ),
-                  ),
-              ),
-              InkWell(
-                onTap: () {
-                  getVideoFromGarally_1();
-                },
-                child: Container(
-                    padding: const EdgeInsets.all(20),
-                    width: _screenSize.width * 0.85,
-                    height: _screenSize.height * 0.43,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.grey,
-                    ),
-                    child: Center(
-                      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
-                          Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                          Text('ストレージから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
-                          Icon(
-                            size: 50, color: Colors.black, Icons.folder
-                          ),
-                        ],
-                      )
-                    )
-                  ),
-              ),
-              ]
-            )
-            : _isVideoSet_2 == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                Align(
-                      child: ElevatedButton(
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                      Align(
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.black,
                           ),
                           onPressed: () {
                             setState(() {
-                              _isVideoSet_1 = false;
+                              Navigator.of(context).pop();
                             });
                           },
                           child:
                               const Icon(color: Colors.white, Icons.arrow_back),
-                      ),
-                      alignment: Alignment.topLeft,
-                    ),
-                InkWell(
-                  onTap: () {
-                    getVideoFromCamera_2();
-                  },
-                  child: Container(
-                        padding: const EdgeInsets.all(20),
-                        width: _screenSize.width * 0.85,
-                        height: _screenSize.height * 0.43,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.grey,
                         ),
-                        child: Center(
-                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text('STEP 2', style: TextStyle(fontSize: main_text_size,),),
-                              Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                              Text('カメラから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
-                              Icon(
-                                size: 50, color: Colors.black, Icons.videocam
-                              ),
-                            ],
-                          ) 
-                        ),
+                        alignment: Alignment.topLeft,
                       ),
-                ),
-                InkWell(
-                  onTap: () {
-                    getVideoFromGarally_2();
-                  },
-                  child: Container(
-                        padding: const EdgeInsets.all(20),
-                        width: _screenSize.width * 0.85,
-                        height: _screenSize.height * 0.43,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.grey,
-                        ),
-                        child: Center(
-                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text('STEP 2', style: TextStyle(fontSize: main_text_size,),),
-                              Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                              Text('ストレージから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
-                              Icon(
-                                size: 50, color: Colors.black, Icons.folder
-                              ),
-                            ],
-                          )
-                        )
-                      ),
-                ),
-                ]
-              ) :_isTypeSetPage == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                Align(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
+                      InkWell(
+                        onTap: () {
+                          getVideoFromCamera_1();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          width: _screenSize.width * 0.85,
+                          height: _screenSize.height * 0.43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.grey,
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _isVideoSet_2 = false;
-                            });
-                          },
-                          child:
-                              const Icon(color: Colors.white, Icons.arrow_back),
-                      ),
-                      alignment: Alignment.topLeft,
-                    ),
-                InkWell(
-                  onTap: () {
-                    setType_1();
-                  },
-                  child: Container(
-                        padding: const EdgeInsets.all(20),
-                        width: _screenSize.width * 0.85,
-                        height: _screenSize.height * 0.43,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.grey,
-                        ),
-                        child: Center(
-                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                          child: Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
-                              Text('STEP 3', style: TextStyle(fontSize: main_text_size,),),
-                              Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                              Text('縦に並べる', style: TextStyle(fontSize: sub_text_size,),),
-                              Icon(
-                                size: 50, color: Colors.black, Icons.swap_vert
+                              Text(
+                                'STEP 1',
+                                style: TextStyle(
+                                  fontSize: main_text_size,
+                                ),
                               ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                  fontSize: space_text_size,
+                                ),
+                              ),
+                              Text(
+                                'カメラから映像を取得する',
+                                style: TextStyle(
+                                  fontSize: sub_text_size,
+                                ),
+                              ),
+                              Icon(
+                                  size: 50,
+                                  color: Colors.black,
+                                  Icons.videocam),
                             ],
-                          ) 
+                          )),
                         ),
                       ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setType_2();
-                  },
-                  child: Container(
-                        padding: const EdgeInsets.all(20),
-                        width: _screenSize.width * 0.85,
-                        height: _screenSize.height * 0.43,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.grey,
-                        ),
-                        child: Center(
-                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text('STEP 3', style: TextStyle(fontSize: main_text_size,),),
-                              Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                              Text('横に並べる', style: TextStyle(fontSize: sub_text_size,),),
-                              Icon(
-                                size: 50, color: Colors.black, Icons.sync_alt
-                              ),
-                            ],
-                          )
-                        )
+                      InkWell(
+                        onTap: () {
+                          getVideoFromGarally_1();
+                        },
+                        child: Container(
+                            padding: const EdgeInsets.all(20),
+                            width: _screenSize.width * 0.85,
+                            height: _screenSize.height * 0.43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.grey,
+                            ),
+                            child: Center(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'STEP 1',
+                                  style: TextStyle(
+                                    fontSize: main_text_size,
+                                  ),
+                                ),
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                    fontSize: space_text_size,
+                                  ),
+                                ),
+                                Text(
+                                  'ストレージから映像を取得する',
+                                  style: TextStyle(
+                                    fontSize: sub_text_size,
+                                  ),
+                                ),
+                                Icon(
+                                    size: 50,
+                                    color: Colors.black,
+                                    Icons.folder),
+                              ],
+                            ))),
                       ),
-                ),
-                ]
-              )
-              : _isTypeSet == false
-                ? Stack(children: [
-                  Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    Container(
-                      height:MediaQuery.of(context).size.height * 0.45,
-                      child: Chewie(controller: _chewieController[0]),
-                    ),
-                    Container(
-                      height:MediaQuery.of(context).size.height * 0.45,
-                      child: Chewie(controller: _chewieController[1]),
-                    ),
-                    ]
-                  ),
-                  Align(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _controller[0].dispose();
-                            _controller[1].dispose();
-                            _chewieController[0].dispose();
-                            _chewieController[1].dispose();
-                            _controller.clear();
-                            _chewieController.clear();
-                            _isTypeSetPage = false;
-                          });
-                        },
-                        child:
-                            const Icon(color: Colors.white, Icons.arrow_back),
-                    ),
-                    alignment: Alignment.topLeft,
-                  ),                    
-                ],)
-                : Stack(children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    Container(
-                      width:MediaQuery.of(context).size.width * 0.45,
-                      child: Chewie(controller: _chewieController[0]),
-                    ),
-                    Container(
-                      width:MediaQuery.of(context).size.width * 0.45,
-                      child: Chewie(controller: _chewieController[1]),
-                    ),
-                    ]
-                  ),
-                  Align(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _controller[0].dispose();
-                            _controller[1].dispose();
-                            _chewieController[0].dispose();
-                            _chewieController[1].dispose();
-                            _controller.clear();
-                            _chewieController.clear();
-                            _isTypeSetPage = false;
-                          });
-                        },
-                        child:
-                            const Icon(color: Colors.white, Icons.arrow_back),
-                    ),
-                    alignment: Alignment.topLeft,
-                  ),
-              ],)
-        ),
+                    ])
+              : _isVideoSet_2 == false
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                          Align(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isVideoSet_1 = false;
+                                });
+                              },
+                              child: const Icon(
+                                  color: Colors.white, Icons.arrow_back),
+                            ),
+                            alignment: Alignment.topLeft,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              getVideoFromCamera_2();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              width: _screenSize.width * 0.85,
+                              height: _screenSize.height * 0.43,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.grey,
+                              ),
+                              child: Center(
+                                  child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    'STEP 2',
+                                    style: TextStyle(
+                                      fontSize: main_text_size,
+                                    ),
+                                  ),
+                                  Text(
+                                    ' ',
+                                    style: TextStyle(
+                                      fontSize: space_text_size,
+                                    ),
+                                  ),
+                                  Text(
+                                    'カメラから映像を取得する',
+                                    style: TextStyle(
+                                      fontSize: sub_text_size,
+                                    ),
+                                  ),
+                                  Icon(
+                                      size: 50,
+                                      color: Colors.black,
+                                      Icons.videocam),
+                                ],
+                              )),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              getVideoFromGarally_2();
+                            },
+                            child: Container(
+                                padding: const EdgeInsets.all(20),
+                                width: _screenSize.width * 0.85,
+                                height: _screenSize.height * 0.43,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.grey,
+                                ),
+                                child: Center(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      'STEP 2',
+                                      style: TextStyle(
+                                        fontSize: main_text_size,
+                                      ),
+                                    ),
+                                    Text(
+                                      ' ',
+                                      style: TextStyle(
+                                        fontSize: space_text_size,
+                                      ),
+                                    ),
+                                    Text(
+                                      'ストレージから映像を取得する',
+                                      style: TextStyle(
+                                        fontSize: sub_text_size,
+                                      ),
+                                    ),
+                                    Icon(
+                                        size: 50,
+                                        color: Colors.black,
+                                        Icons.folder),
+                                  ],
+                                ))),
+                          ),
+                        ])
+                  : _isTypeSetPage == false
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                              Align(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.black,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isVideoSet_2 = false;
+                                    });
+                                  },
+                                  child: const Icon(
+                                      color: Colors.white, Icons.arrow_back),
+                                ),
+                                alignment: Alignment.topLeft,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setType_1();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(20),
+                                  width: _screenSize.width * 0.85,
+                                  height: _screenSize.height * 0.43,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: Colors.grey,
+                                  ),
+                                  child: Center(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        'STEP 3',
+                                        style: TextStyle(
+                                          fontSize: main_text_size,
+                                        ),
+                                      ),
+                                      Text(
+                                        ' ',
+                                        style: TextStyle(
+                                          fontSize: space_text_size,
+                                        ),
+                                      ),
+                                      Text(
+                                        '縦に並べる',
+                                        style: TextStyle(
+                                          fontSize: sub_text_size,
+                                        ),
+                                      ),
+                                      Icon(
+                                          size: 50,
+                                          color: Colors.black,
+                                          Icons.swap_vert),
+                                    ],
+                                  )),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setType_2();
+                                },
+                                child: Container(
+                                    padding: const EdgeInsets.all(20),
+                                    width: _screenSize.width * 0.85,
+                                    height: _screenSize.height * 0.43,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.grey,
+                                    ),
+                                    child: Center(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          'STEP 3',
+                                          style: TextStyle(
+                                            fontSize: main_text_size,
+                                          ),
+                                        ),
+                                        Text(
+                                          ' ',
+                                          style: TextStyle(
+                                            fontSize: space_text_size,
+                                          ),
+                                        ),
+                                        Text(
+                                          '横に並べる',
+                                          style: TextStyle(
+                                            fontSize: sub_text_size,
+                                          ),
+                                        ),
+                                        Icon(
+                                            size: 50,
+                                            color: Colors.black,
+                                            Icons.sync_alt),
+                                      ],
+                                    ))),
+                              ),
+                            ])
+                      : _isTypeSet == false
+                          ? Stack(
+                              children: [
+                                Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InteractiveViewer(
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.45,
+                                          child: Chewie(
+                                              controller: _chewieController[0]),
+                                        ),
+                                      ),
+                                      InteractiveViewer(
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.45,
+                                          child: Chewie(
+                                              controller: _chewieController[1]),
+                                        ),
+                                      ),
+                                    ]),
+                                Align(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.black,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _controller[0].dispose();
+                                        _controller[1].dispose();
+                                        _chewieController[0].dispose();
+                                        _chewieController[1].dispose();
+                                        _controller.clear();
+                                        _chewieController.clear();
+                                        _isTypeSetPage = false;
+                                      });
+                                    },
+                                    child: const Icon(
+                                        color: Colors.white, Icons.arrow_back),
+                                  ),
+                                  alignment: Alignment.topLeft,
+                                ),
+                              ],
+                            )
+                          : Stack(
+                              children: [
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InteractiveViewer(
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.45,
+                                          child: Chewie(
+                                              controller: _chewieController[0]),
+                                        ),
+                                      ),
+                                      InteractiveViewer(
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.45,
+                                          child: Chewie(
+                                              controller: _chewieController[1]),
+                                        ),
+                                      ),
+                                    ]),
+                                Align(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.black,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _controller[0].dispose();
+                                        _controller[1].dispose();
+                                        _chewieController[0].dispose();
+                                        _chewieController[1].dispose();
+                                        _controller.clear();
+                                        _chewieController.clear();
+                                        _isTypeSetPage = false;
+                                      });
+                                    },
+                                    child: const Icon(
+                                        color: Colors.white, Icons.arrow_back),
+                                  ),
+                                  alignment: Alignment.topLeft,
+                                ),
+                              ],
+                            )),
     );
   }
 }

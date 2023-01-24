@@ -11,7 +11,6 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'dart:typed_data';
 
-
 // 写真撮影画面
 class TakePicture extends StatefulWidget {
   const TakePicture({
@@ -48,7 +47,8 @@ class TakePictureState extends State<TakePicture> {
   }
 
   Future getVideoFromGarally() async {
-    PickedFile pickedFile = (await imagePicker.getVideo(source: ImageSource.gallery))!;
+    PickedFile pickedFile =
+        (await imagePicker.getVideo(source: ImageSource.gallery))!;
     _controller = VideoPlayerController.file(File(pickedFile.path));
     await _controller.initialize();
     _chewieController = ChewieController(
@@ -70,103 +70,138 @@ class TakePictureState extends State<TakePicture> {
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
-        body: Center(
+      body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay == false
-          ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Align(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.of(context).pop();
-                    });
-                  },
-                  child:
-                      const Icon(color: Colors.white, Icons.arrow_back),
-              ),
-              alignment: Alignment.topLeft,
-            ),
-            InkWell(
-              onTap: () {
-                getVideoFromCamera();
-              },
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                width: _screenSize.width * 0.85,
-                height: _screenSize.height * 0.43,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.grey,
-                ),
-                child: Center(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
-                      Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                      Text('カメラで動画を撮影する', style: TextStyle(fontSize: sub_text_size,),),
-                      Icon(
-                        size: 50, color: Colors.black, Icons.videocam
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                      Align(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          child:
+                              const Icon(color: Colors.white, Icons.arrow_back),
+                        ),
+                        alignment: Alignment.topLeft,
                       ),
-                    ],
-                  ) 
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                getVideoFromGarally();
-              },
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                width: _screenSize.width * 0.85,
-                height: _screenSize.height * 0.43,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.grey,
-                ),
-                child: Center(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('STEP 2', style: TextStyle(fontSize: main_text_size,),),
-                      Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                      Text('ストレージの動画を確認する', style: TextStyle(fontSize: sub_text_size,),),
-                      Icon(
-                        size: 50, color: Colors.black, Icons.folder
+                      InkWell(
+                        onTap: () {
+                          getVideoFromCamera();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          width: _screenSize.width * 0.85,
+                          height: _screenSize.height * 0.43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.grey,
+                          ),
+                          child: Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'STEP 1',
+                                style: TextStyle(
+                                  fontSize: main_text_size,
+                                ),
+                              ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                  fontSize: space_text_size,
+                                ),
+                              ),
+                              Text(
+                                'カメラで動画を撮影する',
+                                style: TextStyle(
+                                  fontSize: sub_text_size,
+                                ),
+                              ),
+                              Icon(
+                                  size: 50,
+                                  color: Colors.black,
+                                  Icons.videocam),
+                            ],
+                          )),
+                        ),
                       ),
-                    ],
-                  )
-                )
-              ),
-            ),
-          ])
-          : Column(children: [
-            Align(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _controller.dispose();
-                    _chewieController.dispose();
-                    _isVideoPlay = false;
-                  });
-                },
-                child:
-                    const Icon(color: Colors.white, Icons.arrow_back),
-              ),
-              alignment: Alignment.topLeft,
-            ),
-            Container(
-              width: _screenSize.width,
-              height: _screenSize.height * 0.9,
-              child: Chewie(controller: _chewieController)
-            ),
-          ],)
-        ),
+                      InkWell(
+                        onTap: () {
+                          getVideoFromGarally();
+                        },
+                        child: Container(
+                            padding: const EdgeInsets.all(20),
+                            width: _screenSize.width * 0.85,
+                            height: _screenSize.height * 0.43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.grey,
+                            ),
+                            child: Center(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'STEP 2',
+                                  style: TextStyle(
+                                    fontSize: main_text_size,
+                                  ),
+                                ),
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                    fontSize: space_text_size,
+                                  ),
+                                ),
+                                Text(
+                                  'ストレージの動画を確認する',
+                                  style: TextStyle(
+                                    fontSize: sub_text_size,
+                                  ),
+                                ),
+                                Icon(
+                                    size: 50,
+                                    color: Colors.black,
+                                    Icons.folder),
+                              ],
+                            ))),
+                      ),
+                    ])
+              : Stack(
+                  children: [
+                    InteractiveViewer(
+                      child: Container(
+                          width: _screenSize.width,
+                          height: _screenSize.height,
+                          child: Chewie(controller: _chewieController)),
+                    ),
+                    Align(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _controller.dispose();
+                            _chewieController.dispose();
+                            _isVideoPlay = false;
+                          });
+                        },
+                        child:
+                            const Icon(color: Colors.white, Icons.arrow_back),
+                      ),
+                      alignment: Alignment.topLeft,
+                    ),
+                  ],
+                )),
     );
   }
 }

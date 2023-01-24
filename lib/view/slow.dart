@@ -31,7 +31,6 @@ class SlowState extends State<Slow> {
   static const double sub_text_size = 17;
   static const double space_text_size = 10;
   String video_path = '';
-  
 
   @override
   void initState() {
@@ -117,110 +116,144 @@ class SlowState extends State<Slow> {
       body: Center(
           // ignore: unnecessary_null_comparison
           child: _isVideoPlay == false
-              ? Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                  Align(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            Navigator.of(context).pop();
-                          });
-                        },
-                        child:
-                            const Icon(color: Colors.white, Icons.arrow_back),
-                    ),
-                    alignment: Alignment.topLeft,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      getVideoFromCamera();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      width: _screenSize.width * 0.85,
-                      height: _screenSize.height * 0.43,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.grey,
-                      ),
-                      child: Center(
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
-                            Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                            Text('カメラから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
-                            Icon(
-                              size: 50, color: Colors.black, Icons.videocam
-                            ),
-                          ],
-                        ) 
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      getVideoFromGarally();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      width: _screenSize.width * 0.85,
-                      height: _screenSize.height * 0.43,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.grey,
-                      ),
-                      child: Center(
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('STEP 1', style: TextStyle(fontSize: main_text_size,),),
-                            Text(' ', style: TextStyle(fontSize: space_text_size,),),
-                            Text('ストレージから映像を取得する', style: TextStyle(fontSize: sub_text_size,),),
-                            Icon(
-                              size: 50, color: Colors.black, Icons.folder
-                            ),
-                          ],
-                        )
-                      )
-                    ),
-                  ),
-                ])
-              : Stack(
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      width: _screenSize.width,
-                      height: _screenSize.height,
-                      child: Chewie(controller: _chewieController)),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isVideoPlay = false;
-                            _controller.dispose();
-                            video_path = '';
-                          });
-                        },
-                        child:
-                            const Icon(color: Colors.white, Icons.arrow_back),
-                      ),
-                      video_path != ''
-                      ? Align(
-                        alignment: Alignment.bottomLeft,
+                      Align(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.black,
                           ),
                           onPressed: () {
-                            saveVideo(video_path);
-                            video_path = '';
+                            setState(() {
+                              Navigator.of(context).pop();
+                            });
                           },
                           child:
-                              const Icon(color: Colors.white, Icons.file_download),
-                        ))
-                      : Text(' ')
+                              const Icon(color: Colors.white, Icons.arrow_back),
+                        ),
+                        alignment: Alignment.topLeft,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          getVideoFromCamera();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          width: _screenSize.width * 0.85,
+                          height: _screenSize.height * 0.43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.grey,
+                          ),
+                          child: Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'STEP 1',
+                                style: TextStyle(
+                                  fontSize: main_text_size,
+                                ),
+                              ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                  fontSize: space_text_size,
+                                ),
+                              ),
+                              Text(
+                                'カメラから映像を取得する',
+                                style: TextStyle(
+                                  fontSize: sub_text_size,
+                                ),
+                              ),
+                              Icon(
+                                  size: 50,
+                                  color: Colors.black,
+                                  Icons.videocam),
+                            ],
+                          )),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          getVideoFromGarally();
+                        },
+                        child: Container(
+                            padding: const EdgeInsets.all(20),
+                            width: _screenSize.width * 0.85,
+                            height: _screenSize.height * 0.43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.grey,
+                            ),
+                            child: Center(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'STEP 1',
+                                  style: TextStyle(
+                                    fontSize: main_text_size,
+                                  ),
+                                ),
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                    fontSize: space_text_size,
+                                  ),
+                                ),
+                                Text(
+                                  'ストレージから映像を取得する',
+                                  style: TextStyle(
+                                    fontSize: sub_text_size,
+                                  ),
+                                ),
+                                Icon(
+                                    size: 50,
+                                    color: Colors.black,
+                                    Icons.folder),
+                              ],
+                            ))),
+                      ),
+                    ])
+              : Stack(
+                  children: [
+                    InteractiveViewer(
+                      child: Container(
+                          width: _screenSize.width,
+                          height: _screenSize.height,
+                          child: Chewie(controller: _chewieController)),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isVideoPlay = false;
+                          _controller.dispose();
+                          video_path = '';
+                        });
+                      },
+                      child: const Icon(color: Colors.white, Icons.arrow_back),
+                    ),
+                    video_path != ''
+                        ? Align(
+                            alignment: Alignment.bottomLeft,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black,
+                              ),
+                              onPressed: () {
+                                saveVideo(video_path);
+                                video_path = '';
+                              },
+                              child: const Icon(
+                                  color: Colors.white, Icons.file_download),
+                            ))
+                        : Text(' ')
                   ],
                 )),
     );
