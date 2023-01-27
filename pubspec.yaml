@@ -24,6 +24,7 @@ dependencies:
   flutter_p2p_plus: ^1.0.2
   share: ^2.0.4
   image_gallery_saver: ^1.5.0
+  countup: ^0.1.4
   gallery_saver: ^2.3.2
   flutter:
     sdk: flutter

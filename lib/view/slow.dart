@@ -8,6 +8,7 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:countup/countup.dart';
 
 // 写真撮影画面
 class Slow extends StatefulWidget {
@@ -238,6 +239,15 @@ class SlowState extends State<Slow> {
                         });
                       },
                       child: const Icon(color: Colors.white, Icons.arrow_back),
+                    ),
+                    Countup(
+                      begin: 0,
+                      end: 10,
+                      duration: Duration(seconds: 10),
+                      separator: ',',
+                      style: TextStyle(
+                        fontSize: 36,
+                      ),
                     ),
                     video_path != ''
                         ? Align(
