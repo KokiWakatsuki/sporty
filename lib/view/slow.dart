@@ -240,14 +240,49 @@ class SlowState extends State<Slow> {
                       },
                       child: const Icon(color: Colors.white, Icons.arrow_back),
                     ),
-                    Countup(
-                      begin: 0,
-                      end: 10,
-                      duration: Duration(seconds: 10),
-                      separator: ',',
-                      style: TextStyle(
-                        fontSize: 36,
+                    Align(
+                      alignment: Alignment.bottomRight,
+                        child:  Container(
+                          color: Colors.black,
+                          child: Text(
+                            '0.000',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 36,
+                            ),
+                          ),
+                        ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                        child: Container( 
+                          color: Colors.black,
+                          child: Countup(
+                          begin: 0,
+                          end: 10000,
+                          duration: Duration(seconds: 10),
+                          separator: '.',
+                          precision: 0,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 36,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                        child:  Container(
+                          color: Colors.black,
+                          child: Text(
+                            '00',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 36,
+                            ),
+                          ),
+                        ),
                     ),
                     video_path != ''
                         ? Align(
