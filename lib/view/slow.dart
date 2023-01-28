@@ -240,6 +240,7 @@ class SlowState extends State<Slow> {
                       },
                       child: const Icon(color: Colors.white, Icons.arrow_back),
                     ),
+                    //カウントアップのプログラム(実際に使う時は消した方が良い)
                     Align(
                       alignment: Alignment.bottomRight,
                         child:  Container(
@@ -284,6 +285,7 @@ class SlowState extends State<Slow> {
                           ),
                         ),
                     ),
+                    //ここまでカウントアップ
                     video_path != ''
                         ? Align(
                             alignment: Alignment.bottomLeft,
