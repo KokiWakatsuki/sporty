@@ -93,13 +93,11 @@ class SlowState extends State<Slow> {
         playbackSpeeds: const [
           0.1,
           0.2,
-          0.25,
           0.3,
           0.4,
           0.5,
           0.6,
           0.7,
-          0.75,
           0.8,
           0.9,
           1
@@ -164,7 +162,7 @@ class SlowState extends State<Slow> {
                                 ),
                               ),
                               Text(
-                                'カメラから映像を取得する',
+                                'カメラから�?像を取得す�?',
                                 style: TextStyle(
                                   fontSize: sub_text_size,
                                 ),
@@ -206,7 +204,7 @@ class SlowState extends State<Slow> {
                                   ),
                                 ),
                                 Text(
-                                  'ストレージから映像を取得する',
+                                  'ストレージから�?像を取得す�?',
                                   style: TextStyle(
                                     fontSize: sub_text_size,
                                   ),
@@ -240,7 +238,7 @@ class SlowState extends State<Slow> {
                       },
                       child: const Icon(color: Colors.white, Icons.arrow_back),
                     ),
-                    //カウントアップのプログラム(実際に使う時は消した方が良い)
+                    //カウントア�?プ�?�プログラ�?(実際に使�?時�?�消した方が良�?)
                     Align(
                       alignment: Alignment.bottomRight,
                         child:  Container(
@@ -285,7 +283,7 @@ class SlowState extends State<Slow> {
                           ),
                         ),
                     ),
-                    //ここまでカウントアップ
+                    //ここまでカウントア�?�?
                     video_path != ''
                         ? Align(
                             alignment: Alignment.bottomLeft,
