@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, constant_identifier_names, sort_child_properties_last, deprecated_member_use, duplicate_ignore, avoid_print, prefer_final_fields
+// ignore_for_file: unused_import, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, prefer_const_constructors, no_leading_underscores_for_local_identifiers, constant_identifier_names, sort_child_properties_last, deprecated_member_use, duplicate_ignore, avoid_print, prefer_final_fields, unnecessary_brace_in_string_interps
 
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -29,9 +29,12 @@ class _Comparison3State extends State<Comparison3> {
   bool _isVideoSet_2 = false;
   bool _isTypeSetPage = false;
   bool _isTypeSet = false;
+  bool _isOpacitySet = false;
   static const double main_text_size = 25;
   static const double sub_text_size = 17;
   static const double space_text_size = 10;
+  double opacity = 50;
+  void _changeSlider(double e) => setState(() { opacity = e; });
 
   @override
   void initState() {
@@ -374,6 +377,29 @@ class _Comparison3State extends State<Comparison3> {
                                 ))),
                           ),
                         ])
+                  : _isOpacitySet == false
+                  ? Center(child: Column(
+                    children: [
+                      Slider(
+                        label: '${opacity}',
+                        min: 0,
+                        max: 100,
+                        value: opacity,
+                        activeColor: Colors.orange,
+                        inactiveColor: Colors.blueAccent,
+                        divisions: 100,
+                        onChanged: _changeSlider,
+                      ),
+                      ElevatedButton(
+                        onPressed: (){
+                          setState((){
+                            _isOpacitySet = true;
+                          });
+                        }, 
+                        child: Text('透過させる')
+                      )
+                    ],
+                  ))
                   : Stack(
                       children: [
                         Container(
@@ -384,7 +410,7 @@ class _Comparison3State extends State<Comparison3> {
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             child: Opacity(
-                              opacity: 0.5,
+                              opacity: opacity / 100.0,
                               child: Chewie(controller: _chewieController[1]),
                             ),
                           ),
@@ -403,6 +429,7 @@ class _Comparison3State extends State<Comparison3> {
                                 _controller.clear();
                                 _chewieController.clear();
                                 _isVideoSet_2 = false;
+                                _isOpacitySet = false;
                               });
                             },
                             child: const Icon(
