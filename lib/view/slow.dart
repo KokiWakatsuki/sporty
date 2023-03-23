@@ -162,7 +162,7 @@ class SlowState extends State<Slow> {
                                 ),
                               ),
                               Text(
-                                'カメラから�?像を取得す�?',
+                                'カメラから映像を取得する',
                                 style: TextStyle(
                                   fontSize: sub_text_size,
                                 ),
@@ -204,7 +204,7 @@ class SlowState extends State<Slow> {
                                   ),
                                 ),
                                 Text(
-                                  'ストレージから�?像を取得す�?',
+                                  'ストレージから映像を取得する',
                                   style: TextStyle(
                                     fontSize: sub_text_size,
                                   ),
@@ -238,7 +238,7 @@ class SlowState extends State<Slow> {
                       },
                       child: const Icon(color: Colors.white, Icons.arrow_back),
                     ),
-                    //カウントア�?プ�?�プログラ�?(実際に使�?時�?�消した方が良�?)
+                    //カウントア�?プ�?�プログラ�?(実際に使�?時�?�消した方が良�?)
                     Align(
                       alignment: Alignment.bottomRight,
                         child:  Container(
@@ -283,7 +283,7 @@ class SlowState extends State<Slow> {
                           ),
                         ),
                     ),
-                    //ここまでカウントア�?�?
+                    //ここまでカウントア�?�?
                     video_path != ''
                         ? Align(
                             alignment: Alignment.bottomLeft,
